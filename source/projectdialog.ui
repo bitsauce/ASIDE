@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ProjectDialog</class>
+ <widget class="QWidget" name="ProjectDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>326</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Project Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">ProjectDialog {
+background-image: url(:/projectdialog/images/projectdialog_bg.png);
+}
+
+/* Push Button */
+QPushButton {
+font: 10pt &quot;Calibri&quot;;
+padding: 4px;
+border-radius: 3px;
+background-color: transparent;
+background-image: url();
+}
+
+QPushButton:hover {
+background-color: rgba(125, 175, 255, 127);
+background-image: url();
+}
+
+QPushButton:pressed {
+background-color: rgba(224, 255, 255, 255);
+background-image: url();
+}
+
+/* List View */
+QListView {
+show-decoration-selected: 1;
+background-color: transparent;
+background-image: url();
+}
+
+QListView::item {
+font: 10pt &quot;Calibri&quot;;
+padding: 4px;
+border-radius: 3px;
+background-color: transparent;
+background-image: url();
+}
+
+/* Label */
+QLabel {
+font: 12pt &quot;Calibri&quot;;
+background-color: transparent;
+background-image: url();
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="2" column="2">
+    <layout class="QGridLayout" name="gridLayout">
+     <property name="leftMargin">
+      <number>11</number>
+     </property>
+     <property name="topMargin">
+      <number>11</number>
+     </property>
+     <property name="rightMargin">
+      <number>11</number>
+     </property>
+     <property name="bottomMargin">
+      <number>11</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="newProjectButton">
+       <property name="text">
+        <string>New Project...</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>:/projectdialog/icons/x2D_logo.png</normaloff>:/projectdialog/icons/x2D_logo.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QListView" name="recentList">
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QPushButton" name="clearButton">
+       <property name="text">
+        <string>Clear List</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="openProjectButton">
+       <property name="text">
+        <string>Open Project...</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>:/projectdialog/icons/x2D_logo.png</normaloff>:/projectdialog/icons/x2D_logo.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Recent Projects</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="2">
+    <widget class="QWidget" name="widget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>400</width>
+       <height>64</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>400</width>
+       <height>64</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>clearButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ProjectDialog</receiver>
+   <slot>clearList()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>300</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>162</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>recentList</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>ProjectDialog</receiver>
+   <slot>clickList(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>196</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>162</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>clearList()</slot>
+  <slot>clickList(QModelIndex)</slot>
+ </slots>
+</ui>

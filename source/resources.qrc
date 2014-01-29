@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/projectdialog">
+        <file>images/projectdialog_bg.png</file>
+        <file>icons/remove_x.png</file>
+    </qresource>
+    <qresource prefix="/toolbar">
+        <file>icons/restart.png</file>
+        <file>icons/run.png</file>
+        <file>icons/stop.png</file>
+        <file>icons/pause.png</file>
+    </qresource>
+    <qresource prefix="/menubar">
+        <file>icons/open_file.png</file>
+        <file>icons/save_all.png</file>
+        <file>icons/save_file.png</file>
+        <file>icons/new_file.png</file>
+        <file>icons/new_folder.png</file>
+        <file>icons/open_folder.png</file>
+    </qresource>
+    <qresource prefix="/debugger">
+        <file>icons/dbgstepinto.png</file>
+        <file>icons/dbgstepout.png</file>
+        <file>icons/dbgstepover.png</file>
+    </qresource>
+</RCC>
