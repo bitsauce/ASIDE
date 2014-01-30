@@ -14,7 +14,7 @@
 #include "debugger.h"
 #include "settings.h"
 
-#define EDITOR_VERSION 102006
+#define EDITOR_VERSION 102007
 
 //------------------------------------------------
 // MainWindow
@@ -68,17 +68,14 @@ MainWindow::MainWindow(QWidget *parent) :
     QToolButton *stepOverButton = new QToolButton(this);
     stepOverButton->setDefaultAction(ui->actionStepOver);
     workspace()->m_toolbar->addTool("ProjectGroup", stepOverButton);
-    connect(ui->actionStepOver, SIGNAL(triggered()), m_debugger, SLOT(stepOver()));
 
     QToolButton *stepIntoButton = new QToolButton(this);
     stepIntoButton->setDefaultAction(ui->actionStepInto);
     workspace()->m_toolbar->addTool("ProjectGroup", stepIntoButton);
-    connect(ui->actionStepInto, SIGNAL(triggered()), m_debugger, SLOT(stepInto()));
 
     QToolButton *stepOutButton = new QToolButton(this);
     stepOutButton->setDefaultAction(ui->actionStepOut);
     workspace()->m_toolbar->addTool("ProjectGroup", stepOutButton);
-    connect(ui->actionStepOut, SIGNAL(triggered()), m_debugger, SLOT(stepOut()));
 
     // Setup vertical splitter
     QSplitter *verticalSplitter = new QSplitter(centralWidget());
@@ -118,6 +115,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_debugger, SIGNAL(execInterrupted(QString,int)), this, SLOT(enableResume()));
     connect(m_debugger, SIGNAL(execResumed()), this, SLOT(disableResume()));
     connect(m_debugger, SIGNAL(execEnded()), this, SLOT(disableRuntimeComands()));
+    connect(ui->actionStepOver, SIGNAL(triggered()), m_debugger, SLOT(stepOver()));
+    connect(ui->actionStepInto, SIGNAL(triggered()), m_debugger, SLOT(stepInto()));
+    connect(ui->actionStepOut, SIGNAL(triggered()), m_debugger, SLOT(stepOut()));
 
     // Add widgets to splitter
     horizontalSplitter->addWidget(workspace());
@@ -165,6 +165,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Run update check
     checkForUpdate();
+
+    // Open the file given by the command line arguments
+    if(QCoreApplication::arguments().size() > 1)
+    {
+        QString filePath = QCoreApplication::arguments().at(1);
+        applicationMessage(filePath);
+    }
 
     setWindowTitle(windowTitle() + " " + QString::number(EDITOR_VERSION));
 }
@@ -620,14 +627,27 @@ void MainWindow::startApplication()
     QProcess *game = new QProcess(this);
     connect(game, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(applicationClosed()));
     connect(game, SIGNAL(finished(int,QProcess::ExitStatus)), m_debugger, SLOT(gameEnded(int,QProcess::ExitStatus)));
-    QString program = Project::getProjectDir() + "/" + Project::getProjectName() + ".exe";
 
-    // Set version argument
+    // Run debug by default
     QStringList args;
-    args.push_back("-debug"); // Run debug by default
+    args.push_back("-d");
+
+    QString programPath;
+    if(!Project::getProjectDir().isEmpty())
+        programPath = Project::getProjectDir() + "/" + Project::getProjectName() + ".exe";
+    else{
+        ScriptEditor *editor = workspace()->getCurrentEditor();
+        if(editor != 0)
+            args.push_back(editor->filePath());
+        else {
+            applicationClosed();
+            return;
+        }
+        programPath = settings()->value("script_editor/default_application", "asrun.exe").toString();
+    }
 
     // Start process
-    game->start(program, args);
+    game->start(programPath, args);
 
     // Setup debugger
     m_debugger->reset();
@@ -731,5 +751,29 @@ void MainWindow::workspaceModeSelected(QAction *selection)
         // Setup tabs
         Q_FOREACH(QTabBar* tab, workspace()->m_mdiWidget->findChildren<QTabBar*>())
             tab->setExpanding(false);
+    }
+}
+
+void MainWindow::applicationMessage(const QString &message)
+{
+    if(!message.isEmpty()) {
+        if(workspace()->openFile(message) != 0) {
+            m_projectDialog->hide();
+
+            // Enable workspace
+            workspace()->setEnabled(true);
+            workspace()->m_toolbar->setEnabled(true);
+
+            // Enable file buttons
+            ui->actionNew_File->setEnabled(true);
+            ui->actionOpen_File->setEnabled(true);
+            ui->actionSave_File->setEnabled(true);
+
+            // Enable game buttons
+            ui->actionRun->setEnabled(true);
+
+            // Enable project buttons
+            ui->actionSave_All->setEnabled(true);
+        }
     }
 }

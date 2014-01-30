@@ -17,6 +17,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
         ui->fileTypeTree->insertTopLevelItem(0, treeWidgetItem);
     }
 
+    // Load default application string
+    ui->applicationLineEdit->setText(settings()->value("script_editor/default_application", "asrun.exe").toString());
+
     // Setup change detection
     foreach(QLineEdit* w, findChildren<QLineEdit*>())
         connect(w, SIGNAL(textChanged(QString)), this, SLOT(changed()));
@@ -50,6 +53,7 @@ void SettingsDialog::save()
         fileTypes << QString("%1;%2").arg(item->text(0)).arg(item->text(1));
     }
     settings()->setValue("script_editor/file_types", fileTypes);
+    settings()->setValue("script_editor/default_application", ui->applicationLineEdit->text());
 
     m_apply->setEnabled(false);
 }
@@ -94,5 +98,5 @@ Settings::Settings(QWidget *parent) :
 
 QStringList Settings::fileTypes()
 {
-    return value("script_editor/file_types", "as").toStringList();
+    return value("script_editor/file_types", "Script File;as").toStringList();
 }

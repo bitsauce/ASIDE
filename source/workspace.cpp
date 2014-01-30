@@ -274,7 +274,6 @@ void Workspace::fileChanged(const QString &filePath)
 
 void Workspace::fileClosed(const QString &filePath)
 {
-    qDebug() << QString("File Closed: %1").arg(filePath);
     m_fileWatcher->removePath(filePath);
     m_openEditors.removeOne(getOpenEditor(filePath));
 }

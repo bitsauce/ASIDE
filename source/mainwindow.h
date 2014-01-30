@@ -95,6 +95,9 @@ public slots:
 
     // Workspace
     void workspaceModeSelected(QAction *selection);
+
+    // Single instance application
+    void applicationMessage(const QString &message);
 };
 
 #endif // MAINWINDOW_H

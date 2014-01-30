@@ -1,17 +1,30 @@
-#if defined(QT_OS_WINDOWS) && !defined(QT_NO_DEBUG)
-#define NOMINMAX
-#include <windows.h>
-#include <vld.h>
-#endif
-
-#include <QApplication>
+#include <QtSingleApplication>
+#include <QObject>
 #include "mainwindow.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    // Launch a single instance application
+    QtSingleApplication app("aside", argc, argv);
+
+    // If a instance is already running, tell it to open the
+    // file specified by the command line
+    if(app.isRunning())
+    {
+        if(QCoreApplication::arguments().size() > 1)
+        {
+            QString filePath = QCoreApplication::arguments().at(1);
+            if(!filePath.isEmpty()) {
+                app.sendMessage(filePath);
+            }
+        }
+        return 0;
+    }
+
+    // Show main window
+    MainWindow window;
+    window.show();
+    QObject::connect(&app, SIGNAL(messageReceived(const QString&)), &window, SLOT(applicationMessage(const QString&)));
     
-    return a.exec();
+    return app.exec();
 }

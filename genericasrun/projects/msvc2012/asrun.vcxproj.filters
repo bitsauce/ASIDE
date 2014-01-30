@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\source\main.cpp" />
+    <ClCompile Include="..\..\source\angelscript\scriptstdstring_utils.cpp">
+      <Filter>angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\angelscript\scriptarray.cpp">
+      <Filter>angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\angelscript\scriptbuilder.cpp">
+      <Filter>angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\angelscript\scriptfile.cpp">
+      <Filter>angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\angelscript\scripthelper.cpp">
+      <Filter>angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\angelscript\scriptstdstring.cpp">
+      <Filter>angelscript</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="angelscript">
+      <UniqueIdentifier>{78031ce9-bfec-4220-a459-2127600d1638}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\source\angelscript\scriptarray.h">
+      <Filter>angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\angelscript\scriptbuilder.h">
+      <Filter>angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\angelscript\scriptfile.h">
+      <Filter>angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\angelscript\scripthelper.h">
+      <Filter>angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\angelscript\scriptstdstring.h">
+      <Filter>angelscript</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

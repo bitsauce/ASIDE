@@ -19,7 +19,7 @@ SOURCES += main.cpp\
     settings.cpp \
     workspace.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS += mainwindow.h \
     project.h \
     projecttree.h \
     scripteditor.h \
@@ -30,7 +30,7 @@ HEADERS  += mainwindow.h \
     workspace.h \
     aside.h
 
-FORMS    += mainwindow.ui \
+FORMS += mainwindow.ui \
     projectdialog.ui \
     newprojectdialog.ui \
     scripteditor.ui \
@@ -39,7 +39,8 @@ FORMS    += mainwindow.ui \
     scriptgoto.ui \
     settings.ui
 
-RESOURCES += \
-    resources.qrc
+include(../qtsingleapplication/src/qtsingleapplication.pri)
+
+RESOURCES += resources.qrc
 
 OTHER_FILES += win32.rc
