@@ -43,8 +43,3 @@ RESOURCES += \
     resources.qrc
 
 OTHER_FILES += win32.rc
-
-win32:debug { #Visual Leak Detector
-    INCLUDEPATH     +=  $$_PRO_FILE_PWD_/../../lib/vld-2.2.3/include
-    LIBS            +=  $$_PRO_FILE_PWD_/../../lib/vld-2.2.3/lib/vld.lib
-}
