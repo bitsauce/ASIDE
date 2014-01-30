@@ -1,0 +1,29 @@
+# Exclude verbose log files
+*.tlog
+*.log
+
+# Exclude linker object files
+*.obj
+*.o
+
+# Exclude Visual Studio files
+*.sbr
+*.pch
+*.suo
+*.ilk
+*.pdb
+*.user
+*.idb
+*.bsc
+*.exp
+*.res
+*.opensdf
+*.sdf
+
+# Exclude subversion control folders
+.svn
+
+# Exclude this...
+lib/vld-2.2.3/src/Debug/
+updater/
+msvc11/
