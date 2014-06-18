@@ -301,16 +301,16 @@ void OutputWidget::mouseDoubleClickEvent(QMouseEvent *e)
         // Scroll to and select line
         editor->scrollToLine(line);
 
-        QTextCursor scriptCursor = editor->scriptTextEdit()->textCursor();
-        scriptCursor.setPosition(0);
-        scriptCursor.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, line-1);
-        scriptCursor.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, col-1);
-        editor->scriptTextEdit()->setTextCursor(scriptCursor);
+//        QTextCursor scriptCursor = editor->scriptTextEdit()->textCursor();
+//        scriptCursor.setPosition(0);
+//        scriptCursor.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, line-1);
+//        scriptCursor.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, col-1);
+//        editor->scriptTextEdit()->setTextCursor(scriptCursor);
 
-        // Update text cursor
-        cursor.setPosition(cursor.block().position());
-        cursor.setPosition(cursor.block().position()+parentesisEnd+1, QTextCursor::KeepAnchor);
-        setTextCursor(cursor);
+//        // Update text cursor
+//        cursor.setPosition(cursor.block().position());
+//        cursor.setPosition(cursor.block().position()+parentesisEnd+1, QTextCursor::KeepAnchor);
+//        setTextCursor(cursor);
     }
 }
 

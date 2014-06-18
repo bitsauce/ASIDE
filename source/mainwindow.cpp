@@ -631,6 +631,7 @@ void MainWindow::startApplication()
     // Run debug by default
     QStringList args;
     args.push_back("-d");
+    args.push_back("-w " + Project::getProjectDir());
 
     QString programPath;
     if(!Project::getProjectDir().isEmpty())
@@ -660,7 +661,7 @@ void MainWindow::applicationClosed()
     ui->actionRun->setEnabled(true);
 
     // Connect it to start application
-    disconnect(ui->actionRun, SIGNAL(triggered()));
+    disconnect(ui->actionRun, SIGNAL(triggered()), 0, 0);
     connect(ui->actionRun, SIGNAL(triggered()), this, SLOT(startApplication()));
 
     // Disable debug commands

@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT += core gui network opengl xml widgets
+CONFIG += qscintilla2
 
 RC_FILE = win32.rc
 TEMPLATE = app
@@ -15,7 +16,6 @@ SOURCES += main.cpp\
     projecttree.cpp \
     scripteditor.cpp \
     debugger.cpp \
-    scriptintel.cpp \
     settings.cpp \
     workspace.cpp
 
@@ -25,7 +25,6 @@ HEADERS += mainwindow.h \
     scripteditor.h \
     infowidget.h \
     debugger.h \
-    scriptintel.h \
     settings.h \
     workspace.h \
     aside.h
