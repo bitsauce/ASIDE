@@ -1,3 +1,11 @@
+//     _    ____ ___ ____  _____
+//    / \  / ___|_ _|  _ \| ____|
+//   / _ \ \___ \| || | | |  _|
+//  / ___ \ ___) | || |_| | |___
+// /_/   \_\____/___|____/|_____|
+// Originally written by Marcus Loo Vergara (aka. Bitsauce)
+// 2011-2014 (C)
+
 #include "ui_projectdialog.h"
 #include "ui_newprojectdialog.h"
 

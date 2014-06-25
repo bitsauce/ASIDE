@@ -93,22 +93,22 @@ DESTDIR_TARGET = release\AngelScriptIDE.exe
 
 .SUFFIXES: .c .cpp .cc .cxx
 
-{qtsingleapplication\src}.cpp{release\}.obj::
+{source}.cpp{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{qtsingleapplication\src}.cc{release\}.obj::
+{source}.cc{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{qtsingleapplication\src}.cxx{release\}.obj::
+{source}.cxx{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{qtsingleapplication\src}.c{release\}.obj::
+{source}.c{release\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
@@ -133,22 +133,22 @@ DESTDIR_TARGET = release\AngelScriptIDE.exe
 	$<
 <<
 
-{source}.cpp{release\}.obj::
+{qtsingleapplication\src}.cpp{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{source}.cc{release\}.obj::
+{qtsingleapplication\src}.cc{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{source}.cxx{release\}.obj::
+{qtsingleapplication\src}.cxx{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
 
-{source}.c{release\}.obj::
+{qtsingleapplication\src}.c{release\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
@@ -216,21 +216,21 @@ compiler_rcc_make_all: release\qrc_resources.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) release\qrc_resources.cpp
 release\qrc_resources.cpp: source\resources.qrc \
-		source\icons\restart.png \
-		source\icons\run.png \
-		source\icons\stop.png \
+		source\icons\dbgstepinto.png \
+		source\icons\dbgstepout.png \
+		source\icons\dbgstepover.png \
 		source\icons\pause.png \
+		source\icons\run.png \
+		source\icons\restart.png \
+		source\icons\stop.png \
+		source\images\projectdialog_bg.png \
+		source\icons\remove_x.png \
 		source\icons\open_folder.png \
-		source\icons\open_file.png \
 		source\icons\save_all.png \
 		source\icons\new_file.png \
 		source\icons\save_file.png \
 		source\icons\new_folder.png \
-		source\images\projectdialog_bg.png \
-		source\icons\remove_x.png \
-		source\icons\dbgstepout.png \
-		source\icons\dbgstepinto.png \
-		source\icons\dbgstepover.png
+		source\icons\open_file.png
 	C:\Qt\5.3\msvc2012_opengl\bin\rcc.exe -name resources source\resources.qrc -o release\qrc_resources.cpp
 
 compiler_moc_header_make_all: release\moc_mainwindow.cpp release\moc_project.cpp release\moc_projecttree.cpp release\moc_scripteditor.cpp release\moc_debugger.cpp release\moc_settings.cpp release\moc_workspace.cpp release\moc_qtsingleapplication.cpp release\moc_qtlocalpeer.cpp

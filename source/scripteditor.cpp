@@ -1,9 +1,10 @@
-//     _                                     ____  ____
-//    / \  _   _ _ __ ___  _ __ __ _  __  __|___ \|  _ \
-//   / _ \| | | |  __/ _ \|  __/ _  | \ \/ /  __) | | | |
-//  / ___ \ |_| | | | (_) | | | (_| |  >  <  / __/| |_| |
-// /_/   \_\__ _|_|  \___/|_|  \__ _| /_/\_\|_____|____/
-//		MixedGraphics (C)
+//     _    ____ ___ ____  _____
+//    / \  / ___|_ _|  _ \| ____|
+//   / _ \ \___ \| || | | |  _|
+//  / ___ \ ___) | || |_| | |___
+// /_/   \_\____/___|____/|_____|
+// Originally written by Marcus Loo Vergara (aka. Bitsauce)
+// 2011-2014 (C)
 
 #include "ui_scripteditor.h"
 #include "scripteditor.h"
@@ -143,7 +144,7 @@ ScriptEditor *ScriptEditor::createFile(QString filePath)
     file.close();
 
     // Open newly created script file
-    return openFile(filePath);
+    return workspace()->openFile(filePath);
 }
 
 ScriptEditor *ScriptEditor::openFile(QString filePath)

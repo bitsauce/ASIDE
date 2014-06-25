@@ -93,42 +93,22 @@ DESTDIR_TARGET = debug\AngelScriptIDE.exe
 
 .SUFFIXES: .c .cpp .cc .cxx
 
-{qtsingleapplication\src}.cpp{debug\}.obj::
+{debug}.cpp{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
 
-{qtsingleapplication\src}.cc{debug\}.obj::
+{debug}.cc{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
 
-{qtsingleapplication\src}.cxx{debug\}.obj::
+{debug}.cxx{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
 
-{qtsingleapplication\src}.c{debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.cpp{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.cc{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.cxx{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.c{debug\}.obj::
+{debug}.c{debug\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
@@ -153,22 +133,42 @@ DESTDIR_TARGET = debug\AngelScriptIDE.exe
 	$<
 <<
 
-{debug}.cpp{debug\}.obj::
+{.}.cpp{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
 
-{debug}.cc{debug\}.obj::
+{.}.cc{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
 
-{debug}.cxx{debug\}.obj::
+{.}.cxx{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
 
-{debug}.c{debug\}.obj::
+{.}.c{debug\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{qtsingleapplication\src}.cpp{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{qtsingleapplication\src}.cc{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{qtsingleapplication\src}.cxx{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{qtsingleapplication\src}.c{debug\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
@@ -228,21 +228,21 @@ compiler_rcc_make_all: debug\qrc_resources.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) debug\qrc_resources.cpp
 debug\qrc_resources.cpp: source\resources.qrc \
-		source\icons\open_folder.png \
-		source\icons\new_folder.png \
-		source\icons\new_file.png \
-		source\icons\save_all.png \
-		source\icons\save_file.png \
-		source\icons\open_file.png \
-		source\icons\remove_x.png \
-		source\images\projectdialog_bg.png \
 		source\icons\dbgstepinto.png \
-		source\icons\dbgstepout.png \
 		source\icons\dbgstepover.png \
+		source\icons\dbgstepout.png \
 		source\icons\stop.png \
-		source\icons\restart.png \
 		source\icons\run.png \
-		source\icons\pause.png
+		source\icons\restart.png \
+		source\icons\pause.png \
+		source\icons\save_all.png \
+		source\icons\new_file.png \
+		source\icons\open_file.png \
+		source\icons\new_folder.png \
+		source\icons\save_file.png \
+		source\icons\open_folder.png \
+		source\images\projectdialog_bg.png \
+		source\icons\remove_x.png
 	C:\Qt\5.3\msvc2012_opengl\bin\rcc.exe -name resources source\resources.qrc -o debug\qrc_resources.cpp
 
 compiler_moc_header_make_all: debug\moc_mainwindow.cpp debug\moc_project.cpp debug\moc_projecttree.cpp debug\moc_scripteditor.cpp debug\moc_debugger.cpp debug\moc_settings.cpp debug\moc_workspace.cpp debug\moc_qtsingleapplication.cpp debug\moc_qtlocalpeer.cpp
