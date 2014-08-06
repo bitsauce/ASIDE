@@ -120,16 +120,16 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <addaction name="actionNew_Project"/>
     <addaction name="actionOpen_Project"/>
     <addaction name="separator"/>
-    <addaction name="actionNew_File"/>
-    <addaction name="actionOpen_File"/>
-    <addaction name="actionSave_File"/>
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
     <addaction name="actionSave_All"/>
     <addaction name="separator"/>
     <addaction name="actionClose_Project"/>
     <addaction name="separator"/>
     <addaction name="actionPublish"/>
     <addaction name="separator"/>
-    <addaction name="actionEdit"/>
+    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -139,7 +139,6 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <addaction name="actionCopy"/>
     <addaction name="actionPaste"/>
     <addaction name="separator"/>
-    <addaction name="actionNew"/>
     <addaction name="actionDelete"/>
     <addaction name="actionRename"/>
    </widget>
@@ -208,7 +207,7 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <string>&amp;Open Project...</string>
    </property>
    <property name="toolTip">
-    <string>Open a project</string>
+    <string>Open project file</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+O</string>
@@ -232,12 +231,12 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <string>Ctrl+Shift+S</string>
    </property>
   </action>
-  <action name="actionEdit">
+  <action name="actionExit">
    <property name="text">
     <string>E&amp;xit</string>
    </property>
    <property name="toolTip">
-    <string>Exit application</string>
+    <string>Exit AngelScriptIDE</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
@@ -266,7 +265,7 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <string>Run</string>
    </property>
    <property name="toolTip">
-    <string>Run game</string>
+    <string>Run program</string>
    </property>
    <property name="shortcut">
     <string>F5</string>
@@ -297,7 +296,7 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <string>Cascade</string>
    </property>
    <property name="toolTip">
-    <string>Show windows in cascade</string>
+    <string>Show editor files in cascaded windows</string>
    </property>
   </action>
   <action name="actionTabbed">
@@ -308,7 +307,7 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <string>Tabbed</string>
    </property>
    <property name="toolTip">
-    <string>Show windows in tabs</string>
+    <string>Show editor files in tabs</string>
    </property>
   </action>
   <action name="actionCustomize">
@@ -324,7 +323,7 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <string>About...</string>
    </property>
    <property name="toolTip">
-    <string>About</string>
+    <string>About ASIDE</string>
    </property>
   </action>
   <action name="actionHelp">
@@ -338,6 +337,9 @@ margin-top: 2px; /* make non-selected tabs look smaller */
   <action name="actionSettings">
    <property name="text">
     <string>Settings...</string>
+   </property>
+   <property name="toolTip">
+    <string>Change editor settings</string>
    </property>
   </action>
   <action name="actionClose_Project">
@@ -404,10 +406,10 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <string>Open in Explorer</string>
    </property>
    <property name="toolTip">
-    <string>Open project in explorer</string>
+    <string>Open current folder in Explorer</string>
    </property>
   </action>
-  <action name="actionOpen_File">
+  <action name="actionOpen">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -419,13 +421,13 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <string>Open File...</string>
    </property>
    <property name="toolTip">
-    <string>Open a file</string>
+    <string>Open script file</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
    </property>
   </action>
-  <action name="actionSave_File">
+  <action name="actionSave">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -436,11 +438,14 @@ margin-top: 2px; /* make non-selected tabs look smaller */
    <property name="text">
     <string>Save File</string>
    </property>
+   <property name="toolTip">
+    <string>Save current file</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="actionNew_File">
+  <action name="actionNew">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -450,6 +455,9 @@ margin-top: 2px; /* make non-selected tabs look smaller */
    </property>
    <property name="text">
     <string>New File...</string>
+   </property>
+   <property name="toolTip">
+    <string>Create script file</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
@@ -510,14 +518,6 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <string>F2</string>
    </property>
   </action>
-  <action name="actionNew">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>New</string>
-   </property>
-  </action>
   <action name="actionStepOver">
    <property name="enabled">
     <bool>false</bool>
@@ -561,7 +561,7 @@ margin-top: 2px; /* make non-selected tabs look smaller */
  </resources>
  <connections>
   <connection>
-   <sender>actionEdit</sender>
+   <sender>actionExit</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
@@ -573,38 +573,6 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <hint type="destinationlabel">
      <x>399</x>
      <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionNew_Project</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>newProject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>209</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionOpen_Project</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>openProject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>210</x>
-     <y>154</y>
     </hint>
    </hints>
   </connection>
@@ -621,22 +589,6 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <hint type="destinationlabel">
      <x>210</x>
      <y>154</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionClose_Project</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>closeProject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>210</x>
-     <y>160</y>
     </hint>
    </hints>
   </connection>
@@ -689,70 +641,6 @@ margin-top: 2px; /* make non-selected tabs look smaller */
    </hints>
   </connection>
   <connection>
-   <sender>actionNew_File</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>newFile()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionOpen_File</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>openFile()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionSave_File</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>saveFile()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionSave_All</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>saveAllFiles()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>actionSettings</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
@@ -770,7 +658,7 @@ margin-top: 2px; /* make non-selected tabs look smaller */
   </connection>
  </connections>
  <slots>
-  <slot>newProject()</slot>
+  <slot>createProject()</slot>
   <slot>openProject()</slot>
   <slot>startApplication()</slot>
   <slot>closeProject()</slot>

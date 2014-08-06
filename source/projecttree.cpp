@@ -10,6 +10,8 @@
 
 #include "workspace.h"
 #include "project.h"
+#include "settings.h"
+#include "scripteditor.h"
 
 //---------------------------------------------
 // ProjectTree
@@ -29,8 +31,8 @@ ProjectTree::ProjectTree(QWidget *parent) :
     QAction *separator2 = new QAction(this);
     separator2->setSeparator(true);
 
-    connect(folder, SIGNAL(triggered()), this, SLOT(addFolder()));
-    connect(browse, SIGNAL(triggered()), this, SLOT(browseFolder()));
+    connect(folder, SIGNAL(triggered()), this, SLOT(createFolderInCurrentDirectory()));
+    connect(browse, SIGNAL(triggered()), this, SLOT(showCurrentDirectoryInExplorer()));
 
     addAction(folder);
     addAction(browse);
@@ -145,7 +147,15 @@ void ProjectTree::doubleClicked(const QModelIndex &index)
 {
     // Open double clicked file, if linked to an interface
     QFileInfo fileInfo = treeModel->fileInfo(proxyModel->mapToSource(index));
-    workspace()->openFile(fileInfo.absoluteFilePath());
+    if(fileInfo.isDir())
+    {
+        if(!isExpanded(index))
+            expand(index);
+        else
+            collapse(index);
+    }else{
+        workspace()->openFile(fileInfo.absoluteFilePath());
+    }
 }
 
 void ProjectTree::focusInEvent(QFocusEvent *event)
@@ -163,13 +173,13 @@ void ProjectTree::focusInEvent(QFocusEvent *event)
 
     workspace()->newAction()->setEnabled(true);
     disconnect(workspace()->newAction(), 0, 0, 0);
-    connect(workspace()->newAction(), SIGNAL(triggered()), this, SLOT(newFileItem()));
+    connect(workspace()->newAction(), SIGNAL(triggered()), this, SLOT(createItemInCurrentDirectory()));
     workspace()->renameAction()->setEnabled(true);
     disconnect(workspace()->renameAction(), 0, 0, 0);
-    connect(workspace()->renameAction(), SIGNAL(triggered()), this, SLOT(renameItem()));
+    connect(workspace()->renameAction(), SIGNAL(triggered()), this, SLOT(renameSelection()));
     workspace()->deleteAction()->setEnabled(true);
     disconnect(workspace()->deleteAction(), 0, 0, 0);
-    connect(workspace()->deleteAction(), SIGNAL(triggered()), this, SLOT(deleteItems()));
+    connect(workspace()->deleteAction(), SIGNAL(triggered()), this, SLOT(deleteSelection()));
 
     QTreeView::focusInEvent(event);
 }
@@ -208,7 +218,7 @@ void ProjectTree::currentChanged(const QModelIndex &current, const QModelIndex &
     QTreeView::currentChanged(current, previous);
 }
 
-void ProjectTree::deleteItems()
+void ProjectTree::deleteSelection()
 {
     // Delete selected tree items
     QModelIndexList indexes = selectedIndexes();
@@ -240,19 +250,19 @@ void ProjectTree::deleteItems()
     }
 }
 
-void ProjectTree::renameItem()
+void ProjectTree::renameSelection()
 {
     // Make sure index is valid
     QModelIndex index = proxyModel->mapToSource(currentIndex());
-    if(!index.isValid())
+    if(!index.isValid()) {
         return;
+    }
 
     // Get new name
-    QString newname = QInputDialog::getText(this, "Rename",
-                                            "Enter a new name:", QLineEdit::Normal,
-                                            treeModel->fileInfo(index).baseName());
-    if(newname.isEmpty())
+    QString newname = QInputDialog::getText(this, tr("Rename"), tr("Enter a new name:"), QLineEdit::Normal, treeModel->fileInfo(index).baseName());
+    if(newname.isEmpty()) {
         return;
+    }
 
     QFileInfo io(treeModel->fileInfo(index));
     if(io.isDir())
@@ -267,61 +277,85 @@ void ProjectTree::renameItem()
     }
 }
 
-void ProjectTree::newFileItem()
+void ProjectTree::showItemCreate(QString defaultDir)
 {
-    // Get current index folder
+    // Get the file type filter for the editor
+    QString filter;
+    foreach(QString fileType, settings()->fileTypes())
+    {
+        QStringList list = fileType.split(";");
+        filter += QString("%1 (*.%2);;").arg(list[0], list[1]);
+    }
+
+    // Get new file name
+    QString newFile = QFileDialog::getSaveFileName(this, tr("New File"), defaultDir, filter);
+    if(!newFile.isEmpty())
+    {
+        // Create the script file
+        ScriptEditor::createFile(newFile);
+    }
+}
+
+void ProjectTree::createItemInCurrentDirectory()
+{
+    // Get current directory
     QModelIndex index = proxyModel->mapToSource(currentIndex());
-    QString folderPath = Project::getProjectDir();
+    QString directory = Project::getDirectory();
     if(index.isValid())
     {
         if(treeModel->isDir(index))
-            folderPath = treeModel->filePath(index);
-        else
-            folderPath = treeModel->filePath(index.parent());
+        {
+            directory = treeModel->filePath(index);
+        }else{
+            directory = treeModel->filePath(index.parent());
+        }
     }
 
-    emit newFile(folderPath);
+    // Show new file dialog starting in 'directory'
+    showItemCreate(directory);
 
-    // Expand if folder
-    if(treeModel->isDir(index))
+    // Expand if we created an item in a folder
+    if(treeModel->isDir(index)) {
         expand(proxyModel->mapFromSource(index));
+    }
 }
 
-void ProjectTree::addFolder()
+void ProjectTree::createFolderInCurrentDirectory()
 {
     // Add a tree folder
     QModelIndex index = proxyModel->mapToSource(currentIndex());
-    if(!index.isValid())
+    if(!index.isValid()) {
         return;
+    }
 
-    // Get folder name
-    QString newname = QInputDialog::getText(this, "Add Folder",
-                                            "Enter folder name:",
-                                            QLineEdit::Normal,
-                                            "folder");
-    if(newname.isEmpty())
+    // Get new folder name
+    QString folerName = QInputDialog::getText(this, tr("Add Folder"), tr("Enter folder name:"), QLineEdit::Normal,  tr("folder"));
+    if(folerName.isEmpty()) {
         return;
+    }
 
     // Create folder
     if(treeModel->isDir(index))
     {
-        treeModel->mkdir(index, newname);
+        treeModel->mkdir(index, folerName);
         expand(index);
-    }else
-        treeModel->mkdir(index.parent(), newname);
+    }else{
+        treeModel->mkdir(index.parent(), folerName);
+    }
 }
 
-void ProjectTree::browseFolder()
+void ProjectTree::showCurrentDirectoryInExplorer()
 {
     // Get current index folder
     QModelIndex index = proxyModel->mapToSource(currentIndex());
-    QString folderPath = Project::getProjectDir();
+    QString folderPath = Project::getDirectory();
     if(index.isValid())
     {
-        if(treeModel->isDir(index))
+        if(treeModel->isDir(index)) {
             folderPath = treeModel->filePath(index);
-        else
+        }else{
             folderPath = treeModel->filePath(index.parent());
+        }
     }
 
     // Open folder path

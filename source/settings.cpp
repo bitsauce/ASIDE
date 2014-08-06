@@ -9,6 +9,24 @@
 #include "settings.h"
 #include "ui_settings.h"
 
+Settings *g_settings;
+Settings *settings()
+{
+    return g_settings;
+}
+
+Settings::Settings(QWidget *parent) :
+    QSettings("Bitsauce", "AngelScriptIDE", parent)
+{
+    Q_ASSERT(!g_settings);
+    g_settings = this;
+}
+
+QStringList Settings::fileTypes()
+{
+    return value("script_editor/file_types", "Script File;as").toStringList();
+}
+
 SettingsDialog::SettingsDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Settings)
@@ -40,6 +58,10 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     connect(m_apply, SIGNAL(clicked()), this, SLOT(save()));
     QPushButton *ok = ui->buttonBox->button(QDialogButtonBox::Ok);
     connect(ok, SIGNAL(clicked()), this, SLOT(save()));
+
+    connect(ui->browseDefaultApplication, SIGNAL(clicked()), this, SLOT(browseDefaultApplication()));
+
+
     m_changed = false;
 }
 
@@ -58,7 +80,7 @@ void SettingsDialog::save()
     for(int i = 0; i < ui->fileTypeTree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->fileTypeTree->topLevelItem(i);
-        fileTypes << QString("%1;%2").arg(item->text(0)).arg(item->text(1));
+        fileTypes << QString("%1;%2").arg(item->text(0), item->text(1));
     }
     settings()->setValue("script_editor/file_types", fileTypes);
     settings()->setValue("script_editor/default_application", ui->applicationLineEdit->text());
@@ -91,20 +113,10 @@ void SettingsDialog::removeFileType()
     changed();
 }
 
-Settings *g_settings;
-Settings *settings()
+void SettingsDialog::browseDefaultApplication()
 {
-    return g_settings;
-}
-
-Settings::Settings(QWidget *parent) :
-    QSettings("MacroByte", "AngelScriptIDE", parent)
-{
-    Q_ASSERT(!g_settings);
-    g_settings = this;
-}
-
-QStringList Settings::fileTypes()
-{
-    return value("script_editor/file_types", "Script File;as").toStringList();
+    QString path = QFileDialog::getOpenFileName(this, tr("Default application"), QDir::homePath(), tr("Program Files (*.exe)"));
+    if(!path.isEmpty()) {
+        ui->applicationLineEdit->setText(path);
+    }
 }

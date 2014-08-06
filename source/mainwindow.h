@@ -29,15 +29,17 @@ public:
 
 private:
 
-    // Game
-    //static void showException(X2DApp *app, X2D::ErrorCode error, const char* message);
-    //static void printOutput(X2DApp *app, const char* message);
+    // Center splash in the middle fo the screen
+    void centerSplash();
 
 private:
+
     // Properties
     Ui::MainWindow *ui;
     ProjectDialog *m_projectDialog;
     ProjectTree *m_projectTree;
+    Debugger *m_debugger;
+    QTabWidget *m_infoWidget;
 
     // Update
     int m_updateProgress;
@@ -45,10 +47,8 @@ private:
     QTemporaryFile *m_updateFile;
     QNetworkReply *m_updateReply;
 
-    Debugger *m_debugger;
-    QTabWidget *m_infoWidget;
-
 public slots:
+
     // Updates
     void checkForUpdate();
     void downloadUpdate(QUrl url);
@@ -58,17 +58,11 @@ public slots:
     void downloadUpdateError(QNetworkReply::NetworkError);
     void processUpdate(int version);
 
-    // File
-    void newProject();
+    // Projects
+    void createProject();
     void openProject();
     void loadProject(QString projectFile);
     void projectLoaded();
-
-    void newFile();
-    void newFile(QString defaultPath);
-    void saveFile();
-    void openFile();
-    void saveAllFiles();
 
     void closeProject();
     void publishProject();

@@ -17,7 +17,9 @@ SOURCES += main.cpp\
     scripteditor.cpp \
     debugger.cpp \
     settings.cpp \
-    workspace.cpp
+    workspace.cpp \
+    configeditor.cpp \
+    editorbase.cpp
 
 HEADERS += mainwindow.h \
     project.h \
@@ -27,7 +29,9 @@ HEADERS += mainwindow.h \
     debugger.h \
     settings.h \
     workspace.h \
-    aside.h
+    aside.h \
+    configeditor.h \
+    editorbase.h
 
 FORMS += mainwindow.ui \
     projectdialog.ui \
@@ -36,7 +40,8 @@ FORMS += mainwindow.ui \
     scriptsearch.ui \
     scriptreplace.ui \
     scriptgoto.ui \
-    settings.ui
+    settings.ui \
+    configeditor.ui
 
 include(../qtsingleapplication/src/qtsingleapplication.pri)
 

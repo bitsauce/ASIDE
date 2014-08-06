@@ -29,7 +29,7 @@ public:
     QAction *actionNew_Project;
     QAction *actionOpen_Project;
     QAction *actionSave_All;
-    QAction *actionEdit;
+    QAction *actionExit;
     QAction *actionPublish;
     QAction *actionRun;
     QAction *actionOptions;
@@ -44,15 +44,14 @@ public:
     QAction *actionStop;
     QAction *actionRestart;
     QAction *actionBrowse_Project;
-    QAction *actionOpen_File;
-    QAction *actionSave_File;
-    QAction *actionNew_File;
+    QAction *actionOpen;
+    QAction *actionSave;
+    QAction *actionNew;
     QAction *actionCut;
     QAction *actionCopy;
     QAction *actionPaste;
     QAction *actionDelete;
     QAction *actionRename;
-    QAction *actionNew;
     QAction *actionStepOver;
     QAction *actionStepInto;
     QAction *actionStepOut;
@@ -158,8 +157,8 @@ public:
         QIcon icon2;
         icon2.addFile(QStringLiteral(":/menubar/icons/save_all.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionSave_All->setIcon(icon2);
-        actionEdit = new QAction(MainWindow);
-        actionEdit->setObjectName(QStringLiteral("actionEdit"));
+        actionExit = new QAction(MainWindow);
+        actionExit->setObjectName(QStringLiteral("actionExit"));
         actionPublish = new QAction(MainWindow);
         actionPublish->setObjectName(QStringLiteral("actionPublish"));
         actionPublish->setEnabled(false);
@@ -210,24 +209,24 @@ public:
         actionRestart->setIcon(icon6);
         actionBrowse_Project = new QAction(MainWindow);
         actionBrowse_Project->setObjectName(QStringLiteral("actionBrowse_Project"));
-        actionOpen_File = new QAction(MainWindow);
-        actionOpen_File->setObjectName(QStringLiteral("actionOpen_File"));
-        actionOpen_File->setEnabled(false);
+        actionOpen = new QAction(MainWindow);
+        actionOpen->setObjectName(QStringLiteral("actionOpen"));
+        actionOpen->setEnabled(false);
         QIcon icon7;
         icon7.addFile(QStringLiteral(":/menubar/icons/open_file.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionOpen_File->setIcon(icon7);
-        actionSave_File = new QAction(MainWindow);
-        actionSave_File->setObjectName(QStringLiteral("actionSave_File"));
-        actionSave_File->setEnabled(false);
+        actionOpen->setIcon(icon7);
+        actionSave = new QAction(MainWindow);
+        actionSave->setObjectName(QStringLiteral("actionSave"));
+        actionSave->setEnabled(false);
         QIcon icon8;
         icon8.addFile(QStringLiteral(":/menubar/icons/save_file.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionSave_File->setIcon(icon8);
-        actionNew_File = new QAction(MainWindow);
-        actionNew_File->setObjectName(QStringLiteral("actionNew_File"));
-        actionNew_File->setEnabled(false);
+        actionSave->setIcon(icon8);
+        actionNew = new QAction(MainWindow);
+        actionNew->setObjectName(QStringLiteral("actionNew"));
+        actionNew->setEnabled(false);
         QIcon icon9;
         icon9.addFile(QStringLiteral(":/menubar/icons/new_file.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionNew_File->setIcon(icon9);
+        actionNew->setIcon(icon9);
         actionCut = new QAction(MainWindow);
         actionCut->setObjectName(QStringLiteral("actionCut"));
         actionCut->setEnabled(false);
@@ -243,9 +242,6 @@ public:
         actionRename = new QAction(MainWindow);
         actionRename->setObjectName(QStringLiteral("actionRename"));
         actionRename->setEnabled(false);
-        actionNew = new QAction(MainWindow);
-        actionNew->setObjectName(QStringLiteral("actionNew"));
-        actionNew->setEnabled(false);
         actionStepOver = new QAction(MainWindow);
         actionStepOver->setObjectName(QStringLiteral("actionStepOver"));
         actionStepOver->setEnabled(false);
@@ -298,21 +294,20 @@ public:
         menuFile->addAction(actionNew_Project);
         menuFile->addAction(actionOpen_Project);
         menuFile->addSeparator();
-        menuFile->addAction(actionNew_File);
-        menuFile->addAction(actionOpen_File);
-        menuFile->addAction(actionSave_File);
+        menuFile->addAction(actionNew);
+        menuFile->addAction(actionOpen);
+        menuFile->addAction(actionSave);
         menuFile->addAction(actionSave_All);
         menuFile->addSeparator();
         menuFile->addAction(actionClose_Project);
         menuFile->addSeparator();
         menuFile->addAction(actionPublish);
         menuFile->addSeparator();
-        menuFile->addAction(actionEdit);
+        menuFile->addAction(actionExit);
         menuEdit->addAction(actionCut);
         menuEdit->addAction(actionCopy);
         menuEdit->addAction(actionPaste);
         menuEdit->addSeparator();
-        menuEdit->addAction(actionNew);
         menuEdit->addAction(actionDelete);
         menuEdit->addAction(actionRename);
         menuProject->addAction(actionRun);
@@ -336,18 +331,11 @@ public:
         menuHelp->addAction(actionSettings);
 
         retranslateUi(MainWindow);
-        QObject::connect(actionEdit, SIGNAL(triggered()), MainWindow, SLOT(close()));
-        QObject::connect(actionNew_Project, SIGNAL(triggered()), MainWindow, SLOT(newProject()));
-        QObject::connect(actionOpen_Project, SIGNAL(triggered()), MainWindow, SLOT(openProject()));
+        QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));
         QObject::connect(actionRun, SIGNAL(triggered()), MainWindow, SLOT(startApplication()));
-        QObject::connect(actionClose_Project, SIGNAL(triggered()), MainWindow, SLOT(closeProject()));
         QObject::connect(actionPause, SIGNAL(triggered()), MainWindow, SLOT(interruptExec()));
         QObject::connect(actionStop, SIGNAL(triggered()), MainWindow, SLOT(stopExec()));
         QObject::connect(actionRestart, SIGNAL(triggered()), MainWindow, SLOT(restartExec()));
-        QObject::connect(actionNew_File, SIGNAL(triggered()), MainWindow, SLOT(newFile()));
-        QObject::connect(actionOpen_File, SIGNAL(triggered()), MainWindow, SLOT(openFile()));
-        QObject::connect(actionSave_File, SIGNAL(triggered()), MainWindow, SLOT(saveFile()));
-        QObject::connect(actionSave_All, SIGNAL(triggered()), MainWindow, SLOT(saveAllFiles()));
         QObject::connect(actionSettings, SIGNAL(triggered()), MainWindow, SLOT(showSettings()));
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -363,7 +351,7 @@ public:
         actionNew_Project->setShortcut(QApplication::translate("MainWindow", "Ctrl+Shift+N", 0));
         actionOpen_Project->setText(QApplication::translate("MainWindow", "&Open Project...", 0));
 #ifndef QT_NO_TOOLTIP
-        actionOpen_Project->setToolTip(QApplication::translate("MainWindow", "Open a project", 0));
+        actionOpen_Project->setToolTip(QApplication::translate("MainWindow", "Open project file", 0));
 #endif // QT_NO_TOOLTIP
         actionOpen_Project->setShortcut(QApplication::translate("MainWindow", "Ctrl+Shift+O", 0));
         actionSave_All->setText(QApplication::translate("MainWindow", "&Save All", 0));
@@ -371,18 +359,18 @@ public:
         actionSave_All->setToolTip(QApplication::translate("MainWindow", "Save all open files", 0));
 #endif // QT_NO_TOOLTIP
         actionSave_All->setShortcut(QApplication::translate("MainWindow", "Ctrl+Shift+S", 0));
-        actionEdit->setText(QApplication::translate("MainWindow", "E&xit", 0));
+        actionExit->setText(QApplication::translate("MainWindow", "E&xit", 0));
 #ifndef QT_NO_TOOLTIP
-        actionEdit->setToolTip(QApplication::translate("MainWindow", "Exit application", 0));
+        actionExit->setToolTip(QApplication::translate("MainWindow", "Exit AngelScriptIDE", 0));
 #endif // QT_NO_TOOLTIP
-        actionEdit->setShortcut(QApplication::translate("MainWindow", "Ctrl+Q", 0));
+        actionExit->setShortcut(QApplication::translate("MainWindow", "Ctrl+Q", 0));
         actionPublish->setText(QApplication::translate("MainWindow", "Publish...", 0));
 #ifndef QT_NO_TOOLTIP
         actionPublish->setToolTip(QApplication::translate("MainWindow", "Publish project", 0));
 #endif // QT_NO_TOOLTIP
         actionRun->setText(QApplication::translate("MainWindow", "Run", 0));
 #ifndef QT_NO_TOOLTIP
-        actionRun->setToolTip(QApplication::translate("MainWindow", "Run game", 0));
+        actionRun->setToolTip(QApplication::translate("MainWindow", "Run program", 0));
 #endif // QT_NO_TOOLTIP
         actionRun->setShortcut(QApplication::translate("MainWindow", "F5", 0));
         actionOptions->setText(QApplication::translate("MainWindow", "Options...", 0));
@@ -392,11 +380,11 @@ public:
         actionOptions->setShortcut(QApplication::translate("MainWindow", "Ctrl+O", 0));
         actionCascade->setText(QApplication::translate("MainWindow", "Cascade", 0));
 #ifndef QT_NO_TOOLTIP
-        actionCascade->setToolTip(QApplication::translate("MainWindow", "Show windows in cascade", 0));
+        actionCascade->setToolTip(QApplication::translate("MainWindow", "Show editor files in cascaded windows", 0));
 #endif // QT_NO_TOOLTIP
         actionTabbed->setText(QApplication::translate("MainWindow", "Tabbed", 0));
 #ifndef QT_NO_TOOLTIP
-        actionTabbed->setToolTip(QApplication::translate("MainWindow", "Show windows in tabs", 0));
+        actionTabbed->setToolTip(QApplication::translate("MainWindow", "Show editor files in tabs", 0));
 #endif // QT_NO_TOOLTIP
         actionCustomize->setText(QApplication::translate("MainWindow", "Customize...", 0));
 #ifndef QT_NO_TOOLTIP
@@ -404,11 +392,14 @@ public:
 #endif // QT_NO_TOOLTIP
         actionAbout->setText(QApplication::translate("MainWindow", "About...", 0));
 #ifndef QT_NO_TOOLTIP
-        actionAbout->setToolTip(QApplication::translate("MainWindow", "About", 0));
+        actionAbout->setToolTip(QApplication::translate("MainWindow", "About ASIDE", 0));
 #endif // QT_NO_TOOLTIP
         actionHelp->setText(QApplication::translate("MainWindow", "Context...", 0));
         actionHelp->setShortcut(QApplication::translate("MainWindow", "F1", 0));
         actionSettings->setText(QApplication::translate("MainWindow", "Settings...", 0));
+#ifndef QT_NO_TOOLTIP
+        actionSettings->setToolTip(QApplication::translate("MainWindow", "Change editor settings", 0));
+#endif // QT_NO_TOOLTIP
         actionClose_Project->setText(QApplication::translate("MainWindow", "Close Project", 0));
 #ifndef QT_NO_TOOLTIP
         actionClose_Project->setToolTip(QApplication::translate("MainWindow", "Close the current project", 0));
@@ -428,17 +419,23 @@ public:
 #endif // QT_NO_TOOLTIP
         actionBrowse_Project->setText(QApplication::translate("MainWindow", "Open in Explorer", 0));
 #ifndef QT_NO_TOOLTIP
-        actionBrowse_Project->setToolTip(QApplication::translate("MainWindow", "Open project in explorer", 0));
+        actionBrowse_Project->setToolTip(QApplication::translate("MainWindow", "Open current folder in Explorer", 0));
 #endif // QT_NO_TOOLTIP
-        actionOpen_File->setText(QApplication::translate("MainWindow", "Open File...", 0));
+        actionOpen->setText(QApplication::translate("MainWindow", "Open File...", 0));
 #ifndef QT_NO_TOOLTIP
-        actionOpen_File->setToolTip(QApplication::translate("MainWindow", "Open a file", 0));
+        actionOpen->setToolTip(QApplication::translate("MainWindow", "Open script file", 0));
 #endif // QT_NO_TOOLTIP
-        actionOpen_File->setShortcut(QApplication::translate("MainWindow", "Ctrl+O", 0));
-        actionSave_File->setText(QApplication::translate("MainWindow", "Save File", 0));
-        actionSave_File->setShortcut(QApplication::translate("MainWindow", "Ctrl+S", 0));
-        actionNew_File->setText(QApplication::translate("MainWindow", "New File...", 0));
-        actionNew_File->setShortcut(QApplication::translate("MainWindow", "Ctrl+N", 0));
+        actionOpen->setShortcut(QApplication::translate("MainWindow", "Ctrl+O", 0));
+        actionSave->setText(QApplication::translate("MainWindow", "Save File", 0));
+#ifndef QT_NO_TOOLTIP
+        actionSave->setToolTip(QApplication::translate("MainWindow", "Save current file", 0));
+#endif // QT_NO_TOOLTIP
+        actionSave->setShortcut(QApplication::translate("MainWindow", "Ctrl+S", 0));
+        actionNew->setText(QApplication::translate("MainWindow", "New File...", 0));
+#ifndef QT_NO_TOOLTIP
+        actionNew->setToolTip(QApplication::translate("MainWindow", "Create script file", 0));
+#endif // QT_NO_TOOLTIP
+        actionNew->setShortcut(QApplication::translate("MainWindow", "Ctrl+N", 0));
         actionCut->setText(QApplication::translate("MainWindow", "Cut", 0));
         actionCut->setShortcut(QApplication::translate("MainWindow", "Ctrl+X", 0));
         actionCopy->setText(QApplication::translate("MainWindow", "Copy", 0));
@@ -449,7 +446,6 @@ public:
         actionDelete->setShortcut(QApplication::translate("MainWindow", "Del", 0));
         actionRename->setText(QApplication::translate("MainWindow", "Rename", 0));
         actionRename->setShortcut(QApplication::translate("MainWindow", "F2", 0));
-        actionNew->setText(QApplication::translate("MainWindow", "New", 0));
         actionStepOver->setText(QApplication::translate("MainWindow", "Step Over", 0));
         actionStepInto->setText(QApplication::translate("MainWindow", "Step Into", 0));
         actionStepOut->setText(QApplication::translate("MainWindow", "Step Out", 0));

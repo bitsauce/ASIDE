@@ -21,12 +21,14 @@ class NewProjectDialog;
 namespace Ui {
 class ProjectDialog;
 class NewProjectDialog;
+class ProjectConfigWidget;
 }
 
 // Project defines
 #define PROJECT_UNABLE_TO_READ -1
 #define PROJECT_UNABLE_TO_WRITE -2
 #define PROJECT_ALREADY_EXSISTS -3
+#define PROJECT_FILE_EXT "aside"
 
 // Contains project information
 class Project : public QObject
@@ -35,19 +37,21 @@ class Project : public QObject
     friend class ProjectDialog;
     friend class MainWindow;
 public:
-    static QString getProjectDir();
-    static QString getProjectName();
-    static QSettings *getProjectConfig();
+    static bool isLoaded();
+    static QString getDirectory();
+    static QString getName();
+    static QSettings *getConfig();
 
 private:
     static int createProject(QString name, QString path);
-    static int loadProject(QString path);
+    static int loadProject(const QString &path);
     static void saveProject();
     static void closeProject();
 
-    static QString s_projectDir;
-    static QString s_projectName;
-    static QSettings *s_projectConfig;
+    static bool s_loaded;
+    static QString s_name;
+    static QString s_directory;
+    static QSettings *s_config;
 };
 
 // The recent list delegate
@@ -128,7 +132,7 @@ private slots:
     void clickList(QModelIndex idx);
 
 signals:
-    void newProject();
+    void createProject();
     void openProject();
     void loadProject(QString path);
 };

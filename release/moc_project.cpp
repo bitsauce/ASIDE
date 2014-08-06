@@ -154,7 +154,7 @@ int ProjectItemDelegate::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 struct qt_meta_stringdata_ProjectDialog_t {
     QByteArrayData data[12];
-    char stringdata[116];
+    char stringdata[119];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -164,19 +164,19 @@ struct qt_meta_stringdata_ProjectDialog_t {
 static const qt_meta_stringdata_ProjectDialog_t qt_meta_stringdata_ProjectDialog = {
     {
 QT_MOC_LITERAL(0, 0, 13),
-QT_MOC_LITERAL(1, 14, 10),
-QT_MOC_LITERAL(2, 25, 0),
-QT_MOC_LITERAL(3, 26, 11),
-QT_MOC_LITERAL(4, 38, 11),
-QT_MOC_LITERAL(5, 50, 4),
-QT_MOC_LITERAL(6, 55, 14),
-QT_MOC_LITERAL(7, 70, 3),
-QT_MOC_LITERAL(8, 74, 11),
-QT_MOC_LITERAL(9, 86, 9),
-QT_MOC_LITERAL(10, 96, 9),
-QT_MOC_LITERAL(11, 106, 9)
+QT_MOC_LITERAL(1, 14, 13),
+QT_MOC_LITERAL(2, 28, 0),
+QT_MOC_LITERAL(3, 29, 11),
+QT_MOC_LITERAL(4, 41, 11),
+QT_MOC_LITERAL(5, 53, 4),
+QT_MOC_LITERAL(6, 58, 14),
+QT_MOC_LITERAL(7, 73, 3),
+QT_MOC_LITERAL(8, 77, 11),
+QT_MOC_LITERAL(9, 89, 9),
+QT_MOC_LITERAL(10, 99, 9),
+QT_MOC_LITERAL(11, 109, 9)
     },
-    "ProjectDialog\0newProject\0\0openProject\0"
+    "ProjectDialog\0createProject\0\0openProject\0"
     "loadProject\0path\0removeListItem\0idx\0"
     "repaintList\0setupList\0clearList\0"
     "clickList"
@@ -228,7 +228,7 @@ void ProjectDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
     if (_c == QMetaObject::InvokeMetaMethod) {
         ProjectDialog *_t = static_cast<ProjectDialog *>(_o);
         switch (_id) {
-        case 0: _t->newProject(); break;
+        case 0: _t->createProject(); break;
         case 1: _t->openProject(); break;
         case 2: _t->loadProject((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 3: _t->removeListItem((*reinterpret_cast< int(*)>(_a[1]))); break;
@@ -243,7 +243,7 @@ void ProjectDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         void **func = reinterpret_cast<void **>(_a[1]);
         {
             typedef void (ProjectDialog::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ProjectDialog::newProject)) {
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ProjectDialog::createProject)) {
                 *result = 0;
             }
         }
@@ -299,7 +299,7 @@ int ProjectDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void ProjectDialog::newProject()
+void ProjectDialog::createProject()
 {
     QMetaObject::activate(this, &staticMetaObject, 0, 0);
 }

@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <QSettings>
+#include <QFileDialog>
+#include <QDir>
 
 namespace Ui {
 class Settings;
@@ -17,11 +19,19 @@ public:
     ~SettingsDialog();
 
 public slots:
+
+    // Save dialog to settings
     void save();
+
+    // Dialog changed slot
     void changed();
 
+    // File types
     void addFileType();
     void removeFileType();
+
+    // Browse default application
+    void browseDefaultApplication();
     
 private:
     Ui::Settings *ui;

@@ -16,6 +16,8 @@
 #include <Qsci/qsciscintilla.h>
 #include <Qsci/qscilexercpp.h>
 
+#include <QDebug>
+
 const int BREAKPOINT_MARKER = 1;
 const int LINE_MARKER = 2;
 
@@ -24,30 +26,24 @@ const int LINE_MARKER = 2;
 // The default script editor
 //---------------------------------------
 
-ScriptEditor::ScriptEditor(QString filePath, QString defaultTitle, QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::ScriptEditor),
-    m_filePath(filePath),
-    m_defaultTitle(defaultTitle)
+ScriptEditor::ScriptEditor(QString filePath, QString title) :
+    EditorBase(filePath, title),
+    ui(new Ui::ScriptEditor)
 {
     // Setup ui
     ui->setupUi(this);
 
     // Create mdi window
-    m_mdiWindow = workspace()->createMdiWindow(this);
-    m_mdiWindow->setWindowTitle(defaultTitle);
-    m_mdiWindow->resize(settings()->value("script_editor/subwindow_size", QSize(540, 400)).toSize());
-    m_mdiWindow->show();
-    QObject::connect(m_mdiWindow, SIGNAL(aboutToActivate()), this, SLOT(aboutToActivate()));
+    QObject::connect(mdiWindow(), SIGNAL(aboutToActivate()), this, SLOT(aboutToActivate()));
 
     // Create the script text edit
     m_scriptTextEdit = new QsciScintilla(this);
     ui->gridLayout->addWidget(m_scriptTextEdit);
     connect(m_scriptTextEdit, SIGNAL(marginClicked(int,int,Qt::KeyboardModifiers)), this, SLOT(toggleBreakpoint(int,int,Qt::KeyboardModifiers)));
     connect(m_scriptTextEdit, SIGNAL(textChanged()), this, SLOT(textChanged()));
-    connect(m_scriptTextEdit, SIGNAL(modificationChanged(bool)), this, SLOT(updateSaveState(bool)));
+    connect(m_scriptTextEdit, SIGNAL(modificationChanged(bool)), this, SLOT(setModified(bool)));
     connect(m_scriptTextEdit, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updatePositionLabel(int, int)));
-    connect(m_scriptTextEdit, SIGNAL(lineCountChanged(int,int)), this, SLOT(lineCountChanged(int,int)));
+    //connect(m_scriptTextEdit, SIGNAL(lineCountChanged(int,int)), this, SLOT(lineCountChanged(int,int)));
 
     // Setup fonts n stuff
     int fontSize = settings()->value("script_editor/font_size", 10).toInt();
@@ -88,21 +84,19 @@ ScriptEditor::ScriptEditor(QString filePath, QString defaultTitle, QWidget *pare
     ui->searchButton->setDefaultAction(ui->actionSearch);
     connect(ui->actionSearch, SIGNAL(triggered()), this, SLOT(showScriptSearch()));
     disconnect(workspace()->scriptSearch(), 0, 0, 0);
-    connect(workspace()->scriptSearch(), SIGNAL(findNext()), this, SLOT(findNext()));
-    connect(workspace()->scriptSearch(), SIGNAL(findPrev()), this, SLOT(findPrev()));
-    connect(workspace()->scriptSearch(), SIGNAL(findAll()), this, SLOT(findAll()));
+    connect(workspace()->scriptSearch(), SIGNAL(search(QString,bool,bool,bool,bool)), this, SLOT(search(QString,bool,bool,bool,bool)));
+    connect(workspace()->scriptSearch(), SIGNAL(next()), this, SLOT(findNext()));
 
     // Setup script replace
     ui->replaceButton->setDefaultAction(ui->actionReplace);
     connect(ui->actionReplace, SIGNAL(triggered()), this, SLOT(showScriptReplace()));
     disconnect(workspace()->scriptReplace(), 0, 0, 0);
-    connect(workspace()->scriptReplace(), SIGNAL(findNext()), this, SLOT(findNext()));
-    connect(workspace()->scriptReplace(), SIGNAL(findPrev()), this, SLOT(findPrev()));
-    connect(workspace()->scriptReplace(), SIGNAL(replace()), this, SLOT(replaceSelection()));
-    connect(workspace()->scriptReplace(), SIGNAL(replaceAll()), this, SLOT(replaceAll()));
+    connect(workspace()->scriptReplace(), SIGNAL(search(QString,bool,bool,bool,bool)), this, SLOT(search(QString,bool,bool,bool,bool)));
+    connect(workspace()->scriptReplace(), SIGNAL(next()), this, SLOT(findNext()));
+    //connect(workspace()->scriptReplace(), SIGNAL(replace()), this, SLOT(replaceSelection()));
 
-    // Load file
-    loadFile(filePath);
+    // Load file content
+    load();
 }
 
 ScriptEditor::~ScriptEditor()
@@ -119,10 +113,6 @@ ScriptEditor::~ScriptEditor()
 
     // Clear ui
     delete ui;
-}
-
-void ScriptEditor::loadProject(QString projectPath, QString projectName)
-{
 }
 
 ScriptEditor *ScriptEditor::createFile(QString filePath)
@@ -144,20 +134,7 @@ ScriptEditor *ScriptEditor::createFile(QString filePath)
     file.close();
 
     // Open newly created script file
-    return workspace()->openFile(filePath);
-}
-
-ScriptEditor *ScriptEditor::openFile(QString filePath)
-{
-    // Get title string
-    QString title = filePath;
-    title.remove(Project::getProjectDir() + "/");
-
-    // Create a script editor
-    ScriptEditor *editor = new ScriptEditor(filePath, title, workspace());
-
-    // Add file to editor
-    return editor;
+    return (ScriptEditor*)workspace()->openFile(filePath);
 }
 
 QsciScintilla *ScriptEditor::scriptTextEdit()
@@ -165,86 +142,23 @@ QsciScintilla *ScriptEditor::scriptTextEdit()
     return m_scriptTextEdit;
 }
 
-void ScriptEditor::loadFile(const QString &filePath)
+void ScriptEditor::load()
 {
     // Open script file
-    QFile file(filePath);
+    QFile file(filePath());
     if(!file.open(QIODevice::ReadWrite | QIODevice::Text))
     {
         // Unable to open file
         QMessageBox::critical(workspace(), "Unable to open file",
-                              "Could not open " + filePath + ". Make sure you "
+                              "Could not open " + filePath() + ". Make sure you "
                               "have permissions to read and write to the file.",
                               QMessageBox::Ok, QMessageBox::NoButton);
         return;
     }
 
-    // Read updated file
+    // Setup text edit
     m_scriptTextEdit->setText(file.readAll());
-    resetSaveState();
-    m_filePath = filePath;
-
-    // Resize breakpoints
-    //resizeBreakpoints(0, m_scriptTextEdit->document()->lineCount());
-}
-
-QString ScriptEditor::filePath() const
-{
-    return m_filePath;
-}
-
-QMdiSubWindow *ScriptEditor::mdiWindow() const
-{
-    return m_mdiWindow;
-}
-
-bool ScriptEditor::isSaved() const
-{
-    return !m_scriptTextEdit->isModified();
-}
-
-void ScriptEditor::closeEvent(QCloseEvent *event)
-{
-    // Check if we need to save
-    if(m_scriptTextEdit->isModified())
-    {
-        // Display the dialog
-        int r = QMessageBox::question(this, "Save", "Do you want to save the changes?",
-                                      QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
-        if(r == QMessageBox::Yes)
-        {
-            // Yes, save here
-            save();
-        } else if(r == QMessageBox::Cancel) {
-            // Cancel the close operation
-            event->ignore();
-            return;
-        }
-
-        // No need for saving
-        m_scriptTextEdit->setModified(false);;
-    }
-    emit fileClosed(m_filePath);
-}
-
-void ScriptEditor::resetSaveState()
-{
-    m_scriptTextEdit->setModified(false);
-    updateSaveState(false);
-}
-
-void ScriptEditor::updateSaveState(bool modified)
-{
-    if(modified)
-    {
-        m_mdiWindow->setWindowTitle(m_defaultTitle + "*");
-    }else{
-        m_mdiWindow->setWindowTitle(m_defaultTitle);
-    }
-}
-
-void ScriptEditor::textChanged()
-{
+    EditorBase::load();
 }
 
 void ScriptEditor::updatePositionLabel(int line, int col)
@@ -260,14 +174,12 @@ void ScriptEditor::aboutToActivate()
     connect(workspace()->scriptGoTo(), SIGNAL(gotoLine(int)), this, SLOT(gotoLine(int)));
 
     disconnect(workspace()->scriptSearch(), 0, 0, 0);
-    connect(workspace()->scriptSearch(), SIGNAL(findNext()), this, SLOT(findNext()));
-    connect(workspace()->scriptSearch(), SIGNAL(findPrev()), this, SLOT(findPrev()));
-    connect(workspace()->scriptSearch(), SIGNAL(findAll()), this, SLOT(findAll()));
+    connect(workspace()->scriptSearch(), SIGNAL(search(QString,bool,bool,bool,bool)), this, SLOT(search(QString,bool,bool,bool,bool)));
+    connect(workspace()->scriptSearch(), SIGNAL(next()), this, SLOT(findNext()));
 
     disconnect(workspace()->scriptReplace(), 0, 0, 0);
-    connect(workspace()->scriptReplace(), SIGNAL(findNext()), this, SLOT(findNext()));
-    connect(workspace()->scriptReplace(), SIGNAL(findPrev()), this, SLOT(findPrev()));
-    connect(workspace()->scriptReplace(), SIGNAL(replace()), this, SLOT(replaceSelection()));
+    connect(workspace()->scriptReplace(), SIGNAL(search(QString,bool,bool,bool,bool)), this, SLOT(search(QString,bool,bool,bool,bool)));
+    connect(workspace()->scriptReplace(), SIGNAL(replace(QString)), this, SLOT(replaceSelection(QString)));
     connect(workspace()->scriptReplace(), SIGNAL(replaceAll()), this, SLOT(replaceAll()));
 }
 
@@ -286,33 +198,23 @@ void ScriptEditor::gotoLine(int line)
 
 void ScriptEditor::showScriptSearch()
 {
-//    workspace()->scriptSearch()->show();
-//    workspace()->scriptReplace()->hide();
-//    workspace()->scriptGoTo()->hide();
-//    workspace()->scriptSearch()->setSearchPharse(m_scriptTextEdit->textCursor().selectedText());
+    workspace()->scriptSearch()->show();
+    workspace()->scriptReplace()->hide();
+    workspace()->scriptGoTo()->hide();
+    workspace()->scriptSearch()->setSearchPharse(m_scriptTextEdit->selectedText());
 }
 
 void ScriptEditor::showScriptReplace()
 {
-//    workspace()->scriptReplace()->show();
-//    workspace()->scriptSearch()->hide();
-//    workspace()->scriptGoTo()->hide();
-//    workspace()->scriptReplace()->setSearchPharse(m_scriptTextEdit->textCursor().selectedText());
+    workspace()->scriptReplace()->show();
+    workspace()->scriptSearch()->hide();
+    workspace()->scriptGoTo()->hide();
+    workspace()->scriptReplace()->setSearchPharse(m_scriptTextEdit->selectedText());
 }
 
-void ScriptEditor::replaceSelection()
+void ScriptEditor::replaceSelection(const QString &phrase)
 {
-//    // Check if phrase matches
-//    QString selectedText = m_scriptTextEdit->textCursor().selectedText();
-//    if(selectedText != workspace()->scriptReplace()->searchPhrase())
-//    {
-//        QMessageBox::information(this, "Replace selection not equal",
-//                                 "The selected text is not equal to the replace keyphrase");
-//        return;
-//    }
-
-//    // Replace text
-//    m_scriptTextEdit->textCursor().insertText(workspace()->scriptReplace()->replacePhrase());
+    m_scriptTextEdit->replace(phrase);
 }
 
 void ScriptEditor::replaceAll()
@@ -385,60 +287,24 @@ void ScriptEditor::replaceAll()
 //    }
 }
 
-//---------------------------------------
-// Editor
-//---------------------------------------
-
-//void ScriptEditor::editChanged()
-//{
-//    // Set need save
-//    if(!m_needSave)
-//    {
-//        m_mdiWindow->setWindowTitle(m_title + "*");
-//        m_needSave = true;
-//    }
-
-//    // Update line nuber area
-//    m_scriptTextEdit->updateLineCount();
-//}
-
-////
-////  Debug
-////
-
 void ScriptEditor::scrollToLine(int line, int col)
 {
-//    // Move text cursor to line
-//    QTextCursor cursor(m_scriptTextEdit->textCursor());
-//    cursor.setPosition(0);
-//    cursor.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, line);
-//    cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, col);
-//    m_scriptTextEdit->setTextCursor(cursor);
-
-//    // Center the line
-//    int vscroll = m_scriptTextEdit->fontMetrics().lineSpacing()*line;
-//    vscroll -= m_scriptTextEdit->height()/2;
-//    m_scriptTextEdit->verticalScrollBar()->setValue(vscroll);
-
-//    // Repaint the editor
-//    m_scriptTextEdit->repaint();
+    m_scriptTextEdit->setCursorPosition(line, col);
 }
 
 void ScriptEditor::save()
 {
     // Open script file
-    QFile file(m_filePath);
+    QFile file(filePath());
     if(file.open(QIODevice::ReadWrite | QIODevice::Text | QFile::Truncate))
     {
         // Write script content to file
         QTextStream stream(&file);
         stream << m_scriptTextEdit->text();
         file.close();
-        resetSaveState();
+        setModified(false);
     }
-    emit fileSaved(m_filePath);
-
-    // TODO: Save breakpoints
+    EditorBase::save();
 }
 
 int ScriptEditor::breakpointCount() const
@@ -527,251 +393,23 @@ void ScriptEditor::lineCountChanged(int start, int dt)
 //    codeFinder->setFindPharse(m_scriptTextEdit->selectedText());
 //}
 
-void ScriptEditor::findNext()
+void ScriptEditor::search(const QString &phrase, bool forward, bool regexp, bool matchCase, bool wholeWords)
 {
-//    // Search forwards
-//    QString phrase;
-//    if(workspace()->scriptSearch()->isVisible())
-//        phrase = workspace()->scriptSearch()->searchPhrase();
-//    else
-//        phrase = workspace()->scriptReplace()->searchPhrase();
-//    int pos = m_scriptTextEdit->textCursor().position();
-//    if(!m_scriptTextEdit->find(phrase))
-//    {
-//        // EOF, move to begining
-//        QTextCursor cursor = m_scriptTextEdit->textCursor();
-//        cursor.setPosition(0);
-//        m_scriptTextEdit->setTextCursor(cursor);
-//        if(!m_scriptTextEdit->find(phrase))
-//        {
-//            QTextCursor cur = m_scriptTextEdit->textCursor();
-//            cur.setPosition(pos);
-//            m_scriptTextEdit->setTextCursor(cur);
-//            QMessageBox::information(this, "Could not find", "Could not find the spesified keyphrase");
-//        }
-//    }
+    // Search for text
+    if(!m_scriptTextEdit->findFirst(phrase, regexp, matchCase, wholeWords, true, forward))
+    {
+        QMessageBox::information(this, "Could not find", "Could not find the spesified keyphrase");
+    }
 }
 
-void ScriptEditor::findPrev()
+void ScriptEditor::findNext()
 {
-//    // Search backwards
-//    QString phrase;
-//    if(workspace()->scriptSearch()->isVisible())
-//        phrase = workspace()->scriptSearch()->searchPhrase();
-//    else
-//        phrase = workspace()->scriptReplace()->searchPhrase();
-//    int pos = m_scriptTextEdit->textCursor().position();
-//    if(!m_scriptTextEdit->find(phrase, QTextDocument::FindBackward))
-//    {
-//        // EOF, move to end
-//        QTextCursor cursor = m_scriptTextEdit->textCursor();
-//        cursor.movePosition(QTextCursor::End);
-//        m_scriptTextEdit->setTextCursor(cursor);
-//        if(!m_scriptTextEdit->find(phrase, QTextDocument::FindBackward))
-//        {
-//            QTextCursor cur = m_scriptTextEdit->textCursor();
-//            cur.setPosition(pos);
-//            m_scriptTextEdit->setTextCursor(cur);
-//            QMessageBox::information(this, "Could not find", "Could not find the spesified keyphrase in the text");
-//        }
-//    }
+    m_scriptTextEdit->findNext();
 }
 
 void ScriptEditor::findAll()
 {
     // TODO: Add
-}
-
-//---------------------------------------------------
-// AngelScriptHL
-// The script highligter and praser
-//---------------------------------------------------
-
-AngelScriptPraser::AngelScriptPraser(QTextDocument *parent)
-    : QSyntaxHighlighter(parent)
-{
-    // Keyword format
-    datatypeFormat.setForeground(Qt::blue);
-    QStringList datatypeKeywords;
-    datatypeKeywords << "\\bvoid\\b" << "\\bint8\\b" << "\\bint16\\b"
-                    << "\\bint\\b" << "\\bint64\\b" << "\\buint8\\b"
-                    << "\\buint16\\b" << "\\buint\\b" << "\\buint64\\b"
-                    << "\\bfloat\\b" << "\\bdouble\\b" << "\\bbool\\b"
-                    << "\\bstring\\b" << "\\bprivate\\b" << "\\bvec2\\b"
-                    << "\\bvec3\\b" << "\\bvec4\\b" << "\\brect2\\b"
-                    << "\\brect2i\\b" ;
-
-    // Phrase keywords
-    foreach(const QString &keyword, datatypeKeywords)
-        datatypeExpressions.append(QRegExp(keyword));
-
-    // Keyword format
-    statementFormat.setForeground(Qt::darkYellow);
-    QStringList statementKeywords;
-    statementKeywords << "\\bconst\\b" << "\\bcase\\b" << "\\bdefault\\b"
-                      << "\\breturn\\b" << "\\bbreak\\b" << "\\bcontinue\\b"
-                      << "\\bthis\\b" << "\\bnull\\b" << "\\btrue\\b"
-                      << "\\bfalse\\b" << "\\bif\\b" << "\\belse\\b"
-                      << "\\bfor\\b" << "\\bwhile\\b" << "\\bswitch\\b"
-                      << "\\bclass\\b" << "\\benum\\b" << "\\bnamespace\\b"
-                      << "\\bset\\b" << "\\bget\\b" << "\\band\\b" << "\\bcast\\b";
-
-    // Phrase keywords
-    foreach(const QString &keyword, statementKeywords)
-        statementExpressions.append(QRegExp(keyword));
-
-    // Include format
-    includeFormat.setForeground(Qt::darkBlue);
-    includeExpression = QRegExp("include");
-
-    // Single line format
-    commentFormat.setForeground(Qt::darkGreen);
-    singleLineExpression = QRegExp("//[^\n]*");
-
-    // Multi line format
-    multiLineStartExpression = QRegExp("/\\*");
-    multiLineEndExpression = QRegExp("\\*/");
-
-    // Quotation format
-    quotationFormat.setForeground(Qt::darkGreen);
-    quotationExpression = QRegExp("\"");
-}
-
-#define MULTI_LINE_STATE    (1 << 0)
-
-void AngelScriptPraser::highlightBlock(const QString &text)
-{
-    // Define vars
-    int begin, end, len;
-    int blockNum = currentBlock().blockNumber();
-    int blockState = 0;
-    int prevBlockState = previousBlockState();
-    if(prevBlockState < 0)
-        prevBlockState = 0;
-
-    // Apply #include
-    begin = includeExpression.indexIn(text);
-    if(begin-1 >= 0)
-    {
-        len = 8;
-        if(text.at(begin-1) == '#')
-            setFormat(begin-1, len, includeFormat);
-    }
-
-    // Apply datatype highlighting
-    foreach(const QRegExp &expression, datatypeExpressions)
-    {
-        begin = expression.indexIn(text);
-        while(begin >= 0)
-        {
-            len = expression.matchedLength();
-            setFormat(begin, len, datatypeFormat);
-            begin = expression.indexIn(text, begin + len);
-        }
-    }
-
-    // Apply statement highlighting
-    foreach(const QRegExp &expression, statementExpressions)
-    {
-        begin = expression.indexIn(text);
-        while(begin >= 0)
-        {
-            len = expression.matchedLength();
-            setFormat(begin, len, statementFormat);
-            begin = expression.indexIn(text, begin + len);
-        }
-    }
-
-    // Apply quotations
-    begin = quotationExpression.indexIn(text);
-    while(begin >= 0)
-    {
-        len = quotationExpression.matchedLength();
-        if(begin-1 < 0 || text.at(begin-1) != '\\')
-        {
-            end = quotationExpression.indexIn(text, begin+1);
-            while(end >= 0)
-            {
-                if(text.at(end-1) == '\\')
-                    end = quotationExpression.indexIn(text, end+1);
-                else break;
-            }
-
-            if(end != -1)
-                len = end - begin + quotationExpression.matchedLength();
-            else
-                len = text.size() - begin;
-            setFormat(begin, len, quotationFormat);
-        }
-        begin = quotationExpression.indexIn(text, begin + len);
-    }
-
-    // Remove comments from block
-    comments.remove(blockNum);
-
-    // Apply comments
-    begin = 0;
-    if((prevBlockState & MULTI_LINE_STATE) == 0)
-        begin = multiLineStartExpression.indexIn(text);
-    if(begin >= 0)
-    {
-        // We might have a multi-line comment,
-        // check for single-line comment override
-        int singleLineBegin = singleLineExpression.indexIn(text);
-        if(singleLineBegin < begin && singleLineBegin != -1)
-        {
-            // Apply single line override
-            setFormat(singleLineBegin, text.size(), commentFormat);
-            Comment comment = { singleLineBegin, text.size() };
-            comments.insert(blockNum, comment);
-        }else{
-            while(begin >= 0)
-            {
-                if((prevBlockState & MULTI_LINE_STATE) == 0)
-                    end = multiLineEndExpression.indexIn(text, begin+2);
-                else
-                    end = multiLineEndExpression.indexIn(text, begin);
-                if(end == -1)
-                {
-                    blockState |= MULTI_LINE_STATE;
-                    //setCurrentBlockState(MULTI_LINE_STATE);
-                    len = text.length() - begin;
-                }else{
-                    len = end - begin + multiLineEndExpression.matchedLength();
-                }
-                setFormat(begin, len, commentFormat);
-                Comment comment = { begin, end+1 };
-                comments.insert(blockNum, comment);
-
-                // Check for single-line comment
-                begin = multiLineStartExpression.indexIn(text, begin + len);
-                if(end != -1)
-                {
-                    singleLineBegin = singleLineExpression.indexIn(text, end);
-                    if((begin == -1 || (begin != -1 && singleLineBegin < begin)) && singleLineBegin != -1)
-                    {
-                        // Apply single line override
-                        setFormat(singleLineBegin, text.size(), commentFormat);
-                        Comment comment = { singleLineBegin, text.size() };
-                        comments.insert(blockNum, comment);
-                        break;
-                    }
-                }
-            }
-        }
-    }else{
-        // There is no multiline comment,
-        // check for single-line comment
-        int singleLineBegin = singleLineExpression.indexIn(text);
-        if(singleLineBegin >= 0)
-        {
-            setFormat(singleLineBegin, text.size(), commentFormat);
-            Comment comment = { singleLineBegin, text.size() };
-            comments.insert(blockNum, comment);
-        }
-    }
-
-    setCurrentBlockState(blockState);
 }
 
 //-------------------------------------------
@@ -836,9 +474,9 @@ ScriptSearch::ScriptSearch(QWidget *parent) :
     ui->nextButton->setDefault(true);
 
     // Connect signals
-    connect(ui->nextButton, SIGNAL(clicked()), this, SIGNAL(findNext()));
+    connect(ui->nextButton, SIGNAL(clicked()), this, SLOT(searchForwards()));
     connect(ui->nextButton, SIGNAL(clicked()), this, SLOT(setNextDefault()));
-    connect(ui->prevButton, SIGNAL(clicked()), this, SIGNAL(findPrev()));
+    connect(ui->prevButton, SIGNAL(clicked()), this, SLOT(searchBackwards()));
     connect(ui->prevButton, SIGNAL(clicked()), this, SLOT(setPrevDefault()));
     connect(ui->findAllButton, SIGNAL(clicked()), this, SIGNAL(findAll()));
 
@@ -877,6 +515,32 @@ void ScriptSearch::showEvent(QShowEvent *e)
     QDialog::showEvent(e);
 }
 
+void ScriptSearch::find(const QString &phrase, const bool forward)
+{
+    int flags = (forward ? 1 << 0 : 0 ) |
+            (ui->regexpCheck->isChecked() ? 1 << 1 : 0 ) |
+            (ui->matchCaseCheck->isChecked() ? 1 << 2 : 0 ) |
+            (ui->wholeWordsCheck->isChecked() ? 1 << 3 : 0 );
+    if(m_prevParam.phrase != phrase || m_prevParam.flags != flags)
+    {
+        emit search(phrase, flags & (1 << 0), flags & (1 << 1), flags & (1 << 2), flags & (1 << 3));
+    }else{
+        emit next();
+    }
+    m_prevParam.phrase = phrase;
+    m_prevParam.flags = flags;
+}
+
+void ScriptSearch::searchForwards()
+{
+    find(ui->searchPhraseEdit->text(), true);
+}
+
+void ScriptSearch::searchBackwards()
+{
+    find(ui->searchPhraseEdit->text(), false);
+}
+
 void ScriptSearch::setNextDefault()
 {
     ui->nextButton->setDefault(true);
@@ -896,7 +560,7 @@ void ScriptSearch::setPrevDefault()
 
 #include "ui_scriptreplace.h"
 ScriptReplace::ScriptReplace(QWidget *parent) :
-    QDialog(parent),
+    ScriptSearch(parent),
     ui(new Ui::ScriptReplace)
 {
     // Setup ui
@@ -906,12 +570,12 @@ ScriptReplace::ScriptReplace(QWidget *parent) :
     ui->nextButton->setDefault(true);
 
     // Connect signals
-    connect(ui->nextButton, SIGNAL(clicked()), this, SIGNAL(findNext()));
+    connect(ui->nextButton, SIGNAL(clicked()), this, SLOT(searchForwards()));
     connect(ui->nextButton, SIGNAL(clicked()), this, SLOT(setNextDefault()));
-    connect(ui->prevButton, SIGNAL(clicked()), this, SIGNAL(findPrev()));
+    connect(ui->prevButton, SIGNAL(clicked()), this, SLOT(searchBackwards()));
     connect(ui->prevButton, SIGNAL(clicked()), this, SLOT(setPrevDefault()));
-    connect(ui->replaceButton, SIGNAL(clicked()), this, SIGNAL(replace()));
-    connect(ui->replaceAllButton, SIGNAL(clicked()), this, SIGNAL(replaceAll()));
+    connect(ui->replaceButton, SIGNAL(clicked()), this, SLOT(replaceSelection()));
+    //connect(ui->replaceAllButton, SIGNAL(clicked()), this, SLOT(replaceAll()));
 
     // Setup dialog
     setFixedSize(size());
@@ -923,16 +587,6 @@ ScriptReplace::ScriptReplace(QWidget *parent) :
 ScriptReplace::~ScriptReplace()
 {
     delete ui;
-}
-
-void ScriptReplace::setSearchPharse(QString phrase)
-{
-    ui->searchPhraseEdit->setText(phrase);
-}
-
-QString ScriptReplace::searchPhrase()
-{
-    return ui->searchPhraseEdit->text();
 }
 
 void ScriptReplace::setReplacePharse(QString phrase)
@@ -950,27 +604,7 @@ bool ScriptReplace::replaceInAllFiles()
     return ui->tempBox->isChecked();
 }
 
-void ScriptReplace::closeEvent(QCloseEvent *e)
+void ScriptReplace::replaceSelection()
 {
-    hide();
-    e->ignore();
-}
-
-void ScriptReplace::showEvent(QShowEvent *e)
-{
-    // Make sure the typing field has focus
-    ui->searchPhraseEdit->setFocus();
-    QDialog::showEvent(e);
-}
-
-void ScriptReplace::setNextDefault()
-{
-    ui->nextButton->setDefault(true);
-    ui->prevButton->setDefault(false);
-}
-
-void ScriptReplace::setPrevDefault()
-{
-    ui->nextButton->setDefault(false);
-    ui->prevButton->setDefault(true);
+    emit replace(ui->replacePhraseEdit->text());
 }

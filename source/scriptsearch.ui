@@ -72,7 +72,7 @@
    <item row="2" column="0">
     <widget class="QCheckBox" name="matchCaseCheck">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="text">
       <string>Match case</string>
@@ -82,10 +82,17 @@
    <item row="3" column="0">
     <widget class="QCheckBox" name="wholeWordsCheck">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="text">
       <string>Whole words only</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QCheckBox" name="regexpCheck">
+     <property name="text">
+      <string>Use Regular Expression</string>
      </property>
     </widget>
    </item>

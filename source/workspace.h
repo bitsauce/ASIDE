@@ -12,7 +12,7 @@
 class GameWidget;
 class MainWindow;
 class WorkspaceToolbar;
-class ScriptEditor;
+class EditorBase;
 class ScriptSearch;
 class ScriptReplace;
 class ScriptGoTo;
@@ -20,6 +20,7 @@ class ScriptGoTo;
 class Workspace : public QWidget
 {
     friend class MainWindow;
+    friend class EditorBase;
     Q_OBJECT
 public:
     explicit Workspace(MainWindow *parent = 0);
@@ -33,13 +34,12 @@ public:
     ScriptGoTo *scriptGoTo();
 
     // Files
-    ScriptEditor *openFile(QString filePath);
-    ScriptEditor *getOpenEditor(const QString filePath);
-    ScriptEditor *getCurrentEditor();
+    EditorBase *openFile(QString filePath);
+    EditorBase *getOpenEditor(const QString filePath);
+    EditorBase *getCurrentEditor();
 
     // Mdi area
-    void setCurrentMdiWindow(QMdiSubWindow *subWindow);
-    QMdiSubWindow *createMdiWindow(QWidget *content);
+    void setCurrentEditor(EditorBase *editor);
 
     // Actions
     QAction *cutAction();
@@ -49,11 +49,23 @@ public:
     QAction *deleteAction();
     QAction *renameAction();
 
+private:
+
+    // Create a mdi window
+    void setCurrentMdiWindow(QMdiSubWindow *subWindow);
+    QMdiSubWindow *createMdiWindow(QWidget *content);
+
 public slots:
 
     // Mdi area
     int promptSaveChanges();
     int promptCloseAll();
+
+    // File saving
+    void saveAll();
+    void saveCurrent();
+    //void closeCurrent();
+    void openFile();
 
     // File changed
     void fileSaved(const QString &filePath);
@@ -76,16 +88,16 @@ protected:
     ScriptReplace *m_scriptReplace;
     ScriptGoTo *m_scriptGoTo;
 
-    // Attach file notifier
+    // File watcher
     QFileSystemWatcher *m_fileWatcher;
-
     QTimer *m_resetSavedFilesTimer;
     QStringList m_alreadyCalledFiles;
     QStringList m_recentlySavedFiles;
 
     // Open editors
-    QList<ScriptEditor*> m_openEditors;
+    QList<EditorBase*> m_openEditors;
 };
+
 extern Workspace *workspace();
 
 //---------------------------------------------

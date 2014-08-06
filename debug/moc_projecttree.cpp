@@ -87,7 +87,7 @@ int FileSystemSortProxyModel::qt_metacall(QMetaObject::Call _c, int _id, void **
 }
 struct qt_meta_stringdata_ProjectTree_t {
     QByteArrayData data[12];
-    char stringdata[133];
+    char stringdata[204];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -97,22 +97,24 @@ struct qt_meta_stringdata_ProjectTree_t {
 static const qt_meta_stringdata_ProjectTree_t qt_meta_stringdata_ProjectTree = {
     {
 QT_MOC_LITERAL(0, 0, 11),
-QT_MOC_LITERAL(1, 12, 7),
-QT_MOC_LITERAL(2, 20, 0),
-QT_MOC_LITERAL(3, 21, 11),
-QT_MOC_LITERAL(4, 33, 12),
-QT_MOC_LITERAL(5, 46, 13),
-QT_MOC_LITERAL(6, 60, 14),
-QT_MOC_LITERAL(7, 75, 11),
-QT_MOC_LITERAL(8, 87, 10),
-QT_MOC_LITERAL(9, 98, 11),
-QT_MOC_LITERAL(10, 110, 9),
-QT_MOC_LITERAL(11, 120, 12)
+QT_MOC_LITERAL(1, 12, 12),
+QT_MOC_LITERAL(2, 25, 0),
+QT_MOC_LITERAL(3, 26, 13),
+QT_MOC_LITERAL(4, 40, 14),
+QT_MOC_LITERAL(5, 55, 14),
+QT_MOC_LITERAL(6, 70, 10),
+QT_MOC_LITERAL(7, 81, 28),
+QT_MOC_LITERAL(8, 110, 15),
+QT_MOC_LITERAL(9, 126, 15),
+QT_MOC_LITERAL(10, 142, 30),
+QT_MOC_LITERAL(11, 173, 30)
     },
-    "ProjectTree\0newFile\0\0defaultPath\0"
-    "cutSelection\0copySelection\0pasteClipboard\0"
-    "deleteItems\0renameItem\0newFileItem\0"
-    "addFolder\0browseFolder"
+    "ProjectTree\0cutSelection\0\0copySelection\0"
+    "pasteClipboard\0showItemCreate\0defaultDir\0"
+    "createItemInCurrentDirectory\0"
+    "deleteSelection\0renameSelection\0"
+    "createFolderInCurrentDirectory\0"
+    "showCurrentDirectoryInExplorer"
 };
 #undef QT_MOC_LITERAL
 
@@ -127,28 +129,24 @@ static const uint qt_meta_data_ProjectTree[] = {
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
-
- // signals: name, argc, parameters, tag, flags
-       1,    1,   59,    2, 0x06 /* Public */,
+       0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       4,    0,   62,    2, 0x0a /* Public */,
-       5,    0,   63,    2, 0x0a /* Public */,
-       6,    0,   64,    2, 0x0a /* Public */,
+       1,    0,   59,    2, 0x0a /* Public */,
+       3,    0,   60,    2, 0x0a /* Public */,
+       4,    0,   61,    2, 0x0a /* Public */,
+       5,    1,   62,    2, 0x0a /* Public */,
        7,    0,   65,    2, 0x0a /* Public */,
        8,    0,   66,    2, 0x0a /* Public */,
        9,    0,   67,    2, 0x0a /* Public */,
       10,    0,   68,    2, 0x0a /* Public */,
       11,    0,   69,    2, 0x0a /* Public */,
 
- // signals: parameters
-    QMetaType::Void, QMetaType::QString,    3,
-
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    6,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -163,25 +161,16 @@ void ProjectTree::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
     if (_c == QMetaObject::InvokeMetaMethod) {
         ProjectTree *_t = static_cast<ProjectTree *>(_o);
         switch (_id) {
-        case 0: _t->newFile((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 1: _t->cutSelection(); break;
-        case 2: _t->copySelection(); break;
-        case 3: _t->pasteClipboard(); break;
-        case 4: _t->deleteItems(); break;
-        case 5: _t->renameItem(); break;
-        case 6: _t->newFileItem(); break;
-        case 7: _t->addFolder(); break;
-        case 8: _t->browseFolder(); break;
+        case 0: _t->cutSelection(); break;
+        case 1: _t->copySelection(); break;
+        case 2: _t->pasteClipboard(); break;
+        case 3: _t->showItemCreate((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 4: _t->createItemInCurrentDirectory(); break;
+        case 5: _t->deleteSelection(); break;
+        case 6: _t->renameSelection(); break;
+        case 7: _t->createFolderInCurrentDirectory(); break;
+        case 8: _t->showCurrentDirectoryInExplorer(); break;
         default: ;
-        }
-    } else if (_c == QMetaObject::IndexOfMethod) {
-        int *result = reinterpret_cast<int *>(_a[0]);
-        void **func = reinterpret_cast<void **>(_a[1]);
-        {
-            typedef void (ProjectTree::*_t)(QString );
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ProjectTree::newFile)) {
-                *result = 0;
-            }
         }
     }
 }
@@ -220,12 +209,5 @@ int ProjectTree::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 9;
     }
     return _id;
-}
-
-// SIGNAL 0
-void ProjectTree::newFile(QString _t1)
-{
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_END_MOC_NAMESPACE

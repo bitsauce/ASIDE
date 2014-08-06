@@ -10,6 +10,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "scripteditor.h"
+#include "settings.h"
+#include "project.h"
+#include "configeditor.h"
 
 // Global workspace
 
@@ -89,61 +92,80 @@ ScriptGoTo *Workspace::scriptGoTo()
     return m_scriptGoTo;
 }
 
-#include "settings.h"
-ScriptEditor *Workspace::openFile(QString filePath)
+EditorBase *Workspace::openFile(QString filePath)
 {
-    QFileInfo fileInfo(filePath);
+    filePath = QDir::fromNativeSeparators(filePath);
 
-    // Check if file is a script file
-    bool isScriptFile = false;
-    foreach(QString fileType, settings()->fileTypes())
+    // Check if the file is already open
+    EditorBase *editor = getOpenEditor(filePath);
+    if(editor)
     {
-        if(fileType.split(";")[1] == fileInfo.suffix())
-            isScriptFile = true;
-    }
+        m_mdiWidget->setActiveSubWindow(editor->m_mdiWindow);
+    }else{
+        QFileInfo fileInfo(filePath);
 
-    if(isScriptFile)
-    {
-        // Check if file is already open
-        ScriptEditor *editor = getOpenEditor(filePath);
-        if(editor == 0)
+        // Check for script files
+        bool isScriptFile = false;
+        foreach(QString fileType, settings()->fileTypes())
         {
-            // Not open, open the file
+            if(fileType.split(";")[1] == fileInfo.suffix())
+                isScriptFile = true;
+        }
+
+        // Open file
+        if(isScriptFile)
+        {
+            // Get title string
+            QString title = filePath;
+            if(Project::isLoaded()) {
+                title.remove(Project::getDirectory());
+            }else{
+                title = title.right(title.size() - title.lastIndexOf('/') - 1);
+            }
+
+            // Open file in script editor
+            editor = new ScriptEditor(filePath, title);
+        }else if(fileInfo.suffix() == PROJECT_FILE_EXT)
+        {
+            // Display project configuration file
+            editor = new ConfigEditor(filePath, "Project Config");
+        }else
+        {
+            // Check for an external program to open this file
+            QDesktopServices::openUrl(QUrl("file:///" + filePath));
+        }
+
+        // If an editor was created:
+        if(editor)
+        {
+            // Add file to file watcher
             m_fileWatcher->addPath(filePath);
-            editor = ScriptEditor::openFile(filePath);
             connect(editor, SIGNAL(fileClosed(const QString&)), this, SLOT(fileClosed(const QString&)));
             connect(editor, SIGNAL(fileSaved(const QString&)), this, SLOT(fileSaved(const QString&)));
 
-            // Add to open editors
+            // Add editor to open editors
             m_openEditors.push_back(editor);
-        }else{
-            // The file is already open, make it the current mdi window
-            m_mdiWidget->setActiveSubWindow(editor->mdiWindow());
         }
-
-        return editor;
-    }else{
-       // Check for an external program to open this file
     }
-    return 0;
+    return editor;
 }
 
-ScriptEditor *Workspace::getOpenEditor(const QString filePath)
+EditorBase *Workspace::getOpenEditor(const QString filePath)
 {
-    foreach(ScriptEditor *editor, m_openEditors)
+    foreach(EditorBase *editor, m_openEditors)
     {
-        if(editor->filePath() == filePath) {
+        if(editor->m_filePath == filePath) {
             return editor;
         }
     }
     return 0;
 }
 
-ScriptEditor *Workspace::getCurrentEditor()
+EditorBase *Workspace::getCurrentEditor()
 {
-    foreach(ScriptEditor *editor, m_openEditors)
+    foreach(EditorBase *editor, m_openEditors)
     {
-        if(editor->mdiWindow() == m_mdiWidget->activeSubWindow()) {
+        if(editor->m_mdiWindow == m_mdiWidget->activeSubWindow()) {
             return editor;
         }
     }
@@ -152,11 +174,15 @@ ScriptEditor *Workspace::getCurrentEditor()
 
 QMdiSubWindow *Workspace::createMdiWindow(QWidget *content)
 {
+    // Create mdi sub window
     QMdiSubWindow *mdiWindow = m_mdiWidget->addSubWindow(content);
+
+    // Setup window
     QAction *closeAll = mdiWindow->systemMenu()->addAction("Close All");
     connect(closeAll, SIGNAL(triggered()), this, SLOT(promptCloseAll()));
     mdiWindow->systemMenu()->removeAction(mdiWindow->systemMenu()->actions()[0]);
-    QObject::connect(content, SIGNAL(destroyed()), mdiWindow, SLOT(close()));
+
+    // Return window
     return mdiWindow;
 }
 
@@ -202,9 +228,10 @@ int Workspace::promptSaveChanges()
 {
     // Check for unsaved changes
     int r = 0;
-    foreach(ScriptEditor *editor, m_openEditors)
+    foreach(EditorBase *editor, m_openEditors)
     {
-        if(!editor->isSaved()) {
+        if(editor->isModified())
+        {
             r = QMessageBox::question(this, "Save Changes?", "Unsaved changes have been made. Do you want to save all the changes?",
                                       QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
             break;
@@ -214,9 +241,7 @@ int Workspace::promptSaveChanges()
     // Save unsaved changes?
     if(r == QMessageBox::Yes)
     {
-        // Save
-        foreach(ScriptEditor *editor, m_openEditors)
-            editor->save();
+        saveAll();
     }
     return r;
 }
@@ -228,12 +253,34 @@ int Workspace::promptCloseAll()
     if(r != QMessageBox::Cancel)
     {
         // Close all mdi windows
-        foreach(ScriptEditor *editor, m_openEditors) {
-            editor->resetSaveState();
-            editor->mdiWindow()->close();
+        foreach(EditorBase *editor, m_openEditors)
+        {
+            editor->setModified(false);
+            editor->m_mdiWindow->close();
         }
     }
     return r;
+}
+
+void Workspace::saveAll()
+{
+    // Save all open files
+    foreach(EditorBase *editor, m_openEditors)
+    {
+        editor->save();
+    }
+}
+
+void Workspace::saveCurrent()
+{
+    // Save current file
+    EditorBase *editor = getCurrentEditor();
+    if(editor) editor->save();
+}
+
+void Workspace::openFile()
+{
+
 }
 
 void Workspace::fileSaved(const QString &filePath)
@@ -262,14 +309,14 @@ void Workspace::fileChanged(const QString &filePath)
     // File was modified externaly
     int r = QMessageBox::question(this, "Reload", "" + filePath + "\n\nThis file has been modified by an external program.\n"
                          "Do you wish to reload it?", QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
-    ScriptEditor *editor = getOpenEditor(filePath);
+    EditorBase *editor = getOpenEditor(filePath);
     if(r == QMessageBox::Yes)
     {
         // Reload file content
-        editor->loadFile(filePath);
+        editor->load();
     }else{
         // Tell the editor the text was changed
-        editor->textChanged();
+        editor->setModified(false);
     }
 }
 

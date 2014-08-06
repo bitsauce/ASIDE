@@ -15,7 +15,7 @@
 #include "debugger.h"
 #include "settings.h"
 
-#define EDITOR_VERSION 102007
+#define EDITOR_VERSION 103000
 
 //------------------------------------------------
 // MainWindow
@@ -33,6 +33,12 @@ MainWindow::MainWindow(QWidget *parent) :
     new Workspace(this);
     addToolBar(Qt::TopToolBarArea, workspace()->m_toolbar);
 
+    connect(ui->actionSave_All, SIGNAL(triggered()), workspace(), SLOT(saveAll()));
+    connect(ui->actionSave, SIGNAL(triggered()), workspace(), SLOT(saveCurrent()));
+    connect(ui->actionOpen, SIGNAL(triggered()), workspace(), SLOT(openFile()));
+
+    connect(ui->actionNew_Project, SIGNAL(triggered()), this, SLOT(createProject()));
+
     // Setup settings
     new Settings(this);
 
@@ -45,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Create project dialog
     m_projectDialog = new ProjectDialog(this);
     m_projectDialog->show();
-    connect(m_projectDialog, SIGNAL(newProject()), this, SLOT(newProject()));
+    connect(m_projectDialog, SIGNAL(createProject()), this, SLOT(createProject()));
     connect(m_projectDialog, SIGNAL(openProject()), this, SLOT(openProject()));
     connect(m_projectDialog, SIGNAL(loadProject(QString)), this, SLOT(loadProject(QString)));
 
@@ -86,7 +92,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // Setup project tree
     m_projectTree = new ProjectTree(this);
     m_projectTree->hide();
-    connect(m_projectTree, SIGNAL(newFile(QString)), this, SLOT(newFile(QString)));
 
     QWidget *workspaceArea = new QWidget(this);
     QGridLayout *gridLayout = new QGridLayout(workspaceArea);
@@ -167,14 +172,15 @@ MainWindow::MainWindow(QWidget *parent) :
     // Run update check
     checkForUpdate();
 
+    // Set window title
+    setWindowTitle(windowTitle() + " " + QString::number(EDITOR_VERSION));
+
     // Open the file given by the command line arguments
     if(QCoreApplication::arguments().size() > 1)
     {
         QString filePath = QCoreApplication::arguments().at(1);
         applicationMessage(filePath);
     }
-
-    setWindowTitle(windowTitle() + " " + QString::number(EDITOR_VERSION));
 }
 
 MainWindow::~MainWindow()
@@ -188,31 +194,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::moveEvent(QMoveEvent *e)
 {
-    if(m_projectDialog)
-    {
-        // Make sure the project dialog is in the center
-        QPoint center = mapToGlobal(centralWidget()->rect().center());
-        QSize size = m_projectDialog->size();
-        int offset = ui->menuBar->height();
-        m_projectDialog->move(center.x()-size.width()/2,
-                              offset+center.y()-size.height()/2);
-    }
-
+    // Make sure the project dialog is in the center
+    centerSplash();
     QMainWindow::moveEvent(e);
 }
 
 void MainWindow::resizeEvent(QResizeEvent *e)
 {
-    if(m_projectDialog)
-    {
-        // Make sure the project dialog is in the center
-        QPoint center = mapToGlobal(centralWidget()->rect().center());
-        QSize size = m_projectDialog->size();
-        int offset = ui->menuBar->height();
-        m_projectDialog->move(center.x()-size.width()/2,
-                              offset+center.y()-size.height()/2);
-    }
-
+    // Make sure the project dialog is in the center
+    centerSplash();
     QMainWindow::resizeEvent(e);
 }
 
@@ -249,6 +239,14 @@ void MainWindow::closeEvent(QCloseEvent *e)
     //    m_workspace->m_gameWidget->close();
 
     QMainWindow::closeEvent(e);
+}
+
+void MainWindow::centerSplash()
+{
+    // Center the splash dialog
+    QPoint center = mapToGlobal(centralWidget()->rect().center());
+    QSize size = m_projectDialog->size();
+    m_projectDialog->move(center.x() - size.width()/2, ui->menuBar->height() + center.y() - size.height()/2);
 }
 
 //----------------------------------------
@@ -366,7 +364,7 @@ void MainWindow::processUpdate(int version)
 // Project
 //----------------------------------------
 
-void MainWindow::newProject()
+void MainWindow::createProject()
 {
     // Show new project dialog
     NewProjectDialog *newDialog = new NewProjectDialog(this);
@@ -391,7 +389,7 @@ void MainWindow::newProject()
                                      QMessageBox::Ok, QMessageBox::NoButton);
             }else{
                 // Load project
-                loadProject(newDialog->projectPath() + "/" + newDialog->projectName() + ".x2d");
+                loadProject(newDialog->projectPath() + "/" + newDialog->projectName() + "." + PROJECT_FILE_EXT);
             }
         }
         break;
@@ -402,12 +400,12 @@ void MainWindow::newProject()
 void MainWindow::openProject()
 {
     // Open file
-    QString projectFile = QFileDialog::getOpenFileName(this, "Open Project", QDir::homePath(),
-                                                       tr("Project Files (*.x2d)"));
+    QString projectFile = QFileDialog::getOpenFileName(this, tr("Open Project"), QDir::homePath(), tr("Project Files (*.%1)").arg(PROJECT_FILE_EXT));
 
     // Load project
-    if(!projectFile.isEmpty())
+    if(!projectFile.isEmpty()) {
         loadProject(projectFile);
+    }
 }
 
 void MainWindow::loadProject(QString projectFile)
@@ -461,8 +459,6 @@ void MainWindow::loadProject(QString projectFile)
         i++;
     }*/
 
-    ScriptEditor::loadProject("","");
-
     // Project loaded
     projectLoaded();
 }
@@ -470,16 +466,16 @@ void MainWindow::loadProject(QString projectFile)
 void MainWindow::projectLoaded()
 {
     // Set window title
-    setWindowTitle("AngelScript IDE - " + Project::getProjectName());
+    setWindowTitle("AngelScript IDE - " + Project::getName());
 
     // Enable workspace
     workspace()->setEnabled(true);
     workspace()->m_toolbar->setEnabled(true);
 
     // Enable file buttons
-    ui->actionNew_File->setEnabled(true);
-    ui->actionOpen_File->setEnabled(true);
-    ui->actionSave_File->setEnabled(true);
+    ui->actionNew->setEnabled(true);
+    ui->actionOpen->setEnabled(true);
+    ui->actionSave->setEnabled(true);
 
     // Enable game buttons
     ui->actionRun->setEnabled(true);
@@ -489,61 +485,11 @@ void MainWindow::projectLoaded()
     ui->actionClose_Project->setEnabled(true);
 
     // Setup project tree
-    m_projectTree->setRootPath(Project::getProjectDir());
+    m_projectTree->setRootPath(Project::getDirectory());
     m_projectTree->show();
 
     // Delete project dialog, if any
-    if(m_projectDialog)
-    {
-        m_projectDialog->hide();
-        m_projectDialog->deleteLater();
-        m_projectDialog = 0;
-    }
-}
-
-void MainWindow::newFile()
-{
-    m_projectTree->newFileItem();
-}
-
-void MainWindow::newFile(QString defaultPath)
-{
-    // Get the file type filter for the editor
-    QString filter;
-    foreach(QString fileType, settings()->fileTypes())
-    {
-        QStringList list = fileType.split(";");
-        filter += QString("%1 (*.%2);;").arg(list[0]).arg(list[1]);
-    }
-
-    // Get new file name
-    QString newFile = QFileDialog::getSaveFileName(this, "New File", defaultPath, filter);
-    if(!newFile.isEmpty()) {
-        // Create the script file
-        ScriptEditor::createFile(newFile);
-    }
-}
-
-void MainWindow::saveFile()
-{
-    // Get current script file and save it
-    ScriptEditor *editor = workspace()->getCurrentEditor();
-    if(editor)
-        editor->save();
-}
-
-void MainWindow::openFile()
-{
-}
-
-void MainWindow::saveAllFiles()
-{
-    // Save unsaved changes
-//    foreach(ScriptEditor *editor, ScriptEditor::getOpenEditors())
-//    {
-//        if(!editor->isSaved())
-//            editor->save();
-//    }
+    m_projectDialog->hide();
 }
 
 void MainWindow::publishProject()
@@ -560,7 +506,7 @@ void MainWindow::closeProject()
     stopExec();
 
     // Save session
-    QSettings session(Project::getProjectDir() + "/" + Project::getProjectName() + ".session", QSettings::IniFormat);
+    QSettings session(Project::getDirectory() + Project::getName() + ".session", QSettings::IniFormat);
     session.clear();
 
 //    int i = 0;
@@ -587,9 +533,9 @@ void MainWindow::closeProject()
     m_projectTree->hide();
 
     // Disable file buttons
-    ui->actionNew_File->setEnabled(false);
-    ui->actionOpen_File->setEnabled(false);
-    ui->actionSave_File->setEnabled(false);
+    ui->actionNew->setEnabled(false);
+    ui->actionOpen->setEnabled(false);
+    ui->actionSave->setEnabled(false);
     ui->actionPublish->setEnabled(false);
 
     // Disable game buttons
@@ -604,18 +550,15 @@ void MainWindow::closeProject()
     ui->actionClose_Project->setEnabled(false);
 
     // Create project dialog
-    m_projectDialog = new ProjectDialog(this);
     m_projectDialog->show();
-    connect(m_projectDialog, SIGNAL(newProject()), this, SLOT(newProject()));
-    connect(m_projectDialog, SIGNAL(openProject()), this, SLOT(openProject()));
-    connect(m_projectDialog, SIGNAL(loadProject(QString)), this, SLOT(loadProject(QString)));
 }
 
 void MainWindow::startApplication()
 {
-    // Check for unsaved changes
-    if(workspace()->promptSaveChanges() == QMessageBox::Cancel)
+    // Promt to save changes
+    if(workspace()->promptSaveChanges() == QMessageBox::Cancel) {
         return;
+    }
 
     // Disable the run button
     ui->actionRun->setEnabled(false);
@@ -629,23 +572,39 @@ void MainWindow::startApplication()
     connect(game, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(applicationClosed()));
     connect(game, SIGNAL(finished(int,QProcess::ExitStatus)), m_debugger, SLOT(gameEnded(int,QProcess::ExitStatus)));
 
-    // Run debug by default
     QStringList args;
-    args.push_back("-d");
-    args.push_back("-w " + Project::getProjectDir());
-
     QString programPath;
-    if(!Project::getProjectDir().isEmpty())
-        programPath = Project::getProjectDir() + "/" + Project::getProjectName() + ".exe";
-    else{
-        ScriptEditor *editor = workspace()->getCurrentEditor();
-        if(editor != 0)
+    if(Project::isLoaded())
+    {
+        // Get program path
+        programPath = Project::getConfig()->value("project/program", "").toString();
+        if(!QFileInfo(programPath).exists())
+        {
+            // File didn't exist, check path relative to project
+            programPath = Project::getDirectory() + programPath;
+            if(!QFileInfo(programPath).exists())
+            {
+                applicationClosed();
+                return;
+            }
+        }
+    }
+
+    if(programPath.isEmpty())
+    {
+        // Run using default as program
+        ScriptEditor *editor = (ScriptEditor*)workspace()->getCurrentEditor();
+        if(editor != 0) {
             args.push_back(editor->filePath());
-        else {
+        }else{
             applicationClosed();
             return;
         }
         programPath = settings()->value("script_editor/default_application", "asrun.exe").toString();
+    }else{
+        // Set command line arguments
+        args.push_back("-d"); // -d for debug
+        args.push_back("-w " + Project::getDirectory()); // -w for working directory
     }
 
     // Start process
@@ -758,24 +717,38 @@ void MainWindow::workspaceModeSelected(QAction *selection)
 
 void MainWindow::applicationMessage(const QString &message)
 {
-    if(!message.isEmpty()) {
-        if(workspace()->openFile(message) != 0) {
-            m_projectDialog->hide();
+    // Process message recieved from the command line
+    if(!message.isEmpty())
+    {
+        // Check for file
+        QFileInfo fileInfo(message);
+        if(fileInfo.isFile())
+        {
+            // Is it a project file?
+            if(fileInfo.suffix() == PROJECT_FILE_EXT)
+            {
+                // Load project
+                loadProject(message);
+            }else if(workspace()->openFile(message) != 0)
+            {
+                // Hide project dialog
+                m_projectDialog->hide();
 
-            // Enable workspace
-            workspace()->setEnabled(true);
-            workspace()->m_toolbar->setEnabled(true);
+                // Enable workspace
+                workspace()->setEnabled(true);
+                workspace()->m_toolbar->setEnabled(true);
 
-            // Enable file buttons
-            ui->actionNew_File->setEnabled(true);
-            ui->actionOpen_File->setEnabled(true);
-            ui->actionSave_File->setEnabled(true);
+                // Enable file buttons
+                ui->actionNew->setEnabled(true);
+                ui->actionOpen->setEnabled(true);
+                ui->actionSave->setEnabled(true);
 
-            // Enable game buttons
-            ui->actionRun->setEnabled(true);
+                // Enable game buttons
+                ui->actionRun->setEnabled(true);
 
-            // Enable project buttons
-            ui->actionSave_All->setEnabled(true);
+                // Enable project buttons
+                ui->actionSave_All->setEnabled(true);
+            }
         }
     }
 }

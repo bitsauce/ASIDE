@@ -10,6 +10,8 @@
 #include <QSyntaxHighlighter>
 #include <QMdiArea>
 
+#include "editorbase.h"
+
 class QsciScintilla;
 
 //-------------------------------------------
@@ -22,7 +24,7 @@ class ScriptSearch;
 class ScriptReplace;
 class ScriptGoTo;
 }
-#include <QDebug>
+
 class ScriptGoTo : public QDialog
 {
     Q_OBJECT
@@ -58,21 +60,30 @@ public:
     void setSearchPharse(QString phrase);
     QString searchPhrase();
 
+    // Find procedure
+    void find(const QString &phrase, const bool forward);
+
 private:
     Ui::ScriptSearch *ui;
 
-private:
+    struct {
+        QString phrase;
+        int flags;
+    } m_prevParam;
+
     void closeEvent(QCloseEvent *e);
     void showEvent(QShowEvent *e);
 
 private slots:
+    void searchForwards();
+    void searchBackwards();
     void setNextDefault();
     void setPrevDefault();
 
 signals:
-    void findNext();
-    void findPrev();
     void findAll();
+    void search(const QString &phrase, bool forward, bool regexp, bool matchCase, bool wholeWords);
+    void next();
 };
 
 //-------------------------------------------
@@ -80,40 +91,32 @@ signals:
 // The script reaplce dialog
 //-------------------------------------------
 
-class ScriptReplace : public QDialog
+class ScriptReplace : public ScriptSearch
 {
     Q_OBJECT
 public:
     explicit ScriptReplace(QWidget *parent = 0);
     ~ScriptReplace();
 
-    // Search phrase
-    void setSearchPharse(QString phrase);
-    QString searchPhrase();
-
     // Replace phrase
     void setReplacePharse(QString phrase);
     QString replacePhrase();
 
-    // Check boxes
     bool replaceInAllFiles();
 
 private:
     Ui::ScriptReplace *ui;
 
-private:
-    void closeEvent(QCloseEvent *e);
-    void showEvent(QShowEvent *e);
+    struct {
+        QString phrase;
+        int flags;
+    } m_prevParam;
 
 private slots:
-    void setNextDefault();
-    void setPrevDefault();
+    void replaceSelection();
 
 signals:
-    void findNext();
-    void findPrev();
-    void replace();
-    void replaceAll();
+    void replace(const QString &phrase);
 };
 
 //-------------------------------------------
@@ -125,29 +128,17 @@ namespace Ui {
 class ScriptEditor;
 }
 
-class ScriptEditor : public QWidget
+class ScriptEditor : public EditorBase
 {
     Q_OBJECT
 public:
-    explicit ScriptEditor(QString filePath, QString defaultTitle, QWidget *parent);
+    explicit ScriptEditor(QString path, QString title);
     ~ScriptEditor();
 
-    static void loadProject(QString projectPath, QString projectName);
-
     static ScriptEditor *createFile(QString filePath);
-    static ScriptEditor *openFile(QString filePath);
 
     // Script text edit
     QsciScintilla *scriptTextEdit();
-
-    // Script file
-    void loadFile(const QString &filePath);
-    QString filePath() const;
-    QMdiSubWindow *mdiWindow() const;
-    bool isSaved() const;
-
-    // Events
-    void closeEvent(QCloseEvent *event);
 
     //---------------------------------------
     // Debug
@@ -167,11 +158,6 @@ private:
     // Text edit
     QsciScintilla *m_scriptTextEdit;
 
-    // Script file
-    QString m_filePath;
-    QString m_defaultTitle;
-    QMdiSubWindow *m_mdiWindow;
-
 //    QLabel *posLabel;
 //    QProgressBar *inteliBar;
 
@@ -182,9 +168,7 @@ public slots:
 
     // Editor
     void save();
-    void resetSaveState();
-    void updateSaveState(bool modified);
-    void textChanged();
+    void load();
     void updatePositionLabel(int line, int col);
     void aboutToActivate();
 
@@ -194,82 +178,18 @@ public slots:
 
     // Search
     void showScriptSearch();
+    void search(const QString &phrase, bool forward, bool regexp, bool matchCase, bool wholeWords);
     void findNext();
-    void findPrev();
     void findAll();
 
     // Replace
     void showScriptReplace();
-    void replaceSelection();
+    void replaceSelection(const QString &phrase);
     void replaceAll();
 
     // Breakpoint
     void toggleBreakpoint(int, int line, Qt::KeyboardModifiers modifiers);
     void lineCountChanged(int start, int dt);
-
-signals:
-    void fileOpened(const QString &filePath);
-    void fileSaved(const QString &filePath);
-    void fileClosed(const QString &filePath);
 };
-
-
-//-------------------------------------------------------------
-// AngelScriptPraser: The AngelScript syntax highlighter
-// and praser
-//-------------------------------------------------------------
-
-class AngelScriptPraser : public QSyntaxHighlighter
-{
-    Q_OBJECT
-public:
-    AngelScriptPraser(QTextDocument *parent = 0);
-
-protected:
-    void highlightBlock(const QString &text);
-
-    struct Comment
-    {
-        int start;
-        int end;
-        bool contains(int idx)
-        {
-            return idx >= start && idx <= end;
-        }
-    };
-
-private:
-
-    // Include
-    QTextCharFormat includeFormat;
-    QRegExp includeExpression;
-
-    // Datatypes
-    QTextCharFormat datatypeFormat;
-    QVector<QRegExp> datatypeExpressions;
-
-    // Statements
-    QTextCharFormat statementFormat;
-    QVector<QRegExp> statementExpressions;
-
-    // Comments
-    QTextCharFormat commentFormat;
-    QMultiMap<int, Comment> comments;
-
-    // Single line comment
-    QRegExp singleLineExpression;
-
-    // Multi line comment
-    QRegExp multiLineStartExpression;
-    QRegExp multiLineEndExpression;
-
-    // Quotation
-    QTextCharFormat quotationFormat;
-    QRegExp quotationExpression;
-
-    // Function
-    QTextCharFormat functionFormat;
-};
-
 
 #endif // SCRIPTEDITOR_H

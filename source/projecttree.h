@@ -70,19 +70,26 @@ private:
 
     void currentChanged(const QModelIndex &current, const QModelIndex &previous);
 
-signals:
-    void newFile(QString defaultPath);
-
 public slots:
+
     // Tree
     void cutSelection();
     void copySelection();
     void pasteClipboard();
-    void deleteItems();
-    void renameItem();
-    void newFileItem();
-    void addFolder();
-    void browseFolder();
+
+    // Item creation
+    void showItemCreate(QString defaultDir);
+    void createItemInCurrentDirectory();
+
+    // Item modification
+    void deleteSelection();
+    void renameSelection();
+
+    // Folder creation
+    void createFolderInCurrentDirectory();
+
+    // Explorer
+    void showCurrentDirectoryInExplorer();
 };
 
 

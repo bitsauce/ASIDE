@@ -35,6 +35,7 @@ public:
     QGridLayout *gridLayout;
     QFrame *frame;
     QGridLayout *gridLayout_2;
+    QSpacerItem *verticalSpacer;
     QGridLayout *gridLayout_3;
     QCheckBox *checkBox;
     QLabel *label_2;
@@ -48,12 +49,11 @@ public:
     QToolButton *browseDefaultApplication;
     QLineEdit *applicationLineEdit;
     QLabel *defaultApplicationLabel;
-    QSpacerItem *verticalSpacer;
-    QTreeWidget *fileTypeTree;
     QLabel *label;
     QHBoxLayout *horizontalLayout;
     QPushButton *addFileTypeButton;
     QPushButton *removeFileTypeButton;
+    QTreeWidget *fileTypeTree;
     QDialogButtonBox *buttonBox;
     QTreeWidget *treeWidget;
 
@@ -70,6 +70,10 @@ public:
         frame->setFrameShadow(QFrame::Raised);
         gridLayout_2 = new QGridLayout(frame);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer, 2, 0, 1, 1);
+
         gridLayout_3 = new QGridLayout();
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
         checkBox = new QCheckBox(frame);
@@ -135,15 +139,6 @@ public:
 
         gridLayout_2->addLayout(gridLayout_3, 0, 0, 1, 1);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer, 2, 0, 1, 1);
-
-        fileTypeTree = new QTreeWidget(frame);
-        fileTypeTree->setObjectName(QStringLiteral("fileTypeTree"));
-
-        gridLayout_2->addWidget(fileTypeTree, 4, 0, 1, 1);
-
         label = new QLabel(frame);
         label->setObjectName(QStringLiteral("label"));
 
@@ -163,6 +158,11 @@ public:
 
 
         gridLayout_2->addLayout(horizontalLayout, 8, 0, 1, 1);
+
+        fileTypeTree = new QTreeWidget(frame);
+        fileTypeTree->setObjectName(QStringLiteral("fileTypeTree"));
+
+        gridLayout_2->addWidget(fileTypeTree, 4, 0, 1, 1);
 
 
         gridLayout->addWidget(frame, 0, 1, 1, 1);
@@ -206,12 +206,12 @@ public:
         browseDefaultApplication->setText(QApplication::translate("Settings", "...", 0));
         applicationLineEdit->setText(QString());
         defaultApplicationLabel->setText(QApplication::translate("Settings", "Default AS Application:", 0));
-        QTreeWidgetItem *___qtreewidgetitem = fileTypeTree->headerItem();
-        ___qtreewidgetitem->setText(1, QApplication::translate("Settings", "Extention", 0));
-        ___qtreewidgetitem->setText(0, QApplication::translate("Settings", "File Type", 0));
         label->setText(QApplication::translate("Settings", "File types:", 0));
         addFileTypeButton->setText(QApplication::translate("Settings", "Add", 0));
         removeFileTypeButton->setText(QApplication::translate("Settings", "Remove", 0));
+        QTreeWidgetItem *___qtreewidgetitem = fileTypeTree->headerItem();
+        ___qtreewidgetitem->setText(1, QApplication::translate("Settings", "Extention", 0));
+        ___qtreewidgetitem->setText(0, QApplication::translate("Settings", "File Type", 0));
         QTreeWidgetItem *___qtreewidgetitem1 = treeWidget->headerItem();
         ___qtreewidgetitem1->setText(0, QApplication::translate("Settings", "Entry", 0));
 

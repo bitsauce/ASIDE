@@ -13,31 +13,36 @@
 #include "workspace.h"
 #include "settings.h"
 
-
-#define MAX_RECENT_PROJECTS 10
+#define NUM_RECENT_PROJECTS 10
 
 //------------------------------------------------
 // ProjectDialog
 // The main project dialog
 //------------------------------------------------
 
-QString Project::s_projectDir;
-QString Project::s_projectName;
-QSettings *Project::s_projectConfig;
+bool Project::s_loaded = false;
+QString Project::s_directory = "";
+QString Project::s_name = "";
+QSettings *Project::s_config = 0;
 
-QString Project::getProjectDir()
+bool Project::isLoaded()
 {
-    return s_projectDir;
+    return s_loaded;
 }
 
-QString Project::getProjectName()
+QString Project::getDirectory()
 {
-    return s_projectName;
+    return s_directory;
 }
 
-QSettings *Project::getProjectConfig()
+QString Project::getName()
 {
-    return s_projectConfig;
+    return s_name;
+}
+
+QSettings *Project::getConfig()
+{
+    return s_config;
 }
 
 int Project::createProject(QString name, QString path)
@@ -71,26 +76,28 @@ int Project::createProject(QString name, QString path)
     return 0;
 }
 
-int Project::loadProject(QString path)
+int Project::loadProject(const QString &path)
 {
-    // Open project file
-    QFile file(path);
-    if(!file.open(QIODevice::ReadWrite))
-        return PROJECT_UNABLE_TO_READ; // Unable to open file
-    file.close();
+    // Load project config file
+    QSettings *config = new QSettings(path, QSettings::IniFormat);
+    if(config->status() != QSettings::NoError) {
+        return PROJECT_UNABLE_TO_READ;
+    }
+    s_config = config;
 
     // Set project path
-    s_projectDir = QFileInfo(path).absolutePath();
+    s_directory = QFileInfo(path).absolutePath();
+    if(s_directory[s_directory.size()-1] != '/') {
+        s_directory += "/";
+    }
 
-    // Set project file name
-    s_projectConfig = new QSettings(path, QSettings::IniFormat);
-    s_projectName = s_projectConfig->value("project/name", "").toString();
+    s_name = s_config->value("project/name", "").toString();
 
     // Add project to recent list
-    QString name = s_projectName;
+    QString name = s_name;
     QString currPath, currName,
             prevPath = path, prevName = name;
-    for(int i = 0; i < MAX_RECENT_PROJECTS; i++)
+    for(int i = 0; i < NUM_RECENT_PROJECTS; i++)
     {
         // Get project at position
         currPath = settings()->value("recent_projects/" + QString::number(i) + "/path", "").toString();
@@ -112,6 +119,7 @@ int Project::loadProject(QString path)
         prevPath = currPath;
         prevName = currName;
     }
+    s_loaded = true;
 
     // Success
     return 0;
@@ -123,13 +131,14 @@ void Project::saveProject()
 
 void Project::closeProject()
 {
-    s_projectName.clear();
-    s_projectDir.clear();
-    if(s_projectConfig)
+    s_name.clear();
+    s_directory.clear();
+    if(s_config)
     {
-        s_projectConfig->deleteLater();
-        s_projectConfig = 0;
+        s_config->deleteLater();
+        s_config = 0;
     }
+    s_loaded = false;
 }
 
 //------------------------------------------------
@@ -145,7 +154,7 @@ ProjectDialog::ProjectDialog(QWidget *parent) :
     ui->setupUi(this);
 
     // Signals
-    connect(ui->newProjectButton, SIGNAL(clicked()), this, SIGNAL(newProject()));
+    connect(ui->newProjectButton, SIGNAL(clicked()), this, SIGNAL(createProject()));
     connect(ui->openProjectButton, SIGNAL(clicked()), this, SIGNAL(openProject()));
 
     // Setup recent list
@@ -175,7 +184,7 @@ void ProjectDialog::removeListItem(int idx)
 {
     // Remove item
     QString currPath, currName;
-    for(int i = idx+1; i < MAX_RECENT_PROJECTS; i++)
+    for(int i = idx+1; i < NUM_RECENT_PROJECTS; i++)
     {
         // Get project at position
         currPath = settings()->value("recent_projects/" + QString::number(i) + "/path", "").toString();
@@ -221,7 +230,7 @@ void ProjectDialog::clearList()
     m_listModel->setStringList(QStringList());
 
     // Clear settings
-    for(int i = 0; i < MAX_RECENT_PROJECTS; i++)
+    for(int i = 0; i < NUM_RECENT_PROJECTS; i++)
     {
         settings()->setValue(QString("recent_projects/%1/name").arg(i), "");
         settings()->setValue(QString("recent_projects/%1/path").arg(i), "");
@@ -302,7 +311,7 @@ void NewProjectDialog::browseProjectPath()
     // Get and set path
     QString dir = ui->projectPathEdit->text();
     if(dir.isEmpty()) dir = QDir::currentPath();
-    QString path = QFileDialog::getExistingDirectory(0, "Select Path", dir);
+    QString path = QFileDialog::getExistingDirectory(0, tr("Select Path"), dir);
     if(!path.isEmpty())
         ui->projectPathEdit->setText(path.replace("\\", "/"));
 }
@@ -314,8 +323,8 @@ void NewProjectDialog::acceptDialog()
             ui->projectNameEdit->text().isEmpty())
     {
         QMessageBox::information(this,
-                                 "New Project",
-                                 "Please fill in all the required fields to continue.",
+                                 tr("New Project"),
+                                 tr("Please fill in all the required fields to continue."),
                                  QMessageBox::Ok);
         return;
     }

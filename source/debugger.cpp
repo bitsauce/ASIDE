@@ -143,7 +143,7 @@ void Debugger::processData()
         QStringList split = data.split(";");
         m_breakFilePath = split[0];
         m_breakLine = split[1].toInt();
-        ScriptEditor *edit = workspace()->openFile(m_breakFilePath);
+        ScriptEditor *edit = (ScriptEditor*)workspace()->openFile(m_breakFilePath);
         edit->gotoLine(m_breakLine);
         emit execInterrupted(m_breakFilePath, m_breakLine);
     } break;
@@ -263,7 +263,7 @@ void Debugger::cellDoubleClicked(int row, int)
     QString filePath = m_errorWidget->item(row, 2)->text();
     int line = m_errorWidget->item(row, 3)->text().toInt();
 
-    ScriptEditor *editor = workspace()->openFile(Project::getProjectDir() + "/" + filePath);
+    ScriptEditor *editor = (ScriptEditor*)workspace()->openFile(Project::getDirectory() + filePath);
     if(editor) editor->scrollToLine(line-1);
 }
 
@@ -295,7 +295,7 @@ void OutputWidget::mouseDoubleClickEvent(QMouseEvent *e)
         int col = param[1].toInt();
 
         // Open file
-        ScriptEditor *editor = workspace()->openFile(file);
+        ScriptEditor *editor = (ScriptEditor*)workspace()->openFile(file);
         if(!editor)
             return; // Not a valid file
 

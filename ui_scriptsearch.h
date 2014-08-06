@@ -40,6 +40,7 @@ public:
     QLabel *label;
     QCheckBox *matchCaseCheck;
     QCheckBox *wholeWordsCheck;
+    QCheckBox *regexpCheck;
 
     void setupUi(QDialog *ScriptSearch)
     {
@@ -90,15 +91,20 @@ public:
 
         matchCaseCheck = new QCheckBox(ScriptSearch);
         matchCaseCheck->setObjectName(QStringLiteral("matchCaseCheck"));
-        matchCaseCheck->setEnabled(false);
+        matchCaseCheck->setEnabled(true);
 
         gridLayout->addWidget(matchCaseCheck, 2, 0, 1, 1);
 
         wholeWordsCheck = new QCheckBox(ScriptSearch);
         wholeWordsCheck->setObjectName(QStringLiteral("wholeWordsCheck"));
-        wholeWordsCheck->setEnabled(false);
+        wholeWordsCheck->setEnabled(true);
 
         gridLayout->addWidget(wholeWordsCheck, 3, 0, 1, 1);
+
+        regexpCheck = new QCheckBox(ScriptSearch);
+        regexpCheck->setObjectName(QStringLiteral("regexpCheck"));
+
+        gridLayout->addWidget(regexpCheck, 1, 0, 1, 1);
 
 
         retranslateUi(ScriptSearch);
@@ -115,6 +121,7 @@ public:
         label->setText(QApplication::translate("ScriptSearch", "Search:", 0));
         matchCaseCheck->setText(QApplication::translate("ScriptSearch", "Match case", 0));
         wholeWordsCheck->setText(QApplication::translate("ScriptSearch", "Whole words only", 0));
+        regexpCheck->setText(QApplication::translate("ScriptSearch", "Use Regular Expression", 0));
     } // retranslateUi
 
 };
