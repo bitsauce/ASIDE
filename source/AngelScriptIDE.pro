@@ -48,3 +48,6 @@ include(../qtsingleapplication/src/qtsingleapplication.pri)
 RESOURCES += resources.qrc
 
 OTHER_FILES += win32.rc
+
+SUBDIRS += \
+    ../QScintilla/Qt4Qt5/qscintilla.pro

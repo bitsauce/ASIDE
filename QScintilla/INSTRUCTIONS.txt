@@ -1,0 +1,2 @@
+1) Copy Qt4Qt5/Qsci to %QTDIR%/include
+2) Copy Qt4Qt5/features to %QTDIR%/mkspecs/features
