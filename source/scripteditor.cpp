@@ -146,7 +146,7 @@ void ScriptEditor::load()
 {
     // Open script file
     QFile file(filePath());
-    if(!file.open(QIODevice::ReadWrite | QIODevice::Text))
+    if(!file.open(QIODevice::ReadWrite))
     {
         // Unable to open file
         QMessageBox::critical(workspace(), "Unable to open file",
@@ -296,7 +296,7 @@ void ScriptEditor::save()
 {
     // Open script file
     QFile file(filePath());
-    if(file.open(QIODevice::ReadWrite | QIODevice::Text | QFile::Truncate))
+    if(file.open(QIODevice::ReadWrite | QFile::Truncate))
     {
         // Write script content to file
         QTextStream stream(&file);

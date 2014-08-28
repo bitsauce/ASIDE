@@ -207,7 +207,7 @@ debug\win32.res: ..\source\win32.rc
 	rc -D_DEBUG $(DEFINES) -fo debug\win32.res ..\source\win32.rc
 
 qmake: FORCE
-	@$(QMAKE) -spec win32-msvc2012 CONFIG+=debug -o Makefile.Debug ..\source\AngelScriptIDE.pro
+	@$(QMAKE) -spec win32-msvc2012 -o Makefile.Debug ..\source\AngelScriptIDE.pro
 
 qmake_all: FORCE
 
