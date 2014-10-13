@@ -11,6 +11,21 @@
 #include "workspace.h"
 #include "project.h"
 
+enum XPacketType
+{
+    X2D_NULL_PACKET = 0x00,
+    X2D_CONNECTED_PACKET,
+    X2D_INITIALIZED_PACKET,
+    X2D_MESSAGE_PACKET,
+    X2D_COMPILE_PACKET,
+    X2D_BREAK_PACKET,
+    X2D_TEXT_VAR_PACKET,
+    X2D_IMAGE_VAR_PACKET,
+
+    XD_PUSH_NODE_PACKET,
+    XD_POP_NODE_PACKET
+};
+
 // Global debugger
 
 Debugger *g_debugger = 0;
@@ -38,18 +53,44 @@ Debugger::Debugger(QTabWidget *infoWidget, QWidget *parent) :
     infoWidget->addTab(m_outputWidget, "Output");
 
     // Create error list widget tab
-    m_errorWidget = new QTableWidget(infoWidget);
-    m_errorWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
-    connect(m_errorWidget, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(cellDoubleClicked(int,int)));
-    QHeaderView *header = m_errorWidget->horizontalHeader();
-    header->setSectionResizeMode(QHeaderView::ResizeToContents);
-    m_errorWidget->setColumnCount(4);
-    m_errorWidget->setHorizontalHeaderItem(0, new QTableWidgetItem("Type"));
-    m_errorWidget->setHorizontalHeaderItem(1, new QTableWidgetItem("Message"));
-    m_errorWidget->setHorizontalHeaderItem(2, new QTableWidgetItem("File"));
-    m_errorWidget->setHorizontalHeaderItem(3, new QTableWidgetItem("Line"));
+    {
+        m_errorWidget = new QTableWidget(infoWidget);
+        m_errorWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+        connect(m_errorWidget, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(cellDoubleClicked(int,int)));
 
-    infoWidget->addTab(m_errorWidget, "Error List");
+        QHeaderView *header = m_errorWidget->horizontalHeader();
+        header->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+        m_errorWidget->setColumnCount(4);
+        m_errorWidget->setHorizontalHeaderItem(0, new QTableWidgetItem("Type"));
+        m_errorWidget->setHorizontalHeaderItem(1, new QTableWidgetItem("Message"));
+        m_errorWidget->setHorizontalHeaderItem(2, new QTableWidgetItem("File"));
+        m_errorWidget->setHorizontalHeaderItem(3, new QTableWidgetItem("Line"));
+
+        infoWidget->addTab(m_errorWidget, "Error List");
+    }
+
+    // Create profiler
+    {
+        m_profiler = new QTreeWidget(infoWidget);
+
+        QStringList headerLabels;
+        headerLabels << "Function";
+        headerLabels << "Max";
+        headerLabels << "Min";
+        headerLabels << "Average";
+
+        m_profiler->setHeaderLabels(headerLabels);
+        QTreeWidgetItem *root = new QTreeWidgetItem();
+        root->setText(0, "root");
+        root->setText(1, "0 ms");
+        root->setText(2, "0 ms");
+        root->setText(3, "0 ms");
+        m_profiler->addTopLevelItem(root);
+        m_currentItem = root;
+
+        infoWidget->addTab(m_profiler, "Profiler");
+    }
 
     // Create variable
     infoWidget->addTab(0, "Variable List");
@@ -72,16 +113,16 @@ void Debugger::processData()
     data = data.right(data.size()-1);
     switch(dataType)
     {
-    case 0x01: // ConnectedPacket
+    case X2D_CONNECTED_PACKET:
         m_debugging = true;
         // TODO: Send all breakpoints
         break;
 
-    case 0x02: // InitializedPacket
+    case X2D_INITIALIZED_PACKET:
         emit execInitialized();
         break;
 
-    case 0x03: // PrintPacket
+    case X2D_MESSAGE_PACKET:
         if(data[0] == '#' && data.size() > 7)
         {
             // Apply text color
@@ -99,7 +140,7 @@ void Debugger::processData()
         m_outputWidget->append(data);
         break;
 
-    case 0x04: // CompilePacket
+    case X2D_COMPILE_PACKET:
     {
         // Get compile data
         QStringList callbackData = data.split(" : ");
@@ -138,7 +179,7 @@ void Debugger::processData()
         break;
     }
 
-    case 0x05: // BreakPacket
+    case X2D_BREAK_PACKET:
     {
         QStringList split = data.split(";");
         m_breakFilePath = split[0];
@@ -147,6 +188,26 @@ void Debugger::processData()
         edit->gotoLine(m_breakLine);
         emit execInterrupted(m_breakFilePath, m_breakLine);
     } break;
+
+    case XD_PUSH_NODE_PACKET:
+        if(m_currentItem == m_profiler->topLevelItem(0))
+        {
+            m_profiler->clear();
+            QTreeWidgetItem *root = new QTreeWidgetItem();
+            root->setText(0, "root");
+            root->setText(1, "0 ms");
+            root->setText(2, "0 ms");
+            root->setText(3, "0 ms");
+            m_profiler->addTopLevelItem(root);
+            m_currentItem = root;
+        }
+        m_currentItem = new QTreeWidgetItem(m_currentItem, data.split(";"));
+    break;
+
+    case XD_POP_NODE_PACKET:
+        if(m_currentItem->parent() != 0)
+            m_currentItem = m_currentItem->parent();
+    break;
 
     default:
         qDebug() << "Unknown packet type '" << dataType << "'!";
@@ -161,11 +222,14 @@ void Debugger::processData()
 
 void Debugger::gameEnded(int ret, QProcess::ExitStatus status)
 {
-    if(status == QProcess::CrashExit) {
+    if(status == QProcess::CrashExit)
+    {
         m_outputWidget->setTextColor(QColor("#de0000"));
         m_outputWidget->append("Game crashed...");
     }
-    if(ret < 0) {
+
+    if(ret < 0)
+    {
         m_outputWidget->setTextColor(QColor("#de0000"));
         m_outputWidget->append(QString("Exit unsuccessful with error code '%1'").arg(ret));
     }else{
@@ -186,11 +250,13 @@ void Debugger::reset()
     m_errorWidget->setRowCount(0);
     m_outputWidget->clear();
 }
+
 void Debugger::addBreakpoint(const QString &filePath, const int line)
 {
     Breakpoint bp = { filePath, line };
     m_breakpoints.push_back(bp);
-    if(m_debugging) {
+    if(m_debugging)
+    {
         QByteArray packet = QString(" %2;%3").arg(filePath).arg(line).toLatin1();
         packet[0] = 0x6;
         packet.resize(512);
@@ -202,7 +268,8 @@ void Debugger::removeBreakpoint(const QString &filePath, const int line)
 {
     Breakpoint bp = { filePath, line };
     m_breakpoints.removeOne(bp);
-    if(m_debugging) {
+    if(m_debugging)
+    {
         QByteArray packet = QString(" %2;%3").arg(filePath).arg(line).toLatin1();
         packet[0] = 0x7;
         packet.resize(512);

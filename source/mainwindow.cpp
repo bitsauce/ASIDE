@@ -572,7 +572,7 @@ void MainWindow::startApplication()
     connect(game, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(applicationClosed()));
     connect(game, SIGNAL(finished(int,QProcess::ExitStatus)), m_debugger, SLOT(gameEnded(int,QProcess::ExitStatus)));
 
-    QStringList args;
+    /*QStringList args;
     QString programPath;
     if(Project::isLoaded())
     {
@@ -608,7 +608,7 @@ void MainWindow::startApplication()
     }
 
     // Start process
-    game->start(programPath, args);
+    game->start(programPath, args);*/
 
     // Setup debugger
     m_debugger->reset();

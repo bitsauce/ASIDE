@@ -1,6 +1,0 @@
-** x2D Game Engine **
-Initializing AngelScript (2.29.0)
-Loading plugins...
-Compiling scripts...
-ERR: main.as (0, 0) : ERR : Failed to load script file 'C:\Users\Marcus\Documents\GitHub\ASIDEmain.as'
-An exception occured: Unable to load main.as. Make sure the file and other included files exist.

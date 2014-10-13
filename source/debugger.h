@@ -16,6 +16,7 @@
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QProcess>
+#include <QTreeWidget>
 
 class OutputWidget;
 class ErrorWidget;
@@ -54,11 +55,8 @@ public slots:
 
 private slots:
     void cellDoubleClicked(int row, int col);
-
     void processData();
     void gameEnded(int ret, QProcess::ExitStatus status);
-
-
     void sendAllBreakpoints();
 
 signals:
@@ -76,6 +74,10 @@ private:
 
     // Error list widget
     QTableWidget *m_errorWidget;
+
+    // Profiler
+    QTreeWidget *m_profiler;
+    QTreeWidgetItem *m_currentItem;
 
     // Running?
     bool m_debugging;
