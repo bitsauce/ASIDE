@@ -13,11 +13,13 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QToolButton>
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QWidget>
 
@@ -27,38 +29,57 @@ class Ui_Profiler
 {
 public:
     QGridLayout *gridLayout;
+    QTreeWidget *profilerTree;
     QHBoxLayout *horizontalLayout;
+    QToolButton *startProfilerButton;
     QSpacerItem *horizontalSpacer;
-    QPushButton *pushButton;
-    QTreeWidget *treeWidget;
+    QCheckBox *bottomUpToggle;
+    QRadioButton *totalRadioButton;
+    QRadioButton *stepRadioButton;
 
     void setupUi(QWidget *Profiler)
     {
         if (Profiler->objectName().isEmpty())
             Profiler->setObjectName(QStringLiteral("Profiler"));
-        Profiler->resize(1081, 300);
+        Profiler->resize(1080, 300);
         gridLayout = new QGridLayout(Profiler);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        profilerTree = new QTreeWidget(Profiler);
+        profilerTree->setObjectName(QStringLiteral("profilerTree"));
+
+        gridLayout->addWidget(profilerTree, 1, 0, 1, 1);
+
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        startProfilerButton = new QToolButton(Profiler);
+        startProfilerButton->setObjectName(QStringLiteral("startProfilerButton"));
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/toolbar/icons/run.png"), QSize(), QIcon::Normal, QIcon::Off);
+        startProfilerButton->setIcon(icon);
+
+        horizontalLayout->addWidget(startProfilerButton);
+
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout->addItem(horizontalSpacer);
 
-        pushButton = new QPushButton(Profiler);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
+        bottomUpToggle = new QCheckBox(Profiler);
+        bottomUpToggle->setObjectName(QStringLiteral("bottomUpToggle"));
 
-        horizontalLayout->addWidget(pushButton);
+        horizontalLayout->addWidget(bottomUpToggle);
+
+        totalRadioButton = new QRadioButton(Profiler);
+        totalRadioButton->setObjectName(QStringLiteral("totalRadioButton"));
+
+        horizontalLayout->addWidget(totalRadioButton);
+
+        stepRadioButton = new QRadioButton(Profiler);
+        stepRadioButton->setObjectName(QStringLiteral("stepRadioButton"));
+
+        horizontalLayout->addWidget(stepRadioButton);
 
 
-        gridLayout->addLayout(horizontalLayout, 1, 0, 1, 1);
-
-        treeWidget = new QTreeWidget(Profiler);
-        QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem(treeWidget);
-        new QTreeWidgetItem(__qtreewidgetitem);
-        treeWidget->setObjectName(QStringLiteral("treeWidget"));
-
-        gridLayout->addWidget(treeWidget, 0, 0, 1, 1);
+        gridLayout->addLayout(horizontalLayout, 0, 0, 1, 1);
 
 
         retranslateUi(Profiler);
@@ -69,25 +90,17 @@ public:
     void retranslateUi(QWidget *Profiler)
     {
         Profiler->setWindowTitle(QApplication::translate("Profiler", "Form", 0));
-        pushButton->setText(QApplication::translate("Profiler", "Close", 0));
-        QTreeWidgetItem *___qtreewidgetitem = treeWidget->headerItem();
+        QTreeWidgetItem *___qtreewidgetitem = profilerTree->headerItem();
+        ___qtreewidgetitem->setText(5, QApplication::translate("Profiler", "Calls", 0));
+        ___qtreewidgetitem->setText(4, QApplication::translate("Profiler", "Time", 0));
         ___qtreewidgetitem->setText(3, QApplication::translate("Profiler", "Average", 0));
         ___qtreewidgetitem->setText(2, QApplication::translate("Profiler", "Min", 0));
         ___qtreewidgetitem->setText(1, QApplication::translate("Profiler", "Max", 0));
         ___qtreewidgetitem->setText(0, QApplication::translate("Profiler", "Funciton", 0));
-
-        const bool __sortingEnabled = treeWidget->isSortingEnabled();
-        treeWidget->setSortingEnabled(false);
-        QTreeWidgetItem *___qtreewidgetitem1 = treeWidget->topLevelItem(0);
-        ___qtreewidgetitem1->setText(3, QApplication::translate("Profiler", "10 ms", 0));
-        ___qtreewidgetitem1->setText(2, QApplication::translate("Profiler", "90 ms", 0));
-        ___qtreewidgetitem1->setText(1, QApplication::translate("Profiler", "150 ms", 0));
-        ___qtreewidgetitem1->setText(0, QApplication::translate("Profiler", "void test()", 0));
-        QTreeWidgetItem *___qtreewidgetitem2 = ___qtreewidgetitem1->child(0);
-        ___qtreewidgetitem2->setText(1, QApplication::translate("Profiler", "19999 ms", 0));
-        ___qtreewidgetitem2->setText(0, QApplication::translate("Profiler", "void foo()", 0));
-        treeWidget->setSortingEnabled(__sortingEnabled);
-
+        startProfilerButton->setText(QApplication::translate("Profiler", "...", 0));
+        bottomUpToggle->setText(QApplication::translate("Profiler", "Bottom Up", 0));
+        totalRadioButton->setText(QApplication::translate("Profiler", "Total", 0));
+        stepRadioButton->setText(QApplication::translate("Profiler", "Step", 0));
     } // retranslateUi
 
 };

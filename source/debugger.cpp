@@ -10,6 +10,7 @@
 #include "scripteditor.h"
 #include "workspace.h"
 #include "project.h"
+#include "profiler.h"
 
 enum XPacketType
 {
@@ -38,7 +39,8 @@ Debugger::Debugger(QTabWidget *infoWidget, QWidget *parent) :
     QObject(parent),
     m_debugging(false),
     m_breakFilePath(""),
-    m_breakLine(0)
+    m_breakLine(0),
+    m_currentItem(0)
 {
     // Global debugger
     Q_ASSERT(!g_debugger);
@@ -72,23 +74,7 @@ Debugger::Debugger(QTabWidget *infoWidget, QWidget *parent) :
 
     // Create profiler
     {
-        m_profiler = new QTreeWidget(infoWidget);
-
-        QStringList headerLabels;
-        headerLabels << "Function";
-        headerLabels << "Max";
-        headerLabels << "Min";
-        headerLabels << "Average";
-
-        m_profiler->setHeaderLabels(headerLabels);
-        QTreeWidgetItem *root = new QTreeWidgetItem();
-        root->setText(0, "root");
-        root->setText(1, "0 ms");
-        root->setText(2, "0 ms");
-        root->setText(3, "0 ms");
-        m_profiler->addTopLevelItem(root);
-        m_currentItem = root;
-
+        m_profiler = new Profiler(infoWidget);
         infoWidget->addTab(m_profiler, "Profiler");
     }
 
@@ -190,23 +176,56 @@ void Debugger::processData()
     } break;
 
     case XD_PUSH_NODE_PACKET:
-        if(m_currentItem == m_profiler->topLevelItem(0))
+    {
+        QStringList dataList = data.split(";");
+        new Profiler::Node();
+        m_profiler->addNode();
+        if(m_currentItem == 0)
         {
-            m_profiler->clear();
-            QTreeWidgetItem *root = new QTreeWidgetItem();
-            root->setText(0, "root");
-            root->setText(1, "0 ms");
-            root->setText(2, "0 ms");
-            root->setText(3, "0 ms");
-            m_profiler->addTopLevelItem(root);
-            m_currentItem = root;
+            QList<QTreeWidgetItem*> items = m_profiler->findItems(dataList[0], Qt::MatchExactly);
+            if(!items.empty())
+            {
+                m_currentItem = items[0];
+                m_currentItem->setText(1, dataList[1]);
+                m_currentItem->setText(2, dataList[2]);
+                m_currentItem->setText(3, dataList[3]);
+            }
+            else
+            {
+                m_currentItem = new QTreeWidgetItem(dataList);
+                m_profiler->addTopLevelItem(m_currentItem);
+            }
         }
-        m_currentItem = new QTreeWidgetItem(m_currentItem, data.split(";"));
+        else
+        {
+            QTreeWidgetItem *find = 0;
+            for(int i = 0; i < m_currentItem->childCount(); i++)
+            {
+                if(m_currentItem->child(i)->text(0) == dataList[0])
+                {
+                    find = m_currentItem->child(i);
+                    break;
+                }
+            }
+
+            if(find)
+            {
+                m_currentItem = find;
+                m_currentItem->setText(1, dataList[1]);
+                m_currentItem->setText(2, dataList[2]);
+                m_currentItem->setText(3, dataList[3]);
+            }
+            else
+            {
+                m_currentItem = new QTreeWidgetItem(m_currentItem, data.split(";"));
+            }
+        }
+    }
     break;
 
     case XD_POP_NODE_PACKET:
-        if(m_currentItem->parent() != 0)
-            m_currentItem = m_currentItem->parent();
+        Q_ASSERT(m_currentItem != 0);
+        m_currentItem = m_currentItem->parent();
     break;
 
     default:
