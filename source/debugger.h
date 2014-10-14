@@ -16,7 +16,6 @@
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QProcess>
-#include <QTreeWidget>
 
 class Profiler;
 class OutputWidget;
@@ -78,7 +77,6 @@ private:
 
     // Profiler
     Profiler *m_profiler;
-    QTreeWidgetItem *m_currentItem;
 
     // Running?
     bool m_debugging;

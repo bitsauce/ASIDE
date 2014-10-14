@@ -39,8 +39,7 @@ Debugger::Debugger(QTabWidget *infoWidget, QWidget *parent) :
     QObject(parent),
     m_debugging(false),
     m_breakFilePath(""),
-    m_breakLine(0),
-    m_currentItem(0)
+    m_breakLine(0)
 {
     // Global debugger
     Q_ASSERT(!g_debugger);
@@ -178,59 +177,26 @@ void Debugger::processData()
     case XD_PUSH_NODE_PACKET:
     {
         QStringList dataList = data.split(";");
-        new Profiler::Node();
-        m_profiler->addNode();
-        if(m_currentItem == 0)
-        {
-            QList<QTreeWidgetItem*> items = m_profiler->findItems(dataList[0], Qt::MatchExactly);
-            if(!items.empty())
-            {
-                m_currentItem = items[0];
-                m_currentItem->setText(1, dataList[1]);
-                m_currentItem->setText(2, dataList[2]);
-                m_currentItem->setText(3, dataList[3]);
-            }
-            else
-            {
-                m_currentItem = new QTreeWidgetItem(dataList);
-                m_profiler->addTopLevelItem(m_currentItem);
-            }
-        }
-        else
-        {
-            QTreeWidgetItem *find = 0;
-            for(int i = 0; i < m_currentItem->childCount(); i++)
-            {
-                if(m_currentItem->child(i)->text(0) == dataList[0])
-                {
-                    find = m_currentItem->child(i);
-                    break;
-                }
-            }
+        Q_ASSERT(dataList.size() == 6);
 
-            if(find)
-            {
-                m_currentItem = find;
-                m_currentItem->setText(1, dataList[1]);
-                m_currentItem->setText(2, dataList[2]);
-                m_currentItem->setText(3, dataList[3]);
-            }
-            else
-            {
-                m_currentItem = new QTreeWidgetItem(m_currentItem, data.split(";"));
-            }
-        }
+        Profiler::Node *node = new Profiler::Node();
+        node->functionName = dataList[0];
+        node->totalTime = dataList[1].toInt();
+        node->maxTime = dataList[2].toInt();
+        node->minTime = dataList[3].toInt();
+        node->aveTime = dataList[4].toInt();
+        node->callCount = dataList[5].toInt();
+        m_profiler->push(node);
     }
     break;
 
     case XD_POP_NODE_PACKET:
-        Q_ASSERT(m_currentItem != 0);
-        m_currentItem = m_currentItem->parent();
+        m_profiler->pop();
     break;
 
     default:
         qDebug() << "Unknown packet type '" << dataType << "'!";
-        break;
+    break;
     }
 
     // Send async packet

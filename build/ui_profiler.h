@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'profiler.ui'
 **
-** Created by: Qt User Interface Compiler version 5.3.0
+** Created by: Qt User Interface Compiler version 5.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -75,6 +75,7 @@ public:
 
         stepRadioButton = new QRadioButton(Profiler);
         stepRadioButton->setObjectName(QStringLiteral("stepRadioButton"));
+        stepRadioButton->setChecked(true);
 
         horizontalLayout->addWidget(stepRadioButton);
 
