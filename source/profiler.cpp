@@ -1,7 +1,7 @@
 #include "profiler.h"
 #include "ui_profiler.h"
 
-Profiler::Profiler(QWidget *parent) :
+ProfilerWidget::ProfilerWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Profiler),
     m_currentItem(0)
@@ -9,12 +9,12 @@ Profiler::Profiler(QWidget *parent) :
     ui->setupUi(this);
 }
 
-Profiler::~Profiler()
+ProfilerWidget::~ProfilerWidget()
 {
     delete ui;
 }
 
-void Profiler::push(Profiler::Node *node)
+void ProfilerWidget::push(ProfilerWidget::Node *node)
 {
     if(m_currentItem == 0)
     {
@@ -53,13 +53,13 @@ void Profiler::push(Profiler::Node *node)
     updateItem(m_currentItem, node);
 }
 
-void Profiler::pop()
+void ProfilerWidget::pop()
 {
     Q_ASSERT(m_currentItem != 0);
     m_currentItem = m_currentItem->parent();
 }
 
-void Profiler::updateItem(QTreeWidgetItem *item, Profiler::Node *node)
+void ProfilerWidget::updateItem(QTreeWidgetItem *item, ProfilerWidget::Node *node)
 {
     item->setText(0, node->functionName);
     item->setText(1, QString("%1 ms").arg(QString::number(node->maxTime)));

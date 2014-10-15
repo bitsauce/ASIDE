@@ -18,24 +18,24 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-struct qt_meta_stringdata_Profiler_t {
+struct qt_meta_stringdata_ProfilerWidget_t {
     QByteArrayData data[1];
-    char stringdata[9];
+    char stringdata[15];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_Profiler_t, stringdata) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_ProfilerWidget_t, stringdata) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_Profiler_t qt_meta_stringdata_Profiler = {
+static const qt_meta_stringdata_ProfilerWidget_t qt_meta_stringdata_ProfilerWidget = {
     {
-QT_MOC_LITERAL(0, 0, 8)
+QT_MOC_LITERAL(0, 0, 14)
     },
-    "Profiler"
+    "ProfilerWidget"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_Profiler[] = {
+static const uint qt_meta_data_ProfilerWidget[] = {
 
  // content:
        7,       // revision
@@ -51,7 +51,7 @@ static const uint qt_meta_data_Profiler[] = {
        0        // eod
 };
 
-void Profiler::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void ProfilerWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     Q_UNUSED(_o);
     Q_UNUSED(_id);
@@ -59,26 +59,26 @@ void Profiler::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
     Q_UNUSED(_a);
 }
 
-const QMetaObject Profiler::staticMetaObject = {
-    { &QWidget::staticMetaObject, qt_meta_stringdata_Profiler.data,
-      qt_meta_data_Profiler,  qt_static_metacall, 0, 0}
+const QMetaObject ProfilerWidget::staticMetaObject = {
+    { &QWidget::staticMetaObject, qt_meta_stringdata_ProfilerWidget.data,
+      qt_meta_data_ProfilerWidget,  qt_static_metacall, 0, 0}
 };
 
 
-const QMetaObject *Profiler::metaObject() const
+const QMetaObject *ProfilerWidget::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *Profiler::qt_metacast(const char *_clname)
+void *ProfilerWidget::qt_metacast(const char *_clname)
 {
     if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_Profiler.stringdata))
-        return static_cast<void*>(const_cast< Profiler*>(this));
+    if (!strcmp(_clname, qt_meta_stringdata_ProfilerWidget.stringdata))
+        return static_cast<void*>(const_cast< ProfilerWidget*>(this));
     return QWidget::qt_metacast(_clname);
 }
 
-int Profiler::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int ProfilerWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)

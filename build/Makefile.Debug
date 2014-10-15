@@ -14,7 +14,7 @@ CXX           = cl
 DEFINES       = -DUNICODE -DWIN32 -DQT_PRINTSUPPORT_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -nologo -Zm200 -Zc:wchar_t -Zi -MDd -W3 /Fddebug\AngelScriptIDE.pdb $(DEFINES)
 CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -Zi -MDd -GR -W3 -w34100 -w34189 -EHsc /Fddebug\AngelScriptIDE.pdb $(DEFINES)
-INCPATH       = -I"..\qtsingleapplication\src" -I"C:\Qt\5.3\msvc2012_opengl\include" -I"C:\Qt\5.3\msvc2012_opengl\include\QtPrintSupport" -I"C:\Qt\5.3\msvc2012_opengl\include\QtOpenGL" -I"C:\Qt\5.3\msvc2012_opengl\include\QtWidgets" -I"C:\Qt\5.3\msvc2012_opengl\include\QtXml" -I"C:\Qt\5.3\msvc2012_opengl\include\QtNetwork" -I"C:\Qt\5.3\msvc2012_opengl\include\QtGui" -I"C:\Qt\5.3\msvc2012_opengl\include\QtCore" -I"debug" -I"." -I"." -I"C:\Qt\5.3\msvc2012_opengl\mkspecs\win32-msvc2012"
+INCPATH       = -I"..\..\x2D-Game-Engine\3rdparty\angelscript\sdk\angelscript\include" -I"..\..\x2D-Game-Engine\include" -I"..\qtsingleapplication\src" -I"C:\Qt\5.3\msvc2012_opengl\include" -I"C:\Qt\5.3\msvc2012_opengl\include\QtPrintSupport" -I"C:\Qt\5.3\msvc2012_opengl\include\QtOpenGL" -I"C:\Qt\5.3\msvc2012_opengl\include\QtWidgets" -I"C:\Qt\5.3\msvc2012_opengl\include\QtXml" -I"C:\Qt\5.3\msvc2012_opengl\include\QtNetwork" -I"C:\Qt\5.3\msvc2012_opengl\include\QtGui" -I"C:\Qt\5.3\msvc2012_opengl\include\QtCore" -I"debug" -I"." -I"." -I"C:\Qt\5.3\msvc2012_opengl\mkspecs\win32-msvc2012"
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
 LIBS          = glu32.lib opengl32.lib gdi32.lib user32.lib /LIBPATH:C:\Qt\5.3\msvc2012_opengl\lib C:\Qt\5.3\msvc2012_opengl\lib\qtmaind.lib C:\Qt\5.3\msvc2012_opengl\lib\qscintilla2d.lib C:\Qt\5.3\msvc2012_opengl\lib\Qt5PrintSupportd.lib C:\Qt\5.3\msvc2012_opengl\lib\Qt5OpenGLd.lib C:\Qt\5.3\msvc2012_opengl\lib\Qt5Widgetsd.lib C:\Qt\5.3\msvc2012_opengl\lib\Qt5Xmld.lib C:\Qt\5.3\msvc2012_opengl\lib\Qt5Networkd.lib C:\Qt\5.3\msvc2012_opengl\lib\Qt5Guid.lib C:\Qt\5.3\msvc2012_opengl\lib\Qt5Cored.lib debug\win32.res 
@@ -211,7 +211,7 @@ debug\win32.res: ..\source\win32.rc
 	rc -D_DEBUG $(DEFINES) -fo debug\win32.res ..\source\win32.rc
 
 qmake: FORCE
-	@$(QMAKE) -spec win32-msvc2012 -o Makefile.Debug ..\source\AngelScriptIDE.pro
+	@$(QMAKE) -spec win32-msvc2012 CONFIG+=debug -o Makefile.Debug ..\source\AngelScriptIDE.pro
 
 qmake_all: FORCE
 
@@ -738,7 +738,7 @@ debug\moc_mainwindow.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtCore\QtCore \
 		C:\Qt\5.3\msvc2012_opengl\include\QtXml\qxml.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtXml\qtxmlversion.h \
 		..\source\mainwindow.h
-	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\mainwindow.h -o debug\moc_mainwindow.cpp
+	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/3rdparty/angelscript/sdk/angelscript/include -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/include -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\mainwindow.h -o debug\moc_mainwindow.cpp
 
 debug\moc_project.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qwidget.h \
@@ -891,7 +891,7 @@ debug\moc_project.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QPixmap \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QIcon \
 		..\source\project.h
-	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\project.h -o debug\moc_project.cpp
+	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/3rdparty/angelscript/sdk/angelscript/include -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/include -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\project.h -o debug\moc_project.cpp
 
 debug\moc_projecttree.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtCore\QtCore \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QtCoreDepends \
@@ -1323,7 +1323,7 @@ debug\moc_projecttree.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtCore\QtCore \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbutton.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtwidgetsversion.h \
 		..\source\projecttree.h
-	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\projecttree.h -o debug\moc_projecttree.cpp
+	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/3rdparty/angelscript/sdk/angelscript/include -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/include -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\projecttree.h -o debug\moc_projecttree.cpp
 
 debug\moc_scripteditor.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtCore\QFile \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfile.h \
@@ -1457,7 +1457,7 @@ debug\moc_scripteditor.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtCore\QFile \
 		..\source\editorbase.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		..\source\scripteditor.h
-	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\scripteditor.h -o debug\moc_scripteditor.cpp
+	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/3rdparty/angelscript/sdk/angelscript/include -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/include -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\scripteditor.h -o debug\moc_scripteditor.cpp
 
 debug\moc_debugger.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtCore\QObject \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobject.h \
@@ -1584,8 +1584,8 @@ debug\moc_debugger.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtCore\QObject \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QFile \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QFileInfo \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfileinfo.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\QTcpSocket \
-		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\qtcpsocket.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\QLocalSocket \
+		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\qlocalsocket.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\qabstractsocket.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QTableWidget \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtablewidget.h \
@@ -1608,7 +1608,7 @@ debug\moc_debugger.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtCore\QObject \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QProcess \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qprocess.h \
 		..\source\debugger.h
-	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\debugger.h -o debug\moc_debugger.cpp
+	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/3rdparty/angelscript/sdk/angelscript/include -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/include -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\debugger.h -o debug\moc_debugger.cpp
 
 debug\moc_settings.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QDialog \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdialog.h \
@@ -1719,7 +1719,7 @@ debug\moc_settings.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QDialog \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfileinfo.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QDir \
 		..\source\settings.h
-	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\settings.h -o debug\moc_settings.cpp
+	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/3rdparty/angelscript/sdk/angelscript/include -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/include -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\settings.h -o debug\moc_settings.cpp
 
 debug\moc_workspace.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtCore\QtCore \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QtCoreDepends \
@@ -2151,7 +2151,7 @@ debug\moc_workspace.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtCore\QtCore \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbutton.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtwidgetsversion.h \
 		..\source\workspace.h
-	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\workspace.h -o debug\moc_workspace.cpp
+	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/3rdparty/angelscript/sdk/angelscript/include -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/include -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\workspace.h -o debug\moc_workspace.cpp
 
 debug\moc_configeditor.cpp: ..\source\editorbase.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
@@ -2262,7 +2262,7 @@ debug\moc_configeditor.cpp: ..\source\editorbase.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qicon.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QString \
 		..\source\configeditor.h
-	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\configeditor.h -o debug\moc_configeditor.cpp
+	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/3rdparty/angelscript/sdk/angelscript/include -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/include -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\configeditor.h -o debug\moc_configeditor.cpp
 
 debug\moc_editorbase.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qwidget.h \
@@ -2371,7 +2371,7 @@ debug\moc_editorbase.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabwidget.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qicon.h \
 		..\source\editorbase.h
-	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\editorbase.h -o debug\moc_editorbase.cpp
+	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/3rdparty/angelscript/sdk/angelscript/include -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/include -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\editorbase.h -o debug\moc_editorbase.cpp
 
 debug\moc_profiler.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qwidget.h \
@@ -2495,7 +2495,7 @@ debug\moc_profiler.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qrubberband.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreewidgetitemiterator.h \
 		..\source\profiler.h
-	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\profiler.h -o debug\moc_profiler.cpp
+	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/3rdparty/angelscript/sdk/angelscript/include -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/include -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\profiler.h -o debug\moc_profiler.cpp
 
 debug\moc_qtsingleapplication.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qapplication.h \
@@ -2604,7 +2604,7 @@ debug\moc_qtsingleapplication.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\Q
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qguiapplication.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qinputmethod.h \
 		..\qtsingleapplication\src\qtsingleapplication.h
-	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\qtsingleapplication\src\qtsingleapplication.h -o debug\moc_qtsingleapplication.cpp
+	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/3rdparty/angelscript/sdk/angelscript/include -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/include -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\qtsingleapplication\src\qtsingleapplication.h -o debug\moc_qtsingleapplication.cpp
 
 debug\moc_qtlocalpeer.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\QLocalServer \
 		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\qlocalserver.h \
@@ -2685,7 +2685,7 @@ debug\moc_qtlocalpeer.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\QLocalSer
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QFile \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QVector \
 		..\qtsingleapplication\src\qtlocalpeer.h
-	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\qtsingleapplication\src\qtlocalpeer.h -o debug\moc_qtlocalpeer.cpp
+	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/3rdparty/angelscript/sdk/angelscript/include -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/include -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\qtsingleapplication\src\qtlocalpeer.h -o debug\moc_qtlocalpeer.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -3735,7 +3735,7 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QTextDocument \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QTextDocumentFragment \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QFileInfo \
-		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\QTcpSocket \
+		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\QLocalSocket \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QTableWidget \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QProcess \
 		..\source\settings.h
@@ -5125,8 +5125,8 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QTextDocument \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QTextDocumentFragment \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QFileInfo \
-		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\QTcpSocket \
-		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\qtcpsocket.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\QLocalSocket \
+		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\qlocalsocket.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\qabstractsocket.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QTableWidget \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QProcess \
@@ -5276,8 +5276,8 @@ debug\debugger.obj: ..\source\debugger.cpp ..\source\debugger.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QFile \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QFileInfo \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfileinfo.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\QTcpSocket \
-		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\qtcpsocket.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\QLocalSocket \
+		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\qlocalsocket.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\qabstractsocket.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QTableWidget \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtablewidget.h \
@@ -5619,7 +5619,46 @@ debug\debugger.obj: ..\source\debugger.cpp ..\source\debugger.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QPixmap \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QIcon \
 		..\source\profiler.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QTreeWidget
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QTreeWidget \
+		..\..\x2D-Game-Engine\include\x2d\x2d.h \
+		..\..\x2D-Game-Engine\include\x2d\config.h \
+		..\..\x2D-Game-Engine\include\x2d\math.h \
+		..\..\x2D-Game-Engine\include\x2d\math\matrix.h \
+		..\..\x2D-Game-Engine\include\x2d\math\vector.h \
+		..\..\x2D-Game-Engine\include\x2d\math\rect.h \
+		..\..\x2D-Game-Engine\include\x2d\math\rectanglepacker.h \
+		..\..\x2D-Game-Engine\3rdparty\angelscript\sdk\angelscript\include\angelscript.h \
+		..\..\x2D-Game-Engine\include\x2d\engine.h \
+		..\..\x2D-Game-Engine\include\x2d\extention.h \
+		..\..\x2D-Game-Engine\include\x2d\extention\funccall.h \
+		..\..\x2D-Game-Engine\include\x2d\extention\iniparser.h \
+		..\..\x2D-Game-Engine\include\x2d\extention\scriptany.h \
+		..\..\x2D-Game-Engine\include\x2d\extention\scriptarray.h \
+		..\..\x2D-Game-Engine\include\x2d\extention\scriptbuilder.h \
+		..\..\x2D-Game-Engine\include\x2d\extention\scriptdictionary.h \
+		..\..\x2D-Game-Engine\include\x2d\extention\scriptgrid.h \
+		..\..\x2D-Game-Engine\include\x2d\extention\scripthelper.h \
+		..\..\x2D-Game-Engine\include\x2d\extention\scriptstdstring.h \
+		..\..\x2D-Game-Engine\include\x2d\extention\stringstream.h \
+		..\..\x2D-Game-Engine\include\x2d\extention\thread.h \
+		..\..\x2D-Game-Engine\include\x2d\audio.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\animation.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\batch.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\context.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\font.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\framebufferobject.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\pixmap.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\shader.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\shape.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\sprite.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\textureRegion.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\spritebatch.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\texture.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\textureatlas.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\textureregion.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\vertexbufferobject.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\viewport.h
 
 debug\settings.obj: ..\source\settings.cpp ..\source\settings.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QDialog \

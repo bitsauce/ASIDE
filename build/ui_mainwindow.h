@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.3.0
+** Created by: Qt User Interface Compiler version 5.3.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -39,7 +39,7 @@ public:
     QAction *actionAbout;
     QAction *actionHelp;
     QAction *actionSettings;
-    QAction *actionClose_Project;
+    QAction *actionCloseProject;
     QAction *actionPause;
     QAction *actionStop;
     QAction *actionRestart;
@@ -186,9 +186,9 @@ public:
         actionHelp->setObjectName(QStringLiteral("actionHelp"));
         actionSettings = new QAction(MainWindow);
         actionSettings->setObjectName(QStringLiteral("actionSettings"));
-        actionClose_Project = new QAction(MainWindow);
-        actionClose_Project->setObjectName(QStringLiteral("actionClose_Project"));
-        actionClose_Project->setEnabled(false);
+        actionCloseProject = new QAction(MainWindow);
+        actionCloseProject->setObjectName(QStringLiteral("actionCloseProject"));
+        actionCloseProject->setEnabled(false);
         actionPause = new QAction(MainWindow);
         actionPause->setObjectName(QStringLiteral("actionPause"));
         actionPause->setEnabled(false);
@@ -299,7 +299,7 @@ public:
         menuFile->addAction(actionSave);
         menuFile->addAction(actionSave_All);
         menuFile->addSeparator();
-        menuFile->addAction(actionClose_Project);
+        menuFile->addAction(actionCloseProject);
         menuFile->addSeparator();
         menuFile->addAction(actionPublish);
         menuFile->addSeparator();
@@ -337,6 +337,7 @@ public:
         QObject::connect(actionStop, SIGNAL(triggered()), MainWindow, SLOT(stopExec()));
         QObject::connect(actionRestart, SIGNAL(triggered()), MainWindow, SLOT(restartExec()));
         QObject::connect(actionSettings, SIGNAL(triggered()), MainWindow, SLOT(showSettings()));
+        QObject::connect(actionCloseProject, SIGNAL(triggered()), MainWindow, SLOT(closeProject()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -400,11 +401,11 @@ public:
 #ifndef QT_NO_TOOLTIP
         actionSettings->setToolTip(QApplication::translate("MainWindow", "Change editor settings", 0));
 #endif // QT_NO_TOOLTIP
-        actionClose_Project->setText(QApplication::translate("MainWindow", "Close Project", 0));
+        actionCloseProject->setText(QApplication::translate("MainWindow", "Close Project", 0));
 #ifndef QT_NO_TOOLTIP
-        actionClose_Project->setToolTip(QApplication::translate("MainWindow", "Close the current project", 0));
+        actionCloseProject->setToolTip(QApplication::translate("MainWindow", "Close the current project", 0));
 #endif // QT_NO_TOOLTIP
-        actionClose_Project->setShortcut(QApplication::translate("MainWindow", "Ctrl+Shift+W", 0));
+        actionCloseProject->setShortcut(QApplication::translate("MainWindow", "Ctrl+Shift+W", 0));
         actionPause->setText(QApplication::translate("MainWindow", "Pause", 0));
 #ifndef QT_NO_TOOLTIP
         actionPause->setToolTip(QApplication::translate("MainWindow", "Pause game", 0));

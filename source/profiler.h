@@ -8,13 +8,13 @@ namespace Ui {
 class Profiler;
 }
 
-class Profiler : public QWidget
+class ProfilerWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit Profiler(QWidget *parent = 0);
-    ~Profiler();
+    explicit ProfilerWidget(QWidget *parent = 0);
+    ~ProfilerWidget();
 
     struct Node
     {

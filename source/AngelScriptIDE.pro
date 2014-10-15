@@ -10,6 +10,9 @@ CONFIG += qscintilla2
 RC_FILE = win32.rc
 TEMPLATE = app
 
+INCLUDEPATH += ../../x2D-Game-Engine/3rdparty/angelscript/sdk/angelscript/include \
+    ../../x2D-Game-Engine/include
+
 SOURCES += main.cpp\
     mainwindow.cpp \
     project.cpp \

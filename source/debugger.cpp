@@ -12,20 +12,7 @@
 #include "project.h"
 #include "profiler.h"
 
-enum XPacketType
-{
-    X2D_NULL_PACKET = 0x00,
-    X2D_CONNECTED_PACKET,
-    X2D_INITIALIZED_PACKET,
-    X2D_MESSAGE_PACKET,
-    X2D_COMPILE_PACKET,
-    X2D_BREAK_PACKET,
-    X2D_TEXT_VAR_PACKET,
-    X2D_IMAGE_VAR_PACKET,
-
-    XD_PUSH_NODE_PACKET,
-    XD_POP_NODE_PACKET
-};
+#include <x2d/x2d.h>
 
 // Global debugger
 
@@ -46,8 +33,9 @@ Debugger::Debugger(QTabWidget *infoWidget, QWidget *parent) :
     g_debugger = this;
 
     // Create socket object
-    m_socket = new QTcpSocket(this);
-    connect(m_socket, SIGNAL(readyRead()), this, SLOT(processData()));
+    m_socket = new QLocalSocket(this);
+    connect(m_socket, SIGNAL(readyRead()), this, SLOT(processPacket()));
+    //connect(m_socket, SIGNAL(connected()), this, SLOT(connected()));
 
     // Create output widget tab
     m_outputWidget = new OutputWidget(infoWidget);
@@ -73,7 +61,7 @@ Debugger::Debugger(QTabWidget *infoWidget, QWidget *parent) :
 
     // Create profiler
     {
-        m_profiler = new Profiler(infoWidget);
+        m_profiler = new ProfilerWidget(infoWidget);
         infoWidget->addTab(m_profiler, "Profiler");
     }
 
@@ -84,36 +72,32 @@ Debugger::Debugger(QTabWidget *infoWidget, QWidget *parent) :
 void Debugger::connectToHost()
 {
     // Connect to host
-    m_socket->connectToHost("127.0.0.1", 5120);
+    while(m_socket->state() != QLocalSocket::ConnectedState)
+        m_socket->connectToServer("\\\\.\\pipe\\x2d_debug_pipe");
+    m_debugging = true;
 }
 
-void Debugger::processData()
+void Debugger::processPacket()
 {
-    QString data(m_socket->readAll());
-    if(data.size() <= 0)
-        return;
+    QByteArray arrayData = m_socket->readAll();
+    const char *data = arrayData.data();
 
-    // Get data type
-    int dataType = data[0].toLatin1();
-    data = data.right(data.size()-1);
-    switch(dataType)
+    // Extract packet type
+    XPacketType packetType = XPacketType(((int*)data)[0]);
+    QString packet = (data + sizeof(int));
+    switch(packetType)
     {
-    case X2D_CONNECTED_PACKET:
-        m_debugging = true;
-        // TODO: Send all breakpoints
-        break;
+    //case XD_INITIALIZED_PACKET:
+    //    emit execInitialized();
+    //break;
 
-    case X2D_INITIALIZED_PACKET:
-        emit execInitialized();
-        break;
-
-    case X2D_MESSAGE_PACKET:
-        if(data[0] == '#' && data.size() > 7)
+    case XD_MESSAGE_PACKET:
+        if(packet[0] == '#' && packet.size() > 7)
         {
             // Apply text color
-            QColor textColor(data.mid(0, 7));
+            QColor textColor(packet.mid(0, 7));
             if(textColor.isValid())
-                data.remove(0, 7);
+                packet.remove(0, 7);
             else
                 textColor = Qt::black;
             m_outputWidget->setTextColor(textColor);
@@ -122,13 +106,13 @@ void Debugger::processData()
         }
 
         // Append to log
-        m_outputWidget->append(data);
-        break;
+        m_outputWidget->append(packet);
+    break;
 
-    case X2D_COMPILE_PACKET:
+    case XD_COMPILE_ERROR_PACKET:
     {
         // Get compile data
-        QStringList callbackData = data.split(" : ");
+        QStringList callbackData = packet.split(" : ");
         if(callbackData.size() == 3)
         {
             // Create compilation list item
@@ -157,29 +141,27 @@ void Debugger::processData()
             item = new QTableWidgetItem(loc.mid(loc.indexOf('(')+1, loc.indexOf(',')-loc.indexOf('(')-1));
             item->setFlags(item->flags() ^ Qt::ItemIsEditable);
             m_errorWidget->setItem(row, 3, item);
-
-            //if(type == "ERR")
-                //emit showErrorList();
         }
-        break;
     }
+    break;
 
-    case X2D_BREAK_PACKET:
+    case XD_BREAK_PACKET:
     {
-        QStringList split = data.split(";");
+        QStringList split = packet.split(";");
         m_breakFilePath = split[0];
         m_breakLine = split[1].toInt();
         ScriptEditor *edit = (ScriptEditor*)workspace()->openFile(m_breakFilePath);
         edit->gotoLine(m_breakLine);
         emit execInterrupted(m_breakFilePath, m_breakLine);
-    } break;
+    }
+    break;
 
     case XD_PUSH_NODE_PACKET:
     {
-        QStringList dataList = data.split(";");
+        QStringList dataList = packet.split(";");
         Q_ASSERT(dataList.size() == 6);
 
-        Profiler::Node *node = new Profiler::Node();
+        ProfilerWidget::Node *node = new ProfilerWidget::Node();
         node->functionName = dataList[0];
         node->totalTime = dataList[1].toInt();
         node->maxTime = dataList[2].toInt();
@@ -195,14 +177,15 @@ void Debugger::processData()
     break;
 
     default:
-        qDebug() << "Unknown packet type '" << dataType << "'!";
+        qDebug() << "Unknown packet type '" << packetType << "'!";
     break;
     }
 
-    // Send async packet
-    QByteArray async(512, '\0');
-    async[0] = 0x01;
-    m_socket->write(async);
+    // Send ack packet
+    char async[sizeof(int) + 1];
+    ((int*)async)[0] = XD_ACK_PACKET;
+    async[sizeof(int)] = '\0';
+    m_socket->write((const char*)async);
 }
 
 void Debugger::gameEnded(int ret, QProcess::ExitStatus status)

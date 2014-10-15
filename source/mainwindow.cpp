@@ -117,7 +117,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Create debugger
     m_debugger = new Debugger(m_infoWidget, this);
-    connect(m_debugger, SIGNAL(execInitialized()), this, SLOT(enableRuntimeComands()));
     connect(m_debugger, SIGNAL(execInterrupted(QString,int)), this, SLOT(enableResume()));
     connect(m_debugger, SIGNAL(execResumed()), this, SLOT(disableResume()));
     connect(m_debugger, SIGNAL(execEnded()), this, SLOT(disableRuntimeComands()));
@@ -482,7 +481,7 @@ void MainWindow::projectLoaded()
 
     // Enable project buttons
     ui->actionSave_All->setEnabled(true);
-    ui->actionClose_Project->setEnabled(true);
+    ui->actionCloseProject->setEnabled(true);
 
     // Setup project tree
     m_projectTree->setRootPath(Project::getDirectory());
@@ -547,7 +546,7 @@ void MainWindow::closeProject()
 
     // Disable project buttons
     ui->actionSave_All->setEnabled(false);
-    ui->actionClose_Project->setEnabled(false);
+    ui->actionCloseProject->setEnabled(false);
 
     // Create project dialog
     m_projectDialog->show();
@@ -603,12 +602,14 @@ void MainWindow::startApplication()
         programPath = settings()->value("script_editor/default_application", "asrun.exe").toString();
     }else{
         // Set command line arguments
-        args.push_back("-d"); // -d for debug
         args.push_back("-w " + Project::getDirectory()); // -w for working directory
     }
 
     // Start process
     game->start(programPath, args);
+
+    // Enable debug commands
+    enableRuntimeComands();
 
     // Setup debugger
     m_debugger->reset();

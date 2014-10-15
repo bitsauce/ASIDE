@@ -125,7 +125,7 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <addaction name="actionSave"/>
     <addaction name="actionSave_All"/>
     <addaction name="separator"/>
-    <addaction name="actionClose_Project"/>
+    <addaction name="actionCloseProject"/>
     <addaction name="separator"/>
     <addaction name="actionPublish"/>
     <addaction name="separator"/>
@@ -342,7 +342,7 @@ margin-top: 2px; /* make non-selected tabs look smaller */
     <string>Change editor settings</string>
    </property>
   </action>
-  <action name="actionClose_Project">
+  <action name="actionCloseProject">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -645,6 +645,22 @@ margin-top: 2px; /* make non-selected tabs look smaller */
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>showSettings()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCloseProject</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>closeProject()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>

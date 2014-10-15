@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Debugger_t {
     QByteArrayData data[23];
-    char stringdata[225];
+    char stringdata[227];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -46,18 +46,18 @@ QT_MOC_LITERAL(13, 118, 7),
 QT_MOC_LITERAL(14, 126, 17),
 QT_MOC_LITERAL(15, 144, 3),
 QT_MOC_LITERAL(16, 148, 3),
-QT_MOC_LITERAL(17, 152, 11),
-QT_MOC_LITERAL(18, 164, 9),
-QT_MOC_LITERAL(19, 174, 3),
-QT_MOC_LITERAL(20, 178, 20),
-QT_MOC_LITERAL(21, 199, 6),
-QT_MOC_LITERAL(22, 206, 18)
+QT_MOC_LITERAL(17, 152, 13),
+QT_MOC_LITERAL(18, 166, 9),
+QT_MOC_LITERAL(19, 176, 3),
+QT_MOC_LITERAL(20, 180, 20),
+QT_MOC_LITERAL(21, 201, 6),
+QT_MOC_LITERAL(22, 208, 18)
     },
     "Debugger\0execInitialized\0\0execInterrupted\0"
     "filePath\0line\0execResumed\0execEnded\0"
     "interrupt\0resume\0stop\0stepOver\0stepInto\0"
     "stepOut\0cellDoubleClicked\0row\0col\0"
-    "processData\0gameEnded\0ret\0"
+    "processPacket\0gameEnded\0ret\0"
     "QProcess::ExitStatus\0status\0"
     "sendAllBreakpoints"
 };
@@ -131,7 +131,7 @@ void Debugger::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 8: _t->stepInto(); break;
         case 9: _t->stepOut(); break;
         case 10: _t->cellDoubleClicked((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 11: _t->processData(); break;
+        case 11: _t->processPacket(); break;
         case 12: _t->gameEnded((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QProcess::ExitStatus(*)>(_a[2]))); break;
         case 13: _t->sendAllBreakpoints(); break;
         default: ;

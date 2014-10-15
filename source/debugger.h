@@ -12,12 +12,12 @@
 #include <QTextDocumentFragment>
 #include <QFile>
 #include <QFileInfo>
-#include <QTcpSocket>
+#include <QLocalSocket>
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QProcess>
 
-class Profiler;
+class ProfilerWidget;
 class OutputWidget;
 class ErrorWidget;
 
@@ -55,7 +55,7 @@ public slots:
 
 private slots:
     void cellDoubleClicked(int row, int col);
-    void processData();
+    void processPacket();
     void gameEnded(int ret, QProcess::ExitStatus status);
     void sendAllBreakpoints();
 
@@ -67,7 +67,7 @@ signals:
 
 private:
     // Socket
-    QTcpSocket *m_socket;
+    QLocalSocket *m_socket;
 
     // Output widget
     OutputWidget *m_outputWidget;
@@ -76,7 +76,7 @@ private:
     QTableWidget *m_errorWidget;
 
     // Profiler
-    Profiler *m_profiler;
+    ProfilerWidget *m_profiler;
 
     // Running?
     bool m_debugging;
