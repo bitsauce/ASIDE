@@ -51,7 +51,10 @@
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QToolButton" name="startProfilerButton">
+      <widget class="QToolButton" name="toggleProfilerButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>...</string>
        </property>

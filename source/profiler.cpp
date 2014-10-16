@@ -4,9 +4,12 @@
 ProfilerWidget::ProfilerWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Profiler),
-    m_currentItem(0)
+    m_currentItem(0),
+    m_enabled(false)
 {
     ui->setupUi(this);
+
+    connect(ui->toggleProfilerButton, SIGNAL(clicked()), this, SLOT(toggleProfiler()));
 }
 
 ProfilerWidget::~ProfilerWidget()
@@ -59,6 +62,14 @@ void ProfilerWidget::pop()
     m_currentItem = m_currentItem->parent();
 }
 
+void ProfilerWidget::clear()
+{
+    if(m_enabled)
+    {
+        ui->profilerTree->clear();
+    }
+}
+
 void ProfilerWidget::updateItem(QTreeWidgetItem *item, ProfilerWidget::Node *node)
 {
     item->setText(0, node->functionName);
@@ -67,4 +78,30 @@ void ProfilerWidget::updateItem(QTreeWidgetItem *item, ProfilerWidget::Node *nod
     item->setText(3, QString("%1 ms").arg(QString::number(node->aveTime)));
     item->setText(4, QString("%1 ms").arg(QString::number(node->totalTime)));
     item->setText(5, QString::number(node->callCount));
+}
+
+void ProfilerWidget::toggleProfiler()
+{
+    if(m_enabled)
+    {
+        ui->toggleProfilerButton->setIcon(QIcon(":/toolbar/icons/run.png"));
+        emit stop();
+    }
+    else
+    {
+        ui->toggleProfilerButton->setIcon(QIcon(":/toolbar/icons/stop.png"));
+        emit start();
+    }
+    m_enabled = !m_enabled;
+}
+
+void ProfilerWidget::applicationStart()
+{
+    ui->profilerTree->clear();
+    ui->toggleProfilerButton->setEnabled(true);
+}
+
+void ProfilerWidget::applicationEnd()
+{
+    ui->toggleProfilerButton->setEnabled(false);
 }

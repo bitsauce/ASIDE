@@ -20,6 +20,7 @@
 class ProfilerWidget;
 class OutputWidget;
 class ErrorWidget;
+enum XPacketType;
 
 //-----------------------------------------------------
 // Debugger
@@ -53,6 +54,9 @@ public slots:
     void stepInto();
     void stepOut();
 
+    void startProfiler();
+    void stopProfiler();
+
 private slots:
     void cellDoubleClicked(int row, int col);
     void processPacket();
@@ -77,6 +81,9 @@ private:
 
     // Profiler
     ProfilerWidget *m_profiler;
+
+    // Packet
+    QByteArray m_packet;
 
     // Running?
     bool m_debugging;

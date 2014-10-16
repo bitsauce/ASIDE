@@ -600,13 +600,15 @@ void MainWindow::startApplication()
             return;
         }
         programPath = settings()->value("script_editor/default_application", "asrun.exe").toString();
-    }else{
+    }
+    else
+    {
         // Set command line arguments
         args.push_back("-w " + Project::getDirectory()); // -w for working directory
     }
 
     // Start process
-    game->start(programPath, args);
+    //game->start(programPath, args);
 
     // Enable debug commands
     enableRuntimeComands();

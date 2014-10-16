@@ -29,11 +29,23 @@ public:
     void push(Node *node);
     void pop();
 
+    void clear();
+
     void updateItem(QTreeWidgetItem *item, Node *node);
+
+public slots:
+    void toggleProfiler();
+    void applicationStart();
+    void applicationEnd();
+
+signals:
+    void start();
+    void stop();
 
 private:
     Ui::Profiler *ui;
     QTreeWidgetItem *m_currentItem;
+    bool m_enabled;
 };
 
 #endif // PROFILER_H

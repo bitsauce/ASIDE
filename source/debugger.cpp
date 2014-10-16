@@ -63,6 +63,8 @@ Debugger::Debugger(QTabWidget *infoWidget, QWidget *parent) :
     {
         m_profiler = new ProfilerWidget(infoWidget);
         infoWidget->addTab(m_profiler, "Profiler");
+        connect(m_profiler, SIGNAL(start()), this, SLOT(startProfiler()));
+        connect(m_profiler, SIGNAL(stop()), this, SLOT(stopProfiler()));
     }
 
     // Create variable
@@ -79,18 +81,15 @@ void Debugger::connectToHost()
 
 void Debugger::processPacket()
 {
+    // Read byte data
     QByteArray arrayData = m_socket->readAll();
     const char *data = arrayData.data();
 
     // Extract packet type
-    XPacketType packetType = XPacketType(((int*)data)[0]);
-    QString packet = (data + sizeof(int));
+    XPacketType packetType = XPacketType(data[0]);
+    QString packet = (data + 1);
     switch(packetType)
     {
-    //case XD_INITIALIZED_PACKET:
-    //    emit execInitialized();
-    //break;
-
     case XD_MESSAGE_PACKET:
         if(packet[0] == '#' && packet.size() > 7)
         {
@@ -176,16 +175,24 @@ void Debugger::processPacket()
         m_profiler->pop();
     break;
 
+    case XD_STEP_DONE_PACKET:
+        m_profiler->clear();
+    break;
+
     default:
         qDebug() << "Unknown packet type '" << packetType << "'!";
     break;
     }
 
-    // Send ack packet
-    char async[sizeof(int) + 1];
-    ((int*)async)[0] = XD_ACK_PACKET;
-    async[sizeof(int)] = '\0';
-    m_socket->write((const char*)async);
+    // Send packet
+    m_packet.prepend(XD_ACK_PACKET);
+    char *ackPacket = new char[m_packet.size() + 1];
+    memcpy(ackPacket, m_packet.constData(), m_packet.size());
+    ackPacket[m_packet.size()] = '\0';
+    m_socket->write((const char*)ackPacket);
+
+    // Setup next packet
+    m_packet.clear();
 }
 
 void Debugger::gameEnded(int ret, QProcess::ExitStatus status)
@@ -200,10 +207,14 @@ void Debugger::gameEnded(int ret, QProcess::ExitStatus status)
     {
         m_outputWidget->setTextColor(QColor("#de0000"));
         m_outputWidget->append(QString("Exit unsuccessful with error code '%1'").arg(ret));
-    }else{
+    }
+    else
+    {
         m_outputWidget->setTextColor(QColor("#00adeb"));
         m_outputWidget->append("Exit successful");
     }
+
+    m_profiler->applicationEnd();
     m_outputWidget->append("");
     m_debugging = false;
 }
@@ -215,6 +226,7 @@ void Debugger::sendAllBreakpoints()
 
 void Debugger::reset()
 {
+    m_profiler->applicationStart();
     m_errorWidget->setRowCount(0);
     m_outputWidget->clear();
 }
@@ -291,6 +303,16 @@ void Debugger::stepOut()
     QByteArray packet(512, '\0');
     packet[0] = 0x13;
     m_socket->write(packet);
+}
+
+void Debugger::startProfiler()
+{
+    m_packet.append(XD_START_PROFILER);
+}
+
+void Debugger::stopProfiler()
+{
+    m_packet.append(XD_STOP_PROFILER);
 }
 
 void Debugger::cellDoubleClicked(int row, int)

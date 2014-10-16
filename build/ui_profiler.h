@@ -31,7 +31,7 @@ public:
     QGridLayout *gridLayout;
     QTreeWidget *profilerTree;
     QHBoxLayout *horizontalLayout;
-    QToolButton *startProfilerButton;
+    QToolButton *toggleProfilerButton;
     QSpacerItem *horizontalSpacer;
     QCheckBox *bottomUpToggle;
     QRadioButton *totalRadioButton;
@@ -51,13 +51,14 @@ public:
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        startProfilerButton = new QToolButton(Profiler);
-        startProfilerButton->setObjectName(QStringLiteral("startProfilerButton"));
+        toggleProfilerButton = new QToolButton(Profiler);
+        toggleProfilerButton->setObjectName(QStringLiteral("toggleProfilerButton"));
+        toggleProfilerButton->setEnabled(false);
         QIcon icon;
         icon.addFile(QStringLiteral(":/toolbar/icons/run.png"), QSize(), QIcon::Normal, QIcon::Off);
-        startProfilerButton->setIcon(icon);
+        toggleProfilerButton->setIcon(icon);
 
-        horizontalLayout->addWidget(startProfilerButton);
+        horizontalLayout->addWidget(toggleProfilerButton);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -98,7 +99,7 @@ public:
         ___qtreewidgetitem->setText(2, QApplication::translate("Profiler", "Min", 0));
         ___qtreewidgetitem->setText(1, QApplication::translate("Profiler", "Max", 0));
         ___qtreewidgetitem->setText(0, QApplication::translate("Profiler", "Funciton", 0));
-        startProfilerButton->setText(QApplication::translate("Profiler", "...", 0));
+        toggleProfilerButton->setText(QApplication::translate("Profiler", "...", 0));
         bottomUpToggle->setText(QApplication::translate("Profiler", "Bottom Up", 0));
         totalRadioButton->setText(QApplication::translate("Profiler", "Total", 0));
         stepRadioButton->setText(QApplication::translate("Profiler", "Step", 0));
