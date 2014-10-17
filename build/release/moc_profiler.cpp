@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ProfilerWidget_t {
-    QByteArrayData data[1];
-    char stringdata[15];
+    QByteArrayData data[7];
+    char stringdata[74];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -29,9 +29,16 @@ struct qt_meta_stringdata_ProfilerWidget_t {
     )
 static const qt_meta_stringdata_ProfilerWidget_t qt_meta_stringdata_ProfilerWidget = {
     {
-QT_MOC_LITERAL(0, 0, 14)
+QT_MOC_LITERAL(0, 0, 14),
+QT_MOC_LITERAL(1, 15, 5),
+QT_MOC_LITERAL(2, 21, 0),
+QT_MOC_LITERAL(3, 22, 4),
+QT_MOC_LITERAL(4, 27, 14),
+QT_MOC_LITERAL(5, 42, 16),
+QT_MOC_LITERAL(6, 59, 14)
     },
-    "ProfilerWidget"
+    "ProfilerWidget\0start\0\0stop\0toggleProfiler\0"
+    "applicationStart\0applicationEnd"
 };
 #undef QT_MOC_LITERAL
 
@@ -41,21 +48,62 @@ static const uint qt_meta_data_ProfilerWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       2,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    0,   39,    2, 0x06 /* Public */,
+       3,    0,   40,    2, 0x06 /* Public */,
+
+ // slots: name, argc, parameters, tag, flags
+       4,    0,   41,    2, 0x0a /* Public */,
+       5,    0,   42,    2, 0x0a /* Public */,
+       6,    0,   43,    2, 0x0a /* Public */,
+
+ // signals: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+
+ // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
 
 void ProfilerWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    Q_UNUSED(_o);
-    Q_UNUSED(_id);
-    Q_UNUSED(_c);
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        ProfilerWidget *_t = static_cast<ProfilerWidget *>(_o);
+        switch (_id) {
+        case 0: _t->start(); break;
+        case 1: _t->stop(); break;
+        case 2: _t->toggleProfiler(); break;
+        case 3: _t->applicationStart(); break;
+        case 4: _t->applicationEnd(); break;
+        default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        void **func = reinterpret_cast<void **>(_a[1]);
+        {
+            typedef void (ProfilerWidget::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ProfilerWidget::start)) {
+                *result = 0;
+            }
+        }
+        {
+            typedef void (ProfilerWidget::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ProfilerWidget::stop)) {
+                *result = 1;
+            }
+        }
+    }
     Q_UNUSED(_a);
 }
 
@@ -83,6 +131,27 @@ int ProfilerWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 5)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 5;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 5)
+            *reinterpret_cast<int*>(_a[0]) = -1;
+        _id -= 5;
+    }
     return _id;
+}
+
+// SIGNAL 0
+void ProfilerWidget::start()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, 0);
+}
+
+// SIGNAL 1
+void ProfilerWidget::stop()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, 0);
 }
 QT_END_MOC_NAMESPACE

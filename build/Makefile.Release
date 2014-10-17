@@ -200,7 +200,7 @@ release\win32.res: ..\source\win32.rc
 	rc $(DEFINES) -fo release\win32.res ..\source\win32.rc
 
 qmake: FORCE
-	@$(QMAKE) -spec win32-msvc2012 CONFIG+=debug -o Makefile.Release ..\source\AngelScriptIDE.pro
+	@$(QMAKE) -spec win32-msvc2012 -o Makefile.Release ..\source\AngelScriptIDE.pro
 
 qmake_all: FORCE
 
@@ -2482,6 +2482,7 @@ release\moc_profiler.cpp: C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabwidget.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qrubberband.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreewidgetitemiterator.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QList \
 		..\source\profiler.h
 	C:\Qt\5.3\msvc2012_opengl\bin\moc.exe $(DEFINES) -D_MSC_VER=1700 -D_WIN32 -IC:/Qt/5.3/msvc2012_opengl/mkspecs/win32-msvc2012 -IC:/Users/Marcus/Documents/GitHub/ASIDE/source -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/3rdparty/angelscript/sdk/angelscript/include -IC:/Users/Marcus/Documents/GitHub/x2D-Game-Engine/include -IC:/Users/Marcus/Documents/GitHub/ASIDE/qtsingleapplication/src -IC:/Qt/5.3/msvc2012_opengl/include -IC:/Qt/5.3/msvc2012_opengl/include/QtPrintSupport -IC:/Qt/5.3/msvc2012_opengl/include/QtOpenGL -IC:/Qt/5.3/msvc2012_opengl/include/QtWidgets -IC:/Qt/5.3/msvc2012_opengl/include/QtXml -IC:/Qt/5.3/msvc2012_opengl/include/QtNetwork -IC:/Qt/5.3/msvc2012_opengl/include/QtGui -IC:/Qt/5.3/msvc2012_opengl/include/QtCore -I. ..\source\profiler.h -o release\moc_profiler.cpp
 
@@ -7078,6 +7079,7 @@ release\profiler.obj: ..\source\profiler.cpp ..\source\profiler.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabwidget.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qrubberband.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreewidgetitemiterator.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QList \
 		ui_profiler.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QVariant \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QAction \

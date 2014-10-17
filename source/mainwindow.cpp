@@ -608,7 +608,7 @@ void MainWindow::startApplication()
     }
 
     // Start process
-    //game->start(programPath, args);
+    game->start(programPath, args);
 
     // Enable debug commands
     enableRuntimeComands();

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Debugger_t {
-    QByteArrayData data[23];
-    char stringdata[227];
+    QByteArrayData data[25];
+    char stringdata[254];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -43,23 +43,25 @@ QT_MOC_LITERAL(10, 95, 4),
 QT_MOC_LITERAL(11, 100, 8),
 QT_MOC_LITERAL(12, 109, 8),
 QT_MOC_LITERAL(13, 118, 7),
-QT_MOC_LITERAL(14, 126, 17),
-QT_MOC_LITERAL(15, 144, 3),
-QT_MOC_LITERAL(16, 148, 3),
-QT_MOC_LITERAL(17, 152, 13),
-QT_MOC_LITERAL(18, 166, 9),
-QT_MOC_LITERAL(19, 176, 3),
-QT_MOC_LITERAL(20, 180, 20),
-QT_MOC_LITERAL(21, 201, 6),
-QT_MOC_LITERAL(22, 208, 18)
+QT_MOC_LITERAL(14, 126, 13),
+QT_MOC_LITERAL(15, 140, 12),
+QT_MOC_LITERAL(16, 153, 17),
+QT_MOC_LITERAL(17, 171, 3),
+QT_MOC_LITERAL(18, 175, 3),
+QT_MOC_LITERAL(19, 179, 13),
+QT_MOC_LITERAL(20, 193, 9),
+QT_MOC_LITERAL(21, 203, 3),
+QT_MOC_LITERAL(22, 207, 20),
+QT_MOC_LITERAL(23, 228, 6),
+QT_MOC_LITERAL(24, 235, 18)
     },
     "Debugger\0execInitialized\0\0execInterrupted\0"
     "filePath\0line\0execResumed\0execEnded\0"
     "interrupt\0resume\0stop\0stepOver\0stepInto\0"
-    "stepOut\0cellDoubleClicked\0row\0col\0"
-    "processPacket\0gameEnded\0ret\0"
-    "QProcess::ExitStatus\0status\0"
-    "sendAllBreakpoints"
+    "stepOut\0startProfiler\0stopProfiler\0"
+    "cellDoubleClicked\0row\0col\0processPacket\0"
+    "gameEnded\0ret\0QProcess::ExitStatus\0"
+    "status\0sendAllBreakpoints"
 };
 #undef QT_MOC_LITERAL
 
@@ -69,7 +71,7 @@ static const uint qt_meta_data_Debugger[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      16,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -77,22 +79,24 @@ static const uint qt_meta_data_Debugger[] = {
        4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   84,    2, 0x06 /* Public */,
-       3,    2,   85,    2, 0x06 /* Public */,
-       6,    0,   90,    2, 0x06 /* Public */,
-       7,    0,   91,    2, 0x06 /* Public */,
+       1,    0,   94,    2, 0x06 /* Public */,
+       3,    2,   95,    2, 0x06 /* Public */,
+       6,    0,  100,    2, 0x06 /* Public */,
+       7,    0,  101,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       8,    0,   92,    2, 0x0a /* Public */,
-       9,    0,   93,    2, 0x0a /* Public */,
-      10,    0,   94,    2, 0x0a /* Public */,
-      11,    0,   95,    2, 0x0a /* Public */,
-      12,    0,   96,    2, 0x0a /* Public */,
-      13,    0,   97,    2, 0x0a /* Public */,
-      14,    2,   98,    2, 0x08 /* Private */,
-      17,    0,  103,    2, 0x08 /* Private */,
-      18,    2,  104,    2, 0x08 /* Private */,
-      22,    0,  109,    2, 0x08 /* Private */,
+       8,    0,  102,    2, 0x0a /* Public */,
+       9,    0,  103,    2, 0x0a /* Public */,
+      10,    0,  104,    2, 0x0a /* Public */,
+      11,    0,  105,    2, 0x0a /* Public */,
+      12,    0,  106,    2, 0x0a /* Public */,
+      13,    0,  107,    2, 0x0a /* Public */,
+      14,    0,  108,    2, 0x0a /* Public */,
+      15,    0,  109,    2, 0x0a /* Public */,
+      16,    2,  110,    2, 0x08 /* Private */,
+      19,    0,  115,    2, 0x08 /* Private */,
+      20,    2,  116,    2, 0x08 /* Private */,
+      24,    0,  121,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -107,9 +111,11 @@ static const uint qt_meta_data_Debugger[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,   15,   16,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, 0x80000000 | 20,   19,   21,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,   17,   18,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, 0x80000000 | 22,   21,   23,
     QMetaType::Void,
 
        0        // eod
@@ -130,10 +136,12 @@ void Debugger::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 7: _t->stepOver(); break;
         case 8: _t->stepInto(); break;
         case 9: _t->stepOut(); break;
-        case 10: _t->cellDoubleClicked((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 11: _t->processPacket(); break;
-        case 12: _t->gameEnded((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QProcess::ExitStatus(*)>(_a[2]))); break;
-        case 13: _t->sendAllBreakpoints(); break;
+        case 10: _t->startProfiler(); break;
+        case 11: _t->stopProfiler(); break;
+        case 12: _t->cellDoubleClicked((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 13: _t->processPacket(); break;
+        case 14: _t->gameEnded((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QProcess::ExitStatus(*)>(_a[2]))); break;
+        case 15: _t->sendAllBreakpoints(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -191,13 +199,13 @@ int Debugger::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 16;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 14)
+        if (_id < 16)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 14;
+        _id -= 16;
     }
     return _id;
 }

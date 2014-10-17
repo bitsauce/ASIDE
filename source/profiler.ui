@@ -46,6 +46,16 @@
        <string>Calls</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>% of branch</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>% of total</string>
+      </property>
+     </column>
     </widget>
    </item>
    <item row="0" column="0">
@@ -89,6 +99,9 @@
        <property name="text">
         <string>Total</string>
        </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -97,7 +110,7 @@
         <string>Step</string>
        </property>
        <property name="checked">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>

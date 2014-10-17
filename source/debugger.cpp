@@ -156,19 +156,7 @@ void Debugger::processPacket()
     break;
 
     case XD_PUSH_NODE_PACKET:
-    {
-        QStringList dataList = packet.split(";");
-        Q_ASSERT(dataList.size() == 6);
-
-        ProfilerWidget::Node *node = new ProfilerWidget::Node();
-        node->functionName = dataList[0];
-        node->totalTime = dataList[1].toInt();
-        node->maxTime = dataList[2].toInt();
-        node->minTime = dataList[3].toInt();
-        node->aveTime = dataList[4].toInt();
-        node->callCount = dataList[5].toInt();
-        m_profiler->push(node);
-    }
+        m_profiler->push(packet.split(";"));
     break;
 
     case XD_POP_NODE_PACKET:
@@ -176,7 +164,7 @@ void Debugger::processPacket()
     break;
 
     case XD_STEP_DONE_PACKET:
-        m_profiler->clear();
+        m_profiler->update();
     break;
 
     default:

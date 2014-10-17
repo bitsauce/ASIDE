@@ -71,12 +71,13 @@ public:
 
         totalRadioButton = new QRadioButton(Profiler);
         totalRadioButton->setObjectName(QStringLiteral("totalRadioButton"));
+        totalRadioButton->setChecked(true);
 
         horizontalLayout->addWidget(totalRadioButton);
 
         stepRadioButton = new QRadioButton(Profiler);
         stepRadioButton->setObjectName(QStringLiteral("stepRadioButton"));
-        stepRadioButton->setChecked(true);
+        stepRadioButton->setChecked(false);
 
         horizontalLayout->addWidget(stepRadioButton);
 
@@ -93,6 +94,8 @@ public:
     {
         Profiler->setWindowTitle(QApplication::translate("Profiler", "Form", 0));
         QTreeWidgetItem *___qtreewidgetitem = profilerTree->headerItem();
+        ___qtreewidgetitem->setText(7, QApplication::translate("Profiler", "% of total", 0));
+        ___qtreewidgetitem->setText(6, QApplication::translate("Profiler", "% of branch", 0));
         ___qtreewidgetitem->setText(5, QApplication::translate("Profiler", "Calls", 0));
         ___qtreewidgetitem->setText(4, QApplication::translate("Profiler", "Time", 0));
         ___qtreewidgetitem->setText(3, QApplication::translate("Profiler", "Average", 0));
