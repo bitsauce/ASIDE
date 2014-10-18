@@ -24,10 +24,10 @@ public:
 
 private:
     QString m_name;
-    int totalTime;
-    int maxTime;
-    int minTime;
-    int aveTime;
+    float totalTime;
+    float maxTime;
+    float minTime;
+    float aveTime;
     int callCount;
     ProfilerTreeNode *m_parent;
     QList<ProfilerTreeNode*> m_children;

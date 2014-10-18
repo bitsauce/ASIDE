@@ -157,20 +157,21 @@ ProfilerTreeNode::ProfilerTreeNode(const QString &name, ProfilerTreeNode *parent
 
 void ProfilerTreeNode::updateData(const QStringList &dataList)
 {
-    Q_ASSERT(dataList.size() == 5);
+    Q_ASSERT(dataList.size() == 3);
 
     // Apply data
-    totalTime += dataList[1].toInt();
-    maxTime = qMax<int>(dataList[2].toInt(), maxTime);
-    minTime = qMin<int>(dataList[3].toInt(), minTime);
-    callCount += dataList[4].toInt();
+    float time = dataList[1].toFloat();
+    maxTime = qMax<float>(time, maxTime);
+    minTime = qMin<float>(time, minTime);
+    totalTime += time;
+    callCount += dataList[2].toInt();
 }
 
 void ProfilerTreeNode::resetData()
 {
     totalTime = 0;
-    maxTime = INT_MIN;
-    minTime = INT_MAX;
+    maxTime = -FLT_MAX;
+    minTime =  FLT_MAX;
     callCount = 0;
 }
 
@@ -193,10 +194,10 @@ void ProfilerTreeNode::update(QTreeWidgetItem *item, float &parentTime, float &r
 
     // Update all texts
     item->setText(0, m_name);
-    item->setText(1, QString("%1 ms").arg(QString::number(maxTime)));
-    item->setText(2, QString("%1 ms").arg(QString::number(minTime)));
-    item->setText(3, QString("%1 ms").arg(QString::number(totalTime/callCount)));
-    item->setText(4, QString("%1 ms").arg(QString::number(totalTime)));
+    item->setText(1, QString("%1 ms").arg(QString::number((int)maxTime)));
+    item->setText(2, QString("%1 ms").arg(QString::number((int)minTime)));
+    item->setText(3, QString("%1 ms").arg(QString::number((int)totalTime/callCount)));
+    item->setText(4, QString("%1 ms").arg(QString::number((int)totalTime)));
     item->setText(5, QString::number(callCount));
     item->setText(6, QString("%1%").arg(QString::number(branchPercent*100, 'f', 2)));
     item->setText(7, QString("%1%").arg(QString::number(rootPercent*100, 'f', 2)));
