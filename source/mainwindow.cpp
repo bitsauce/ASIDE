@@ -604,6 +604,7 @@ void MainWindow::startApplication()
     else
     {
         // Set command line arguments
+        args.push_back("-d");
         args.push_back("-w " + Project::getDirectory()); // -w for working directory
     }
 
