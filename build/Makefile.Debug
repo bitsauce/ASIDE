@@ -3218,13 +3218,9 @@ debug\main.obj: ..\source\main.cpp ..\qtsingleapplication\src\QtSingleApplicatio
 		C:\Qt\5.3\msvc2012_opengl\include\QtXml\qtxmlversion.h
 
 debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
-		..\source\mainwindow.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QtCore \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QtCoreDepends \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstractanimation.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobject.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobjectdefs.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qnamespace.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QVariant \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvariant.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qglobal.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qconfig.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfeatures.h \
@@ -3236,7 +3232,9 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsysinfo.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qlogging.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qflags.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qglobalstatic.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmutex.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qnumeric.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qbasicatomic.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic_bootstrap.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qgenericatomic.h \
@@ -3250,61 +3248,139 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic_cxx11.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic_gcc.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic_unix.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qglobalstatic.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmutex.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qnumeric.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobjectdefs_impl.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstring.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qchar.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qbytearray.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qrefcount.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qnamespace.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qarraydata.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstring.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qchar.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringbuilder.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qlist.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qalgorithms.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qiterator.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcoreevent.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qscopedpointer.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmetatype.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvarlengtharray.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcontainerfwd.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qisenum.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobject_impl.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qanimationgroup.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qparallelanimationgroup.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpauseanimation.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpropertyanimation.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvariantanimation.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qeasingcurve.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvector.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpoint.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvariant.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobjectdefs.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobjectdefs_impl.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmap.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpair.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qdebug.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qhash.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qtextstream.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qiodevice.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobject.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcoreevent.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qscopedpointer.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobject_impl.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qlocale.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qshareddata.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvector.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpoint.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qset.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcontiguouscache.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringlist.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qdatastream.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qregexp.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringmatcher.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QAction \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qaction.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qkeysequence.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qwidget.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qwindowdefs.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qwindowdefs_win.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmargins.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpaintdevice.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qrect.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsize.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpalette.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qcolor.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qrgb.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qbrush.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qmatrix.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpolygon.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qregion.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qline.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtransform.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpainterpath.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qimage.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpixmap.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsharedpointer.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qfont.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qfontmetrics.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qfontinfo.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qsizepolicy.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qcursor.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qevent.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qurl.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qurlquery.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfile.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfiledevice.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qvector2d.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtouchdevice.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qicon.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qactiongroup.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qeventloop.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdesktopwidget.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qguiapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qinputmethod.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QButtonGroup \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QGridLayout \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgridlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayoutitem.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qboxlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QHeaderView \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qheaderview.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qframe.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyleoption.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractspinbox.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qvalidator.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qregularexpression.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qslider.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractslider.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyle.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabbar.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabwidget.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qrubberband.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QMainWindow \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmainwindow.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QMenu \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmenu.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QMenuBar \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmenubar.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QStatusBar \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstatusbar.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
+		..\source\mainwindow.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QtCore \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QtCoreDepends \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstractanimation.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qanimationgroup.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qparallelanimationgroup.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpauseanimation.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpropertyanimation.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvariantanimation.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qeasingcurve.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsequentialanimationgroup.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qtextcodec.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qendian.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qlibraryinfo.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qdatetime.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsharedpointer.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsharedpointer_impl.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qbuffer.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qdir.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfileinfo.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfile.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfiledevice.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qdiriterator.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfileselector.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QObject \
@@ -3320,12 +3396,8 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qtemporarydir.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QScopedPointer \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qtemporaryfile.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qurl.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qurlquery.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstractitemmodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstractproxymodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qidentityproxymodel.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qitemselectionmodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsortfilterproxymodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringlistmodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qjsonarray.h \
@@ -3333,10 +3405,8 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qjsondocument.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qjsonobject.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstracteventdispatcher.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qeventloop.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstractnativeeventfilter.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qbasictimer.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmath.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmetaobject.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmimedata.h \
@@ -3387,14 +3457,9 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcommandlineparser.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcryptographichash.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qelapsedtimer.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qline.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qlinkedlist.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmargins.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmessageauthenticationcode.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qqueue.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qrect.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsize.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qregularexpression.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qscopedvaluerollback.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstack.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qtextboundaryfinder.h \
@@ -3407,27 +3472,10 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QtGui \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QtGuiDepends \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qaccessible.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qcolor.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qrgb.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qevent.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qwindowdefs.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qwindowdefs_win.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qregion.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qkeysequence.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qvector2d.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtouchdevice.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qaccessiblebridge.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qaccessibleobject.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qaccessibleplugin.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qbitmap.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpixmap.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpaintdevice.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qimage.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtransform.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qmatrix.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpolygon.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpainterpath.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qicon.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qiconengine.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qiconengineplugin.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qimageiohandler.h \
@@ -3438,15 +3486,10 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpictureformatplugin.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpixmapcache.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qstandarditemmodel.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qbrush.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qfont.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qclipboard.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qcursor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qdrag.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qgenericplugin.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qgenericpluginfactory.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qguiapplication.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qinputmethod.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qoffscreensurface.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qsurface.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qsurfaceformat.h \
@@ -3457,7 +3500,6 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qopengles2ext.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qopenglext.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qopenglversionfunctions.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpalette.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qscreen.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QList \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QRect \
@@ -3493,8 +3535,6 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpainter.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextoption.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpen.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qfontinfo.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qfontmetrics.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpdfwriter.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qabstracttextdocumentlayout.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextlayout.h \
@@ -3512,20 +3552,16 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextlist.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtexttable.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qdesktopservices.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qvalidator.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtguiversion.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qaccessiblewidget.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcolordialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdialog.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qwidget.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qsizepolicy.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qerrormessage.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qfiledialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qfilesystemmodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qfontdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qinputdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlineedit.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qframe.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmessagebox.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qprogressdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qwizard.h \
@@ -3546,22 +3582,10 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QMatrix4x4 \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgraphicsview.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qscrollarea.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractitemdelegate.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyleoption.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractspinbox.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qslider.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractslider.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyle.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabbar.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabwidget.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qrubberband.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractitemview.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcolumnview.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdatawidgetmapper.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdirmodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qfileiconprovider.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qheaderview.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qitemdelegate.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qitemeditorfactory.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlistview.h \
@@ -3572,14 +3596,6 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreeview.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreewidget.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreewidgetitemiterator.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qaction.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qactiongroup.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qapplication.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qboxlayout.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayout.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgridlayout.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qformlayout.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QLayout \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgesture.h \
@@ -3605,13 +3621,11 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QScrollerProperties \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qscrollerproperties.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QMetaType \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QVariant \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qsystemtrayicon.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qundogroup.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qundostack.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qundoview.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractbutton.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qbuttongroup.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcalendarwidget.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcheckbox.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcombobox.h \
@@ -3627,11 +3641,8 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qkeysequenceedit.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlabel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlcdnumber.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmdiarea.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmdisubwindow.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmenu.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmenubar.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qplaintextedit.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtextedit.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qprogressbar.h \
@@ -3642,7 +3653,6 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qsplashscreen.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qsplitter.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstackedwidget.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstatusbar.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtextbrowser.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbar.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbox.h \
@@ -3697,7 +3707,6 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtXml\qxml.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtXml\qtxmlversion.h \
 		..\source\project.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QDialog \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QDir \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QSettings \
@@ -3708,7 +3717,6 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QPainter \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QListView \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QTimer \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QPixmap \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QIcon \
 		..\source\workspace.h \
@@ -3723,8 +3731,6 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		..\source\editorbase.h \
 		..\source\debugger.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QTabWidget \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QMenu \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QAction \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QMouseEvent \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QContextMenuEvent \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QTextDocument \
@@ -3732,16 +3738,13 @@ debug\mainwindow.obj: ..\source\mainwindow.cpp ui_mainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QFileInfo \
 		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\QLocalSocket \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QTableWidget \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QHeaderView \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QProcess \
 		..\source\settings.h
 
 debug\project.obj: ..\source\project.cpp ui_projectdialog.h \
-		ui_newprojectdialog.h \
-		..\source\project.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qwidget.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qwindowdefs.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QVariant \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvariant.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qglobal.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qconfig.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfeatures.h \
@@ -3753,7 +3756,9 @@ debug\project.obj: ..\source\project.cpp ui_projectdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsysinfo.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qlogging.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qflags.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qglobalstatic.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmutex.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qnumeric.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qbasicatomic.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic_bootstrap.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qgenericatomic.h \
@@ -3767,46 +3772,56 @@ debug\project.obj: ..\source\project.cpp ui_projectdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic_cxx11.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic_gcc.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic_unix.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qglobalstatic.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmutex.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qnumeric.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobjectdefs.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qnamespace.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobjectdefs_impl.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qwindowdefs_win.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobject.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstring.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qchar.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qbytearray.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qrefcount.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qnamespace.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qarraydata.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstring.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qchar.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringbuilder.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qlist.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qalgorithms.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qiterator.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcoreevent.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qscopedpointer.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmetatype.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvarlengtharray.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcontainerfwd.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qisenum.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobjectdefs.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmap.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpair.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qdebug.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qhash.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qtextstream.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qiodevice.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobject.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcoreevent.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qscopedpointer.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobject_impl.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qlocale.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qshareddata.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvector.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpoint.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qset.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcontiguouscache.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringlist.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qdatastream.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qregexp.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringmatcher.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QAction \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qaction.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qkeysequence.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qwidget.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qwindowdefs.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qwindowdefs_win.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmargins.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpaintdevice.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qrect.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsize.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpoint.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpalette.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qcolor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qrgb.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringlist.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qdatastream.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qiodevice.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpair.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qregexp.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringmatcher.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qbrush.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvector.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qmatrix.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpolygon.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qregion.h \
@@ -3816,29 +3831,73 @@ debug\project.obj: ..\source\project.cpp ui_projectdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qimage.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpixmap.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsharedpointer.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qshareddata.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsharedpointer_impl.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qhash.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qfont.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qfontmetrics.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qfontinfo.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qsizepolicy.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qcursor.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qkeysequence.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qevent.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvariant.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmap.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qdebug.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qtextstream.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qlocale.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qset.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcontiguouscache.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qurl.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qurlquery.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfile.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfiledevice.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qvector2d.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtouchdevice.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qicon.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qactiongroup.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qeventloop.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdesktopwidget.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qguiapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qinputmethod.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QButtonGroup \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QGridLayout \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgridlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayoutitem.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qboxlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QHeaderView \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qheaderview.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qframe.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyleoption.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractspinbox.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qvalidator.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qregularexpression.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qslider.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractslider.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyle.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabbar.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabwidget.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qrubberband.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QLabel \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlabel.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QListView \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlistview.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QPushButton \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qpushbutton.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
+		ui_newprojectdialog.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QDialogButtonBox \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdialogbuttonbox.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QLineEdit \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlineedit.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextcursor.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextformat.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpen.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextoption.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QToolButton \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbutton.h \
+		..\source\project.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QDialog \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QDir \
@@ -3848,45 +3907,17 @@ debug\project.obj: ..\source\project.cpp ui_projectdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsettings.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QStringListModel \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringlistmodel.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstractitemmodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QMessageBox \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmessagebox.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QFileDialog \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qfiledialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QItemDelegate \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qitemdelegate.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractitemdelegate.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyleoption.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractspinbox.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qvalidator.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qregularexpression.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qicon.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qslider.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractslider.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyle.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabbar.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabwidget.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qrubberband.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qframe.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QPainter \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpainter.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextoption.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpen.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QListView \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlistview.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractitemview.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qitemselectionmodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QTimer \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qtimer.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qbasictimer.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qapplication.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcoreapplication.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qeventloop.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qguiapplication.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qinputmethod.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QPixmap \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QIcon \
 		..\source\workspace.h \
@@ -4055,11 +4086,9 @@ debug\project.obj: ..\source\project.cpp ui_projectdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpdfwriter.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qabstracttextdocumentlayout.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextlayout.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextformat.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qglyphrun.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qrawfont.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qfontdatabase.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextcursor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextdocument.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qstatictext.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qsyntaxhighlighter.h \
@@ -4076,7 +4105,6 @@ debug\project.obj: ..\source\project.cpp ui_projectdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qfilesystemmodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qfontdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qinputdialog.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlineedit.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qprogressdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qwizard.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgraphicseffect.h \
@@ -4100,7 +4128,6 @@ debug\project.obj: ..\source\project.cpp ui_projectdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdatawidgetmapper.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdirmodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qfileiconprovider.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qheaderview.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qitemeditorfactory.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlistwidget.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyleditemdelegate.h \
@@ -4109,12 +4136,6 @@ debug\project.obj: ..\source\project.cpp ui_projectdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreeview.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreewidget.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreewidgetitemiterator.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qaction.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qactiongroup.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qboxlayout.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayout.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgridlayout.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qformlayout.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QLayout \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgesture.h \
@@ -4140,27 +4161,21 @@ debug\project.obj: ..\source\project.cpp ui_projectdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QScrollerProperties \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qscrollerproperties.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QMetaType \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QVariant \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qsystemtrayicon.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qundogroup.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qundostack.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qundoview.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractbutton.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qbuttongroup.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcalendarwidget.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcheckbox.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcombobox.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcommandlinkbutton.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qpushbutton.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdatetimeedit.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdial.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdialogbuttonbox.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdockwidget.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qfocusframe.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qfontcombobox.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgroupbox.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qkeysequenceedit.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlabel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlcdnumber.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmdiarea.h \
@@ -4181,7 +4196,6 @@ debug\project.obj: ..\source\project.cpp ui_projectdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtextbrowser.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbar.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbox.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbutton.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtwidgetsversion.h \
 		..\source\settings.h
 
@@ -4642,11 +4656,9 @@ debug\projecttree.obj: ..\source\projecttree.cpp ..\source\projecttree.h \
 		..\source\editorbase.h
 
 debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
-		..\source\scripteditor.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QFile \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfile.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfiledevice.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qiodevice.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QVariant \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvariant.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qglobal.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qconfig.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfeatures.h \
@@ -4658,7 +4670,9 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsysinfo.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qlogging.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qflags.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qglobalstatic.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmutex.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qnumeric.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qbasicatomic.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic_bootstrap.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qgenericatomic.h \
@@ -4672,31 +4686,45 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic_cxx11.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic_gcc.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qatomic_unix.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qglobalstatic.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmutex.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qnumeric.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobject.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobjectdefs.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qnamespace.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobjectdefs_impl.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstring.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qchar.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qbytearray.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qrefcount.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qnamespace.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qarraydata.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstring.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qchar.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringbuilder.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qlist.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qalgorithms.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qiterator.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcoreevent.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qscopedpointer.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmetatype.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvarlengtharray.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcontainerfwd.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qisenum.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobjectdefs.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmap.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpair.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qdebug.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qhash.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qtextstream.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qiodevice.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobject.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcoreevent.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qscopedpointer.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qobject_impl.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QMdiSubWindow \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmdisubwindow.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qlocale.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qshareddata.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvector.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpoint.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qset.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcontiguouscache.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringlist.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qdatastream.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qregexp.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringmatcher.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QAction \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qaction.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qkeysequence.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qwidget.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qwindowdefs.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qwindowdefs_win.h \
@@ -4704,17 +4732,10 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpaintdevice.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qrect.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsize.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpoint.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpalette.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qcolor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qrgb.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringlist.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qdatastream.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qpair.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qregexp.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringmatcher.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qbrush.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvector.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qmatrix.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpolygon.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qregion.h \
@@ -4724,33 +4745,70 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qimage.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpixmap.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsharedpointer.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qshareddata.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsharedpointer_impl.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qhash.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qfont.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qfontmetrics.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qfontinfo.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qsizepolicy.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qcursor.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qkeysequence.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qevent.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qvariant.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmap.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qdebug.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qtextstream.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qlocale.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qset.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcontiguouscache.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qurl.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qurlquery.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfile.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfiledevice.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qvector2d.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtouchdevice.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qicon.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qactiongroup.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qeventloop.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdesktopwidget.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qguiapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qinputmethod.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QButtonGroup \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QComboBox \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcombobox.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyleoption.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractspinbox.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qvalidator.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qregularexpression.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qslider.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractslider.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyle.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabbar.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabwidget.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qrubberband.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qframe.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QGridLayout \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgridlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayoutitem.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qboxlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QHBoxLayout \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QHeaderView \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qheaderview.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QLabel \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlabel.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QToolButton \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbutton.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
+		..\source\scripteditor.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QFile \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QMdiSubWindow \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmdisubwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QDialog \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdialog.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QTextEdit \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtextedit.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qframe.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextdocument.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextoption.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextcursor.h \
@@ -4758,7 +4816,6 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpen.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QCompleter \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcompleter.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstractitemmodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QStringListModel \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstringlistmodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QSyntaxHighlighter \
@@ -4770,10 +4827,7 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qfontdatabase.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QMdiArea \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmdiarea.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabwidget.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qicon.h \
 		..\source\editorbase.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		..\source\workspace.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QtCore \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QtCoreDepends \
@@ -4809,17 +4863,14 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qtemporaryfile.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstractproxymodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qidentityproxymodel.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qitemselectionmodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qsortfilterproxymodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qjsonarray.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qjsonvalue.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qjsondocument.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qjsonobject.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstracteventdispatcher.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qeventloop.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstractnativeeventfilter.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qbasictimer.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmath.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmetaobject.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmimedata.h \
@@ -4873,7 +4924,6 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qlinkedlist.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qmessageauthenticationcode.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qqueue.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qregularexpression.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qscopedvaluerollback.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qstack.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qtextboundaryfinder.h \
@@ -4904,8 +4954,6 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qdrag.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qgenericplugin.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qgenericpluginfactory.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qguiapplication.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qinputmethod.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qoffscreensurface.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qsurface.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qsurfaceformat.h \
@@ -4957,7 +5005,6 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextlist.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtexttable.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qdesktopservices.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qvalidator.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtguiversion.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qaccessiblewidget.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcolordialog.h \
@@ -4987,20 +5034,10 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QMatrix4x4 \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgraphicsview.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qscrollarea.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractitemdelegate.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyleoption.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractspinbox.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qslider.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractslider.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyle.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabbar.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qrubberband.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractitemview.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcolumnview.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdatawidgetmapper.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdirmodel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qfileiconprovider.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qheaderview.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qitemdelegate.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qitemeditorfactory.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlistview.h \
@@ -5011,14 +5048,6 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreeview.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreewidget.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreewidgetitemiterator.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qaction.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qactiongroup.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qapplication.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qboxlayout.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayout.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgridlayout.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qformlayout.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QLayout \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgesture.h \
@@ -5043,16 +5072,12 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QScrollerProperties \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qscrollerproperties.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QMetaType \
-		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QVariant \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qsystemtrayicon.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qundogroup.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qundostack.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qundoview.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractbutton.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qbuttongroup.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcalendarwidget.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcheckbox.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcombobox.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcommandlinkbutton.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qpushbutton.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdatetimeedit.h \
@@ -5063,7 +5088,6 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qfontcombobox.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgroupbox.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qkeysequenceedit.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlabel.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlcdnumber.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmainwindow.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qmenu.h \
@@ -5081,7 +5105,6 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtextbrowser.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbar.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbox.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbutton.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtwidgetsversion.h \
 		..\source\project.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QDir \
@@ -5092,14 +5115,12 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QPainter \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QListView \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QTimer \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QPixmap \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QIcon \
 		..\source\settings.h \
 		..\source\debugger.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QTabWidget \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QMenu \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QAction \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QMouseEvent \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QContextMenuEvent \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QTextDocument \
@@ -5109,7 +5130,6 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\qlocalsocket.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtNetwork\qabstractsocket.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QTableWidget \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QHeaderView \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QProcess \
 		C:\Qt\5.3\msvc2012_opengl\include\Qsci\qsciscintilla.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QByteArray \
@@ -5123,7 +5143,12 @@ debug\scripteditor.obj: ..\source\scripteditor.cpp ui_scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\Qsci\qscilexer.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QDebug \
 		ui_scriptgoto.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QLineEdit \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QPushButton \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QSpacerItem \
 		ui_scriptsearch.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QCheckBox \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QFormLayout \
 		ui_scriptreplace.h
 
 debug\debugger.obj: ..\source\debugger.cpp ..\source\debugger.h \
@@ -5621,6 +5646,7 @@ debug\debugger.obj: ..\source\debugger.cpp ..\source\debugger.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\animation.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\batch.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\vertex.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\context.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\font.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\framebufferobject.h \
@@ -5629,10 +5655,10 @@ debug\debugger.obj: ..\source\debugger.cpp ..\source\debugger.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\shape.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\sprite.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\textureRegion.h \
-		..\..\x2D-Game-Engine\include\x2d\graphics\spritebatch.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\texture.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\textureatlas.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\textureregion.h \
+		..\..\x2D-Game-Engine\include\x2d\graphics\vertexbuffer.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\vertexbufferobject.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\viewport.h
 
@@ -5745,7 +5771,68 @@ debug\settings.obj: ..\source\settings.cpp ..\source\settings.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qdir.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qfileinfo.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QDir \
-		ui_settings.h
+		ui_settings.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QVariant \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QAction \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qaction.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qicon.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qactiongroup.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qeventloop.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdesktopwidget.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qguiapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qinputmethod.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QButtonGroup \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QCheckBox \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcheckbox.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QDialogButtonBox \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdialogbuttonbox.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QFrame \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qframe.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QGridLayout \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgridlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayoutitem.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qboxlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QHBoxLayout \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QHeaderView \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qheaderview.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyleoption.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractspinbox.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qvalidator.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qregularexpression.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qslider.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractslider.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qstyle.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabbar.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtabwidget.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qrubberband.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QLabel \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlabel.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QLineEdit \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlineedit.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextcursor.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextformat.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qpen.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextoption.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QPushButton \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qpushbutton.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QSpacerItem \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QToolButton \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbutton.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QTreeWidget \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreewidget.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreeview.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreewidgetitemiterator.h
 
 debug\workspace.obj: ..\source\workspace.cpp ..\source\workspace.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QtCore \
@@ -6227,6 +6314,16 @@ debug\workspace.obj: ..\source\workspace.cpp ..\source\workspace.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtXml\qxml.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtXml\qtxmlversion.h \
 		ui_mainwindow.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QAction \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QButtonGroup \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QGridLayout \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QHeaderView \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QMainWindow \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QMenu \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QMenuBar \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QStatusBar \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		..\source\scripteditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QFile \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QMdiSubWindow \
@@ -6237,7 +6334,6 @@ debug\workspace.obj: ..\source\workspace.cpp ..\source\workspace.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QSyntaxHighlighter \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QMdiArea \
 		..\source\editorbase.h \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
 		..\source\settings.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QSettings \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QFileDialog \
@@ -6248,7 +6344,6 @@ debug\workspace.obj: ..\source\workspace.cpp ..\source\workspace.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QPainter \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QListView \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QTimer \
-		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QPixmap \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QIcon \
 		..\source\configeditor.h
@@ -6409,7 +6504,32 @@ debug\configeditor.obj: ..\source\configeditor.cpp ..\source\configeditor.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qinputmethod.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QPixmap \
 		C:\Qt\5.3\msvc2012_opengl\include\QtGui\QIcon \
-		ui_configeditor.h
+		ui_configeditor.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QVariant \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QAction \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qaction.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qactiongroup.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QButtonGroup \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QDialogButtonBox \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdialogbuttonbox.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QGridLayout \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgridlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayoutitem.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qboxlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QHeaderView \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qheaderview.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QLabel \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlabel.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QLineEdit \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlineedit.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextcursor.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qtextformat.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QSpacerItem \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QToolButton \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbutton.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractbutton.h
 
 debug\editorbase.obj: ..\source\editorbase.cpp ..\source\editorbase.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QWidget \
@@ -6973,7 +7093,36 @@ debug\profiler.obj: ..\source\profiler.cpp ..\source\profiler.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qrubberband.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtreewidgetitemiterator.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QList \
-		ui_profiler.h
+		ui_profiler.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\QVariant \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QAction \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qaction.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qactiongroup.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QApplication \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtCore\qeventloop.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qdesktopwidget.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qguiapplication.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtGui\qinputmethod.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QButtonGroup \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qbuttongroup.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QCheckBox \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qcheckbox.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QGridLayout \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qgridlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qlayoutitem.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qboxlayout.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QHBoxLayout \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QHeaderView \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qheaderview.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QRadioButton \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qradiobutton.h \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QSpacerItem \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QToolButton \
+		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\qtoolbutton.h
 
 debug\qtsingleapplication.obj: ..\qtsingleapplication\src\qtsingleapplication.cpp ..\qtsingleapplication\src\qtsingleapplication.h \
 		C:\Qt\5.3\msvc2012_opengl\include\QtWidgets\QApplication \

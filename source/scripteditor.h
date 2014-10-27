@@ -169,6 +169,7 @@ public slots:
     // Editor
     void save();
     void load();
+    void setModified(bool modified);
     void updatePositionLabel(int line, int col);
     void aboutToActivate();
 

@@ -314,9 +314,11 @@ void Workspace::fileChanged(const QString &filePath)
     {
         // Reload file content
         editor->load();
-    }else{
+    }
+    else
+    {
         // Tell the editor the text was changed
-        editor->setModified(false);
+        editor->setModified(true);
     }
 }
 

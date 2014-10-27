@@ -161,6 +161,15 @@ void ScriptEditor::load()
     EditorBase::load();
 }
 
+void ScriptEditor::setModified(bool modified)
+{
+    if(m_scriptTextEdit->isModified() != modified)
+    {
+        m_scriptTextEdit->setModified(modified);
+        EditorBase::setModified(modified);
+    }
+}
+
 void ScriptEditor::updatePositionLabel(int line, int col)
 {
     // Update statusbar

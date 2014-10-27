@@ -577,14 +577,31 @@ void MainWindow::startApplication()
     {
         // Get program path
         programPath = Project::getConfig()->value("project/program", "").toString();
-        if(!QFileInfo(programPath).exists())
+        if(!QFileInfo(programPath).exists()) // check if the file exists (absolute path)
         {
-            // File didn't exist, check path relative to project
+            // Couldn't find the program, check the path relative to this project
+            QString programName = programPath;
             programPath = Project::getDirectory() + programPath;
             if(!QFileInfo(programPath).exists())
             {
-                applicationClosed();
-                return;
+                // Couldn't find the program, check system PATH
+                QStringList PATH = QString(qgetenv("PATH")).split(';');
+                foreach(QString path, PATH)
+                {
+                    if(!path.endsWith('\\')) path += '\\';
+                    if(QFileInfo(path + programName).exists())
+                    {
+                       programPath = path + programName;
+                       break;
+                    }
+                }
+
+                // Couldn't find the program, end the appliaction
+                if(!QFileInfo(programPath).exists())
+                {
+                    applicationClosed();
+                    return;
+                }
             }
         }
     }
