@@ -200,7 +200,7 @@ release\win32.res: ..\source\win32.rc
 	rc $(DEFINES) -fo release\win32.res ..\source\win32.rc
 
 qmake: FORCE
-	@$(QMAKE) -spec win32-msvc2012 -o Makefile.Release ..\source\AngelScriptIDE.pro
+	@$(QMAKE) -spec win32-msvc2012 CONFIG+=debug -o Makefile.Release ..\source\AngelScriptIDE.pro
 
 qmake_all: FORCE
 
@@ -5635,7 +5635,6 @@ release\debugger.obj: ..\source\debugger.cpp ..\source\debugger.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\animation.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\batch.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\vertex.h \
-		..\..\x2D-Game-Engine\include\x2d\graphics\context.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\font.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\framebufferobject.h \
 		..\..\x2D-Game-Engine\include\x2d\graphics\pixmap.h \
