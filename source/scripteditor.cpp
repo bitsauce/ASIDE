@@ -164,10 +164,8 @@ void ScriptEditor::load()
 void ScriptEditor::setModified(bool modified)
 {
     if(m_scriptTextEdit->isModified() != modified)
-    {
         m_scriptTextEdit->setModified(modified);
-        EditorBase::setModified(modified);
-    }
+    EditorBase::setModified(modified);
 }
 
 void ScriptEditor::updatePositionLabel(int line, int col)
@@ -175,7 +173,6 @@ void ScriptEditor::updatePositionLabel(int line, int col)
     // Update statusbar
     ui->positionLabel->setText(QString("Line: ") + QString::number(line) + QString(", Col: ") + QString::number(col));
 }
-
 
 void ScriptEditor::aboutToActivate()
 {
